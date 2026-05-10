@@ -1,0 +1,17 @@
+// Importación de configuraciones (No generan CSS por sí solas)
+@use 'settings/variables' as *;
+
+// Reset global para que a todo el equipo se le vea igual
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: $color-bg;
+    color: $color-text;
+    font-family: $font-main;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
