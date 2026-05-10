@@ -1,0 +1,37 @@
+@use '../settings/variables' as *;
+
+.o-sidebar {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: $color-bg;
+    border-right: 1px solid rgba($color-primary, 0.1);
+
+    &__search-container {
+        padding: 24px 16px; // Espaciado generoso para que respire
+        border-bottom: 1px solid rgba($color-text, 0.05);
+
+        .a-input {
+            width: 100%; // Asegura que solo ocupe su contenedor
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba($color-primary, 0.3);
+        }
+    }
+
+    &__menu {
+        flex: 1;
+        overflow-y: auto; // Permite scroll si hay muchas lecciones
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    &__section-title {
+        font-size: 0.7rem;
+        color: rgba($color-text, 0.4);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin: 20px 0 8px 12px;
+    }
+}

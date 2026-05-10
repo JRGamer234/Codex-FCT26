@@ -1,33 +1,86 @@
 @use "../../../../styles/settings/variables" as *;
 
-.o-main-layout {
-    display: grid;
+// ORGANISMO: Main Layout (Estructura global)
+.main-screen {
+    display: flex; // Usamos Flex para alinear Sidebar y Contenido
+    width: 100vw;
     height: 100vh;
-    grid-template-columns: 260px 1fr;
-    grid-template-rows: 64px 1fr;
-    grid-template-areas:
-        "header header"
-        "sidebar content";
+    overflow: hidden; // Evita que la web entera haga scroll
+    background-color: $color-bg;
+}
 
-    &__header {
-        grid-area: header;
-        background-color: $color-surface;
-        border-bottom: 1px solid rgba($color-primary, 0.2);
-        display: flex;
-        align-items: center;
-        padding: 0 2rem;
+// ORGANISMO: Sidebar (Ya lo tenemos definido en su propio archivo, pero estas son las dimensiones para el Layout)
+.o-sidebar {
+    width: 280px;
+    min-width: 280px;
+    height: 100%;
+    background-color: darken($color-bg, 3%);
+    border-right: 1px solid rgba($color-primary, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+// ÁREA DE CONTENIDO: Donde se carga el Dashboard y las Lecciones
+.main-layout__content {
+    flex: 1; // Ocupa todo el espacio restante a la derecha
+    height: 100%;
+    overflow-y: auto; // Solo esta parte tiene scroll
+    background-color: $color-bg;
+    padding: 2rem; // Espacio para que el Dashboard respire
+    color: $color-text;
+    position: relative;
+
+    // Aseguramos que el contenido del router-outlet se vea bien
+    router-outlet+* {
+        display: block;
+        animation: fadeIn 0.3s ease-in; // Pequeña animación de entrada profesional
+    }
+}
+
+// MOLÉCULA: Nav Item (Mejorado para usar tus variables)
+.m-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    margin: 0 1rem 0.25rem 1rem;
+    border-radius: 8px;
+    color: rgba($color-text, 0.7);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    font-size: 0.95rem;
+
+    &:hover {
+        background-color: rgba($color-primary, 0.05);
+        color: $color-primary;
     }
 
-    &__sidebar {
-        grid-area: sidebar;
-        background-color: darken($color-bg, 3%);
-        border-right: 1px solid rgba($color-primary, 0.1);
+    // Clase activa para Angular routerLinkActive
+    &--active {
+        background-color: rgba($color-primary, 0.1);
+        color: $color-primary;
+        font-weight: 600;
+        border-left: 3px solid $color-primary;
+    }
+}
+
+// Títulos de sección dentro del sidebar (Inicial, Intermedio...)
+.o-sidebar__section-title {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: rgba($color-text, 0.4);
+    margin: 1.5rem 1rem 0.5rem 1.5rem;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
     }
 
-    &__content {
-        grid-area: content;
-        background-color: $color-bg;
-        padding: 2rem;
-        overflow-y: auto;
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }

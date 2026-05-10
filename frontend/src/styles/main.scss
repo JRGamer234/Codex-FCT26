@@ -1,9 +1,16 @@
-// Importación de configuraciones (No generan CSS por sí solas)
-// 1. TODAS las importaciones @use arriba del todo
+// 1. Settings
 @use 'settings/variables' as *;
-@use 'atoms/buttons';
 
-// 2. Después, el resto de estilos globales
+// 2. Atoms
+@use 'atoms/buttons';
+@use 'atoms/inputs';
+
+// 3. Molecules
+@use 'molecules/nav-item';
+
+// 4. Organisms
+@use 'organisms/sidebar';
+
 * {
     margin: 0;
     padding: 0;
