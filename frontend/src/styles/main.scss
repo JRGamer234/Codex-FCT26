@@ -1,7 +1,9 @@
 // Importación de configuraciones (No generan CSS por sí solas)
+// 1. TODAS las importaciones @use arriba del todo
 @use 'settings/variables' as *;
+@use 'atoms/buttons';
 
-// Reset global para que a todo el equipo se le vea igual
+// 2. Después, el resto de estilos globales
 * {
     margin: 0;
     padding: 0;
@@ -15,6 +17,3 @@ body {
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
 }
-
-// Importación de estilos atómicos (Botones, etiquetas, etc.)
-@use 'atoms/buttons';
