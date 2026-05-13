@@ -1,4 +1,22 @@
-<section style="padding: 20px;">
-    <h2>Detalle de la Lección</h2>
-    <p>Aquí irá el contenido de las lecciones.</p>
-</section>
+<div class="lesson-container">
+    @if (lesson()) {
+    <h1 class="lesson-title">{{ lesson()?.title }}</h1>
+    <div class="lesson-meta">
+        <span class="badge">{{ lesson()?.level }}</span>
+        <span class="duration">⏱️ {{ lesson()?.duration }} min</span>
+    </div>
+
+    <hr>
+
+    <div class="lesson-content">
+        <p>{{ lesson()?.description }}</p>
+        <div class="full-text">
+            {{ lesson()?.content }}
+        </div>
+    </div>
+    } @else {
+    <div class="loading">
+        <p>Cargando contenido de la lección...</p>
+    </div>
+    }
+</div>
