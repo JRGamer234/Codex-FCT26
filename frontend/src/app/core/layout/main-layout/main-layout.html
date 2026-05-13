@@ -1,0 +1,40 @@
+<div class="main-screen">
+
+    <aside class="o-sidebar">
+        <div class="o-sidebar__search-container">
+            <input type="text" class="a-input" placeholder="Buscar lección..." (input)="updateSearch($event)">
+        </div>
+
+        <nav class="o-sidebar__menu">
+            <a routerLink="/dashboard" routerLinkActive="m-nav-item--active" class="m-nav-item">
+                <span class="m-nav-item__icon">🏠</span>
+                <span class="m-nav-item__label">Dashboard</span>
+            </a>
+
+            <header class="o-sidebar__section-title">Nivel Inicial</header>
+            @for (lesson of filteredLessons(); track lesson.id) {
+            @if (lesson.level === 'Inicial') {
+            <a [routerLink]="lesson.route" routerLinkActive="m-nav-item--active" class="m-nav-item">
+                <span class="m-nav-item__icon">{{ lesson.icon }}</span>
+                <span class="m-nav-item__label">{{ lesson.title }}</span>
+            </a>
+            }
+            }
+
+            <header class="o-sidebar__section-title">Nivel Intermedio</header>
+            @for (lesson of filteredLessons(); track lesson.id) {
+            @if (lesson.level === 'Intermedio') {
+            <a [routerLink]="lesson.route" routerLinkActive="m-nav-item--active" class="m-nav-item">
+                <span class="m-nav-item__icon">{{ lesson.icon }}</span>
+                <span class="m-nav-item__label">{{ lesson.title }}</span>
+            </a>
+            }
+            }
+        </nav>
+    </aside>
+
+    <main class="main-layout__content">
+        <router-outlet></router-outlet>
+    </main>
+
+</div>
