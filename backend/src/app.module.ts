@@ -1,26 +1,24 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { LessonsModule } from './lessons/lessons.module';
+
+// 1. Importación del controlador (está en la misma carpeta que este archivo)
+import { LessonsController } from './lessons.controller';
+
+// 2. Importación del esquema (tienes que entrar en la carpeta lessons/schemas)
+import { LessonSchema } from './lessons/schemas/lesson.schema';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-    }),
+    ConfigModule.forRoot({ isGlobal: true }),
+    MongooseModule.forRoot(process.env.MONGO_URL || 'mongodb://localhost:27017/codex'),
 
-    MongooseModule.forRootAsync({
-      useFactory: () => ({
-        uri: process.env.MONGO_URL,
-      }),
-    }),
-
-    LessonsModule,
+    // Aquí registramos el modelo para que el controlador lo pueda usar
+    MongooseModule.forFeature([{ name: 'Lesson', schema: LessonSchema }]),
   ],
-  controllers: [AppController],
+  controllers: [AppController, LessonsController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
