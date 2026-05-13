@@ -1,0 +1,10 @@
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-lesson-detail',
+  standalone: true,
+  imports: [],
+  templateUrl: './lesson-detail.html',
+  styleUrl: './lesson-detail.scss'
+})
+export class LessonDetailComponent { }
