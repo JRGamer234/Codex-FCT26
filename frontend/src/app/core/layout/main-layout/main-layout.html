@@ -1,0 +1,44 @@
+<div class="main-screen">
+
+    <aside class="o-sidebar" [class.o-sidebar--collapsed]="!uiService.sidebarOpen()">
+        <div class="o-sidebar__brand">
+            <span class="o-sidebar__brand-icon">⚡</span>
+            <span class="o-sidebar__brand-text">Codex</span>
+        </div>
+
+        <nav class="o-sidebar__menu">
+            <a routerLink="/dashboard" routerLinkActive="m-nav-item--active" class="m-nav-item">
+                <span class="m-nav-item__icon">🏠</span>
+                <span class="m-nav-item__label">Dashboard</span>
+            </a>
+
+            <header class="o-sidebar__section-title">Nivel Inicial</header>
+            @for (lesson of filteredLessons(); track lesson._id) {
+            @if (lesson.level === 'Inicial') {
+            <a [routerLink]="['/lesson', lesson._id]" routerLinkActive="m-nav-item--active" class="m-nav-item">
+                <span class="m-nav-item__icon">📚</span>
+                <span class="m-nav-item__label">{{ lesson.title }}</span>
+            </a>
+            }
+            }
+
+            <header class="o-sidebar__section-title">Nivel Intermedio</header>
+            @for (lesson of filteredLessons(); track lesson._id) {
+            @if (lesson.level === 'Intermedio') {
+            <a [routerLink]="['/lesson', lesson._id]" routerLinkActive="m-nav-item--active" class="m-nav-item">
+                <span class="m-nav-item__icon">📖</span>
+                <span class="m-nav-item__label">{{ lesson.title }}</span>
+            </a>
+            }
+            }
+        </nav>
+    </aside>
+
+    <div class="main-layout__container">
+        <app-navbar></app-navbar>
+        <main class="main-layout__content">
+            <router-outlet></router-outlet>
+        </main>
+    </div>
+
+</div>

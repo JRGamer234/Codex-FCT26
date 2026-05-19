@@ -1,0 +1,34 @@
+<header class="o-navbar">
+  <!-- Botón para colapsar/expandir el sidebar lateral -->
+  <button class="o-navbar__toggle" (click)="uiService.toggleSidebar()" aria-label="Toggle Sidebar">
+    <span class="o-navbar__toggle-icon">☰</span>
+  </button>
+
+  <!-- Buscador Reactivo -->
+  <div class="o-navbar__search-wrapper">
+    <span class="o-navbar__search-icon">🔍</span>
+    <input
+      #searchInput
+      type="text"
+      class="a-input o-navbar__search-input"
+      placeholder="Buscar lección..."
+      [value]="uiService.searchTerm()"
+      (input)="onSearch($event)"
+    />
+    @if (uiService.searchTerm()) {
+      <button class="o-navbar__clear-btn" (click)="clearSearch(searchInput)" aria-label="Limpiar búsqueda">
+        ✕
+      </button>
+    }
+  </div>
+
+  <!-- Enlaces de navegación e información de perfil del usuario -->
+  <div class="o-navbar__actions">
+    <a routerLink="/profile" class="m-profile-trigger" title="Mi Perfil">
+      <div class="m-profile-trigger__avatar">
+        <span>👤</span>
+      </div>
+      <span class="m-profile-trigger__name">Recluta</span>
+    </a>
+  </div>
+</header>
