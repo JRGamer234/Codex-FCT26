@@ -1,0 +1,26 @@
+// 1. Settings
+@use 'settings/variables' as *;
+
+// 2. Atoms
+@use 'atoms/buttons';
+@use 'atoms/inputs';
+
+// 3. Molecules
+@use 'molecules/nav-item';
+
+// 4. Organisms
+@use 'organisms/sidebar';
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: $color-bg;
+    color: $color-text;
+    font-family: $font-main;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}

@@ -1,0 +1,38 @@
+@use '../settings/variables' as *;
+
+.a-input {
+    width: 100%;
+    padding: 12px 16px;
+    background-color: rgba($color-surface, 0.5); // Un tono más claro que el fondo
+    border: 1px solid rgba($color-text, 0.1);
+    border-radius: 8px;
+    color: $color-text;
+    font-family: $font-main;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    outline: none;
+
+    &::placeholder {
+        color: rgba($color-text, 0.4);
+    }
+
+    &:focus {
+        border-color: $color-primary;
+        background-color: $color-surface;
+        box-shadow: 0 0 0 4px rgba($color-primary, 0.1);
+    }
+
+    // Estilo para cuando el input está deshabilitado
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}
+
+.a-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: rgba($color-text, 0.8);
+}

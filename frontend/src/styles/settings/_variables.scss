@@ -1,0 +1,15 @@
+// 1. Colores de Identidad (Codex)
+$color-bg: #0f172a; // Azul oscuro profundo
+$color-surface: #1e293b; // Azul grisáceo para tarjetas
+$color-primary: #38bdf8; // Celeste neón (Marca)
+$color-text: #f1f5f9; // Blanco para lectura
+$color-accent: #fbbf24; // Ámbar para avisos
+
+// 2. Colores por Niveles (Requisito RF-02)
+$level-easy: #4ade80; // Verde
+$level-medium: #fbbf24; // Amarillo
+$level-hard: #f87171; // Rojo
+
+// 3. Tipografía (Estándar 2026)
+$font-main: 'Inter', system-ui, sans-serif;
+$font-code: 'Fira Code', 'Cascadia Code', monospace; // Para el RF-05
