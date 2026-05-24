@@ -1,0 +1,218 @@
+@use '../../../styles/settings/variables' as *;
+
+.catalog-page {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+
+    &__header {
+        margin-bottom: 2.5rem;
+    }
+
+    &__title {
+        color: white;
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    &__subtitle {
+        color: rgba(white, 0.6);
+    }
+}
+
+// RNF-01: Organismo/Molécula del Spinner de carga centrado
+.catalog-loading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 40vh;
+    width: 100%;
+
+    &__spinner {
+        width: 45px;
+        height: 45px;
+        border: 4px solid rgba(white, 0.05);
+        border-top: 4px solid #00adb5; // El lunes podrás sustituir este color por tu variable quark ($brand-primary)
+        border-radius: 50%;
+        animation: catalogSpin 0.8s linear infinite;
+        margin-bottom: 1rem;
+    }
+
+    &__text {
+        color: rgba(white, 0.5);
+        font-size: 1rem;
+    }
+}
+
+.catalog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+
+    @media (max-width: 480px) {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+
+.lesson-card {
+    background: rgba(white, 0.02);
+    border: 1px solid rgba(white, 0.06);
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+
+    &:hover {
+        transform: translateY(-4px);
+        background: rgba(white, 0.04);
+        border-color: rgba(#00adb5, 0.3);
+    }
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.25rem;
+    }
+
+    &__badge {
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        background: rgba(255, 255, 255, 0.05);
+        color: white;
+
+        &--inicial {
+            background: rgba(#2ec4b6, 0.1);
+            color: #2ec4b6;
+        }
+
+        &--intermedio {
+            background: rgba(#00adb5, 0.1);
+            color: #00adb5;
+        }
+
+        &--avanzado {
+            background: rgba(#ff9f43, 0.1);
+            color: #ff9f43;
+        }
+    }
+
+    // Estilo BEM para el botón de eliminar del administrador
+    &__delete-btn {
+        background: transparent;
+        border: none;
+        font-size: 1.1rem;
+        cursor: pointer;
+        padding: 0.4rem;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.2s, transform 0.1s;
+
+        &:hover {
+            background: rgba(#ff4d4d, 0.15); // Fondo rojizo suave al pasar el ratón
+            transform: scale(1.1); // Micro-interacción elástica responsiva
+        }
+
+        &:active {
+            transform: scale(0.95);
+        }
+    }
+
+    &__duration {
+        display: inline-block;
+        color: rgba(white, 0.4);
+        font-size: 0.8rem;
+        margin-bottom: 0.5rem;
+    }
+
+    &__body {
+        flex: 1;
+    }
+
+    &__title {
+        color: white;
+        margin-bottom: 0.5rem;
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+
+    &__description {
+        color: rgba(white, 0.5);
+        font-size: 0.9rem;
+        line-height: 1.5;
+        margin-bottom: 1.5rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    &__btn {
+        display: block;
+        text-align: center;
+        padding: 0.75rem 1rem;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.88rem;
+        transition: background-color 0.2s, color 0.2s, border 0.2s;
+
+        // Estilo por defecto (Lección NO completada)
+        background: rgba(255, 255, 255, 0.04);
+        color: #00adb5;
+        border: 1px solid rgba(0, 173, 181, 0.2);
+
+        &:hover {
+            background: rgba(#00adb5, 0.1);
+        }
+
+        // Modificador BEM: Estilo cuando la lección SÍ está completada
+        &--completed {
+            background: #2ec4b6;
+            color: white;
+            border: 1px solid transparent;
+
+            &:hover {
+                background: cubic-bezier(0.4, 0, 0.2, 1);
+                opacity: 0.9;
+            }
+        }
+    }
+}
+
+// Estado vacío decorado con BEM
+.catalog-empty {
+    width: 100%;
+    padding: 2rem;
+    text-align: center;
+    background: rgba(white, 0.01);
+    border: 1px dashed rgba(white, 0.1);
+    border-radius: 12px;
+
+    &__text {
+        color: rgba(white, 0.4);
+        margin: 0;
+    }
+}
+
+// Animación nativa optimizada para el Spinner
+@keyframes catalogSpin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

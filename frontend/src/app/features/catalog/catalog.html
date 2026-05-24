@@ -1,0 +1,54 @@
+<section class="catalog-page">
+    <header class="catalog-page__header">
+        <h1 class="catalog-page__title">Catálogo Completo</h1>
+        <p class="catalog-page__subtitle">Explora todo el temario disponible, repasa conceptos clave y sigue escalando
+            niveles.</p>
+    </header>
+
+    @if (loading()) {
+    <div class="catalog-loading">
+        <div class="catalog-loading__spinner"></div>
+        <p class="catalog-loading__text">Cargando catálogo Codex...</p>
+    </div>
+    } @else {
+    <div class="catalog-grid">
+        @for (lesson of lessons(); track lesson._id) {
+        <article class="lesson-card">
+            <div class="lesson-card__header">
+                <span class="lesson-card__badge"
+                    [class]="'lesson-card__badge--' + (lesson.level ? lesson.level.toLowerCase() : 'inicial')">
+                    {{ lesson.level || 'Inicial' }}
+                </span>
+
+                @if (isAdmin()) {
+                <button class="lesson-card__delete-btn" (click)="deleteLesson(lesson._id, $event)"
+                    title="Eliminar lección (Solo Administradores)">
+                    🗑️
+                </button>
+                }
+            </div>
+
+            <div class="lesson-card__body">
+                <span class="lesson-card__duration">⏱️ {{ lesson.duration || 15 }} min</span>
+                <h3 class="lesson-card__title">{{ lesson.title }}</h3>
+                <p class="lesson-card__description">
+                    {{ lesson.description || 'Aprende los fundamentos avanzados y mejores prácticas de desarrollo en
+                    esta lección interactiva.' }}
+                </p>
+            </div>
+
+            <div class="lesson-card__footer">
+                <a [routerLink]="['/lesson', lesson._id]" class="lesson-card__btn"
+                    [class.lesson-card__btn--completed]="lesson.completed">
+                    {{ lesson.completed ? '✅ Repasar lección' : 'Empezar curso ➔' }}
+                </a>
+            </div>
+        </article>
+        } @empty {
+        <div class="catalog-empty">
+            <p class="catalog-empty__text">⏳ El catálogo está vacío temporalmente o no hay conexión con MongoDB.</p>
+        </div>
+        }
+    </div>
+    }
+</section>

@@ -9,11 +9,21 @@
     <hr>
 
     <div class="lesson-content">
-        <p>{{ lesson()?.description }}</p>
+        <p class="lesson-description">{{ lesson()?.description }}</p>
+
         <div class="full-text">
-            {{ lesson()?.content }}
+            <markdown [data]="lesson()?.content"></markdown>
         </div>
     </div>
+
+    <footer class="m-lesson-actions" style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #e0e0e0;">
+        <button (click)="toggleComplete()" class="a-btn"
+            [ngClass]="lesson()?.completed ? 'a-btn--success' : 'a-btn--primary'"
+            style="cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
+            <span>{{ lesson()?.completed ? '✅ Lección Completada' : '✔ Marcar como Completada' }}</span>
+        </button>
+    </footer>
+
     } @else {
     <div class="loading">
         <p>Cargando contenido de la lección...</p>
