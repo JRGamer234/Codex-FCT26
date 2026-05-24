@@ -1,0 +1,128 @@
+@use '../../../styles/settings/variables' as *;
+
+.catalog-page {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+
+    .catalog-header {
+        margin-bottom: 2.5rem;
+
+        h1 {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            color: rgba(white, 0.6);
+        }
+    }
+}
+
+.catalog-grid {
+    display: grid;
+    // Se adapta de maravilla al espacio que le deje libre el .o-sidebar corregido
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+
+    @media (max-width: 480px) {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+
+.lesson-card {
+    background: rgba(white, 0.02);
+    border: 1px solid rgba(white, 0.06);
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    min-width: 0; // Previene fallos elásticos de desbordamiento de caja
+    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+
+    &:hover {
+        transform: translateY(-4px);
+        background: rgba(white, 0.04);
+        border-color: rgba(#00adb5, 0.3);
+    }
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.25rem;
+
+        .badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+
+            &--inicial {
+                background: rgba(#2ec4b6, 0.1);
+                color: #2ec4b6;
+            }
+
+            &--intermedio {
+                background: rgba(#00adb5, 0.1);
+                color: #00adb5;
+            }
+
+            &--avanzado {
+                background: rgba(#ff9f43, 0.1);
+                color: #ff9f43;
+            }
+        }
+
+        .duration {
+            color: rgba(white, 0.4);
+            font-size: 0.8rem;
+        }
+    }
+
+    &__body {
+        flex: 1; // Empuja el footer y los botones siempre abajo para que queden simétricos
+
+        h3 {
+            color: white;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        p {
+            color: rgba(white, 0.5);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3; // Corta el texto a 3 líneas con puntos suspensivos si Alejandro escribe una biblia
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    }
+
+    &__footer {
+        .a-btn {
+            display: block;
+            text-align: center;
+            padding: 0.75rem 1rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.88rem;
+            transition: opacity 0.2s;
+
+            &:hover {
+                opacity: 0.9;
+            }
+        }
+    }
+}

@@ -22,6 +22,9 @@ export class Lesson {
 
   @Prop()
   createdBy: string;
+
+  @Prop({ default: false })
+  completed: boolean;
 }
 
 export const LessonSchema = SchemaFactory.createForClass(Lesson);

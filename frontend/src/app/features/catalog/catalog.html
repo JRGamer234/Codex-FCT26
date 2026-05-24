@@ -1,0 +1,38 @@
+<section class="catalog-page">
+    <header class="catalog-header">
+        <h1>Catálogo Completo</h1>
+        <p>Explora todo el temario disponible, repasa conceptos clave y sigue escalando niveles.</p>
+    </header>
+
+    <div class="catalog-grid">
+        @for (lesson of lessons(); track lesson._id) {
+        <article class="lesson-card">
+            <div class="lesson-card__header">
+                <span class="badge" [class]="'badge--' + (lesson.level ? lesson.level.toLowerCase() : 'inicial')">
+                    {{ lesson.level || 'Inicial' }}
+                </span>
+                <span class="duration">⏱️ {{ lesson.duration || 15 }} min</span>
+            </div>
+
+            <div class="lesson-card__body">
+                <h3>{{ lesson.title }}</h3>
+                <p>{{ lesson.description || 'Aprende los fundamentos avanzados y mejores prácticas de desarrollo en esta
+                    lección interactiva.' }}</p>
+            </div>
+
+            <div class="lesson-card__footer">
+                <a [routerLink]="['/lesson', lesson._id]" class="a-btn"
+                    [style.background]="lesson.completed ? '#2ec4b6' : 'rgba(255,255,255,0.04)'"
+                    [style.color]="lesson.completed ? 'white' : '#00adb5'"
+                    [style.border]="lesson.completed ? 'none' : '1px solid rgba(0, 173, 181, 0.2)'">
+                    {{ lesson.completed ? '✅ Repasar lección' : 'Empezar curso ➔' }}
+                </a>
+            </div>
+        </article>
+        } @empty {
+        <div class="empty-state">
+            <p>⏳ Conectando con MongoDB o catálogo vacío temporalmente...</p>
+        </div>
+        }
+    </div>
+</section>

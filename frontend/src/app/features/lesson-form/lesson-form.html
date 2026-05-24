@@ -1,0 +1,114 @@
+<section class="lesson-form-page">
+    <header class="lesson-form-header">
+        <h1>Crear nueva lección</h1>
+        <p>Añade una lección al catálogo de Frontend para ayudar a otros reclutas.</p>
+    </header>
+
+    <div class="lesson-form-card">
+        <form [formGroup]="lessonForm" (ngSubmit)="onSubmit()" novalidate>
+            <div class="form-grid">
+                <!-- Título -->
+                <div class="form-group full-width">
+                    <label for="title" class="a-label">Título de la lección</label>
+                    <input 
+                        type="text" 
+                        id="title"
+                        formControlName="title" 
+                        class="a-input" 
+                        [class.is-invalid]="lessonForm.get('title')?.touched && lessonForm.get('title')?.invalid"
+                        placeholder="Ej: Flexbox y Grid: Layouts modernos">
+                    <div class="error-message" *ngIf="lessonForm.get('title')?.touched && lessonForm.get('title')?.invalid">
+                        <span *ngIf="lessonForm.get('title')?.errors?.['required']">El título es requerido.</span>
+                        <span *ngIf="lessonForm.get('title')?.errors?.['minlength']">El título debe tener al menos 3 caracteres.</span>
+                    </div>
+                </div>
+
+                <!-- Descripción corta -->
+                <div class="form-group full-width">
+                    <label for="description" class="a-label">Descripción breve</label>
+                    <input 
+                        type="text" 
+                        id="description"
+                        formControlName="description" 
+                        class="a-input" 
+                        [class.is-invalid]="lessonForm.get('description')?.touched && lessonForm.get('description')?.invalid"
+                        placeholder="Una pequeña introducción sobre lo que se aprenderá en esta lección...">
+                    <div class="error-message" *ngIf="lessonForm.get('description')?.touched && lessonForm.get('description')?.invalid">
+                        <span *ngIf="lessonForm.get('description')?.errors?.['required']">La descripción es requerida.</span>
+                        <span *ngIf="lessonForm.get('description')?.errors?.['minlength']">La descripción debe tener al menos 10 caracteres.</span>
+                    </div>
+                </div>
+
+                <!-- Duración -->
+                <div class="form-group">
+                    <label for="duration" class="a-label">Duración (minutos)</label>
+                    <input 
+                        type="number" 
+                        id="duration"
+                        formControlName="duration" 
+                        class="a-input" 
+                        [class.is-invalid]="lessonForm.get('duration')?.touched && lessonForm.get('duration')?.invalid"
+                        min="1">
+                    <div class="error-message" *ngIf="lessonForm.get('duration')?.touched && lessonForm.get('duration')?.invalid">
+                        <span *ngIf="lessonForm.get('duration')?.errors?.['required']">La duración es requerida.</span>
+                        <span *ngIf="lessonForm.get('duration')?.errors?.['min']">La duración debe ser de al menos 1 minuto.</span>
+                    </div>
+                </div>
+
+                <!-- Nivel -->
+                <div class="form-group">
+                    <label for="level" class="a-label">Nivel de dificultad</label>
+                    <select 
+                        id="level"
+                        formControlName="level" 
+                        class="a-input a-select" 
+                        [class.is-invalid]="lessonForm.get('level')?.touched && lessonForm.get('level')?.invalid">
+                        <option value="Inicial">Inicial 🟢</option>
+                        <option value="Intermedio">Intermedio 🟡</option>
+                    </select>
+                    <div class="error-message" *ngIf="lessonForm.get('level')?.touched && lessonForm.get('level')?.invalid">
+                        <span>El nivel es requerido.</span>
+                    </div>
+                </div>
+
+                <!-- Contenido detallado -->
+                <div class="form-group full-width">
+                    <label for="content" class="a-label">Contenido de la lección</label>
+                    <textarea 
+                        id="content"
+                        formControlName="content" 
+                        class="a-input a-textarea" 
+                        [class.is-invalid]="lessonForm.get('content')?.touched && lessonForm.get('content')?.invalid"
+                        rows="8"
+                        placeholder="Escribe el contenido detallado de la lección en formato de texto o Markdown..."></textarea>
+                    <div class="error-message" *ngIf="lessonForm.get('content')?.touched && lessonForm.get('content')?.invalid">
+                        <span>El contenido es requerido.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alerta de error de envío -->
+            <div class="alert-error" *ngIf="errorMessage">
+                ⚠️ {{ errorMessage }}
+            </div>
+
+            <!-- Botones de Acción -->
+            <div class="form-actions">
+                <button 
+                    type="button" 
+                    routerLink="/dashboard" 
+                    class="a-btn a-btn--outline" 
+                    [disabled]="isSubmitting">
+                    Cancelar
+                </button>
+                <button 
+                    type="submit" 
+                    class="a-btn a-btn--primary" 
+                    [disabled]="isSubmitting || lessonForm.invalid">
+                    <span *ngIf="!isSubmitting">Crear Lección</span>
+                    <span *ngIf="isSubmitting" class="spinner">Cargando...</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</section>

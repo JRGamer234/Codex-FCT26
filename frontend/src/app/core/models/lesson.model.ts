@@ -6,4 +6,5 @@ export interface Lesson {
     duration: number;
     level: string;
     createdBy?: string;
+    completed?: boolean; // 👉 ¡AÑADIDO COMO PROPIEDAD OPCIONAL!
 }
