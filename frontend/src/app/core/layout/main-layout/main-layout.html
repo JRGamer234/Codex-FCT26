@@ -5,27 +5,38 @@
             <input type="text" class="a-input" placeholder="Buscar lección..." (input)="updateSearch($event)">
         </div>
 
+        <div class="o-sidebar__actions" style="padding: 0 1rem; margin-bottom: 1rem;">
+            <button routerLink="/create-lesson" class="a-btn a-btn--primary" style="width: 100%; cursor: pointer;">
+                ➕ Nueva Lección
+            </button>
+        </div>
+
         <nav class="o-sidebar__menu">
             <a routerLink="/dashboard" routerLinkActive="m-nav-item--active" class="m-nav-item">
                 <span class="m-nav-item__icon">🏠</span>
                 <span class="m-nav-item__label">Dashboard</span>
             </a>
 
+            <a routerLink="/catalog" routerLinkActive="m-nav-item--active" class="m-nav-item">
+                <span class="m-nav-item__icon">🧭</span>
+                <span class="m-nav-item__label">Catálogo</span>
+            </a>
+
             <header class="o-sidebar__section-title">Nivel Inicial</header>
-            @for (lesson of filteredLessons(); track lesson.id) {
+            @for (lesson of filteredLessons(); track lesson._id) {
             @if (lesson.level === 'Inicial') {
-            <a [routerLink]="lesson.route" routerLinkActive="m-nav-item--active" class="m-nav-item">
-                <span class="m-nav-item__icon">{{ lesson.icon }}</span>
+            <a [routerLink]="['/lesson', lesson._id]" routerLinkActive="m-nav-item--active" class="m-nav-item">
+                <span class="m-nav-item__icon">📚</span>
                 <span class="m-nav-item__label">{{ lesson.title }}</span>
             </a>
             }
             }
 
             <header class="o-sidebar__section-title">Nivel Intermedio</header>
-            @for (lesson of filteredLessons(); track lesson.id) {
+            @for (lesson of filteredLessons(); track lesson._id) {
             @if (lesson.level === 'Intermedio') {
-            <a [routerLink]="lesson.route" routerLinkActive="m-nav-item--active" class="m-nav-item">
-                <span class="m-nav-item__icon">{{ lesson.icon }}</span>
+            <a [routerLink]="['/lesson', lesson._id]" routerLinkActive="m-nav-item--active" class="m-nav-item">
+                <span class="m-nav-item__icon">📖</span>
                 <span class="m-nav-item__label">{{ lesson.title }}</span>
             </a>
             }

@@ -1,1 +1,11 @@
-// Estilos para lesson-detail
+// Modificador para el botón completado con éxito
+.a-btn--success {
+    background-color: #2ec4b6 !important; // Un verde turquesa corporativo muy limpio
+    color: white !important;
+    border: none;
+    box-shadow: 0 2px 4px rgba(46, 196, 182, 0.2);
+
+    &:hover {
+        background-color: #23a99d !important;
+    }
+}

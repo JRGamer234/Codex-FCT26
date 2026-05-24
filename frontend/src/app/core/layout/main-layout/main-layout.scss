@@ -1,43 +1,89 @@
 @use "../../../../styles/settings/variables" as *;
+@use "sass:color";
 
 // ORGANISMO: Main Layout (Estructura global)
 .main-screen {
-    display: flex; // Usamos Flex para alinear Sidebar y Contenido
+    display: flex; // Usamos Flex para alinear Sidebar y Contenido en horizontal
     width: 100vw;
     height: 100vh;
     overflow: hidden; // Evita que la web entera haga scroll
     background-color: $color-bg;
+
+    // 📱 Cuando estamos en pantallas medianas/pequeñas, cambiamos a diseño vertical
+    @media (max-width: 992px) {
+        flex-direction: column;
+    }
 }
 
-// ORGANISMO: Sidebar (Ya lo tenemos definido en su propio archivo, pero estas son las dimensiones para el Layout)
+// ORGANISMO: Sidebar 
 .o-sidebar {
     width: 280px;
-    min-width: 280px;
+    min-width: 280px; // Evita que se deforme en escritorio
+    flex-shrink: 0; // 🚨 CLAVE: Impide que el contenido derecho lo aplaste
     height: 100%;
-    background-color: darken($color-bg, 3%);
+    background-color: color.adjust($color-bg, $lightness: -3%);
     border-right: 1px solid rgba($color-primary, 0.1);
     display: flex;
     flex-direction: column;
+    overflow-y: auto; // Por si hay muchas lecciones en el menú
+
+    // 📱 Ajuste adaptativo para tablets y móviles
+    @media (max-width: 992px) {
+        width: 100%;
+        min-width: 100%;
+        height: auto;
+        max-height: 250px; // Limitamos su tamaño arriba en móviles para que no se coma la pantalla
+        border-right: none;
+        border-bottom: 1px solid rgba($color-primary, 0.1);
+    }
 }
 
 // ÁREA DE CONTENIDO: Donde se carga el Dashboard y las Lecciones
 .main-layout__content {
-    flex: 1; // Ocupa todo el espacio restante a la derecha
+    flex: 1; // 🚨 CLAVE: Se queda con todo el espacio restante automáticamente
+    min-width: 0; // 🚨 Evita que grids o tablas internas fuercen un desbordamiento horizontal
     height: 100%;
-    overflow-y: auto; // Solo esta parte tiene scroll
+    overflow-y: auto; // Solo esta parte tiene scroll vertical principal
     background-color: $color-bg;
-    padding: 2rem; // Espacio para que el Dashboard respire
+    padding: 2rem;
     color: $color-text;
     position: relative;
+    box-sizing: border-box;
+
+    // 📱 En pantallas pequeñas reducimos el espacio de respiración
+    @media (max-width: 768px) {
+        padding: 1.25rem;
+    }
+
+    @media (max-width: 480px) {
+        padding: 1rem;
+    }
 
     // Aseguramos que el contenido del router-outlet se vea bien
     router-outlet+* {
         display: block;
-        animation: fadeIn 0.3s ease-in; // Pequeña animación de entrada profesional
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        animation: fadeIn 0.3s ease-in;
     }
 }
 
-// MOLÉCULA: Nav Item (Mejorado para usar tus variables)
+// El resto de tus estilos se quedan intactos pero optimizados:
+.o-sidebar__search-container {
+    padding: 1rem;
+
+    .a-input {
+        width: 100%;
+        padding: 0.5rem;
+        background: rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(white, 0.1);
+        border-radius: 6px;
+        color: white;
+        box-sizing: border-box;
+    }
+}
+
 .m-nav-item {
     display: flex;
     align-items: center;
@@ -55,7 +101,6 @@
         color: $color-primary;
     }
 
-    // Clase activa para Angular routerLinkActive
     &--active {
         background-color: rgba($color-primary, 0.1);
         color: $color-primary;
@@ -64,7 +109,6 @@
     }
 }
 
-// Títulos de sección dentro del sidebar (Inicial, Intermedio...)
 .o-sidebar__section-title {
     font-size: 0.7rem;
     text-transform: uppercase;
