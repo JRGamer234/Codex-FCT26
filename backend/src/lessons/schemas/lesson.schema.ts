@@ -14,14 +14,11 @@ export class Lesson {
   @Prop()
   content: string;
 
-  @Prop()
+  @Prop({ default: 0 })
   duration: number;
 
   @Prop()
   level: string;
-
-  @Prop()
-  createdBy: string;
 
   @Prop({ default: false })
   completed: boolean;
