@@ -4,11 +4,12 @@ import { LessonFormComponent } from './features/lesson-form/lesson-form';
 import { DashboardComponent } from './features/dashboard/dashboard';
 import { LessonDetailComponent } from './features/lesson-detail/lesson-detail';
 import { MainLayoutComponent } from './core/layout/main-layout/main-layout';
+import { LoginComponent } from './features/login/login';
 
 export const routes: Routes = [
   {
     path: 'login',
-    redirectTo: 'lessons'
+    component: LoginComponent
   },
   {
     path: 'lessons',
@@ -34,5 +35,5 @@ export const routes: Routes = [
       }
     ]
   },
-  { path: '', pathMatch: 'full', redirectTo: 'lessons' },
+  { path: '', pathMatch: 'full', redirectTo: 'login' },
 ];
