@@ -1,4 +1,36 @@
-<section style="padding: 20px;">
-    <h2>Detalle de la Lección</h2>
-    <p>Aquí irá el contenido de las lecciones.</p>
-</section>
+<div class="lesson-detail-container">
+
+  @if (!showTest) {
+    <div class="lesson-hero">
+      <div class="lesson-badges">
+        <span class="badge level-inicial">{{ lesson.level }}</span>
+        <span class="badge category">{{ lesson.category }}</span>
+      </div>
+      <h1>{{ lesson.title }}</h1>
+      <p class="lesson-description">{{ lesson.description }}</p>
+    </div>
+
+    <div class="lesson-sections">
+      @for (section of lesson.sections; track section.title) {
+        <div class="section">
+          <h2>{{ section.title }}</h2>
+          <p>{{ section.content }}</p>
+          @if (section.code) {
+            <pre><code>{{ section.code }}</code></pre>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="lesson-footer">
+      <button class="btn-test" (click)="startTest()">
+        ¡Hacer el test! 🎯
+      </button>
+    </div>
+  }
+
+  @if (showTest) {
+    <app-lesson-form></app-lesson-form>
+  }
+
+</div>

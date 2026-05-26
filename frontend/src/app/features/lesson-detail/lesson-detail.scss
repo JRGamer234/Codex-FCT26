@@ -1,1 +1,101 @@
-// Estilos para lesson-detail
+@use '../../../styles/settings/variables' as *;
+
+.lesson-detail-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+
+  .lesson-hero {
+    margin-bottom: 3rem;
+
+    .lesson-badges {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: white;
+      margin-bottom: 0.8rem;
+    }
+
+    .lesson-description {
+      color: rgba(white, 0.6);
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+  }
+
+  .lesson-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .section {
+    h2 {
+      font-size: 1.2rem;
+      color: white;
+      margin-bottom: 0.8rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(white, 0.08);
+    }
+
+    p {
+      color: rgba(white, 0.7);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+
+    pre {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(white, 0.08);
+      border-radius: 10px;
+      padding: 1.2rem;
+      overflow-x: auto;
+
+      code {
+        color: #7dd3fc;
+        font-family: 'Courier New', monospace;
+        font-size: 0.9rem;
+        line-height: 1.6;
+      }
+    }
+  }
+
+  .lesson-footer {
+    display: flex;
+    justify-content: center;
+    padding: 2rem 0;
+  }
+
+  .btn-test {
+    padding: 1rem 3rem;
+    background: $color-primary;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+
+  .badge {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-weight: 600;
+
+    &.level-inicial { background-color: rgba($color-primary, 0.15); color: $color-primary; }
+    &.level-intermedio { background-color: rgba(purple, 0.15); color: #c084fc; }
+    &.level-avanzado { background-color: rgba(red, 0.15); color: #f87171; }
+    &.category { background-color: rgba(white, 0.08); color: rgba(white, 0.7); }
+  }
+}
