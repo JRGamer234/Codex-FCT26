@@ -24,7 +24,6 @@
     gap: 1.5rem;
 }
 
-// MOLÉCULA: Stat Card
 .m-stat-card {
     background: rgba(white, 0.03);
     border: 1px solid rgba(white, 0.08);
@@ -73,7 +72,6 @@
     }
 }
 
-// ÁTOMO: Barra de progreso
 .a-progress-bar {
     width: 100%;
     height: 8px;
@@ -88,7 +86,6 @@
     }
 }
 
-// ÁTOMO: Botón
 .a-btn--primary {
     display: inline-block;
     background: $color-primary;
@@ -103,4 +100,109 @@
     &:hover {
         opacity: 0.9;
     }
+}
+
+// SECCIÓN: Catálogo de lecciones
+.catalog-section {
+  margin-top: 3rem;
+
+  h2 {
+    font-size: 1.5rem;
+    color: white;
+    margin-bottom: 1.5rem;
+  }
+
+  .filters {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+
+    input, select {
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      border: 1px solid rgba(white, 0.08);
+      background-color: rgba(white, 0.03);
+      color: white;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+
+      &:focus {
+        border-color: rgba($color-primary, 0.5);
+      }
+
+      option {
+        background-color: #1a1f2e;
+        color: white;
+      }
+    }
+
+    input {
+      flex: 1;
+      min-width: 200px;
+    }
+  }
+
+  .lessons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .lesson-card {
+    background: rgba(white, 0.03);
+    border: 1px solid rgba(white, 0.08);
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: transform 0.2s;
+    cursor: pointer;
+
+    &:hover {
+      transform: translateY(-5px);
+      background: rgba(white, 0.05);
+    }
+
+    h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: white;
+      margin: 0.8rem 0 0.6rem;
+    }
+  }
+
+  .lesson-header {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .badge {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-weight: 600;
+    text-transform: capitalize;
+
+    &.level-inicial { background-color: rgba($color-primary, 0.15); color: $color-primary; }
+    &.level-intermedio { background-color: rgba(purple, 0.15); color: #c084fc; }
+    &.level-avanzado { background-color: rgba(red, 0.15); color: #f87171; }
+    &.category { background-color: rgba(white, 0.08); color: rgba(white, 0.7); }
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    color: rgba(white, 0.4);
+  }
+
+  .no-results {
+    color: rgba(white, 0.5);
+    font-size: 0.9rem;
+  }
 }

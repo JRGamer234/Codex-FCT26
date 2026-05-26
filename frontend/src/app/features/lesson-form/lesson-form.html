@@ -1,0 +1,71 @@
+<div class="lesson-form-container">
+  <h2>Nueva Lección</h2>
+
+  <form [formGroup]="lessonForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label for="title">Título</label>
+      <input
+        id="title"
+        type="text"
+        formControlName="title"
+        placeholder="Ej: Introducción a Flexbox"
+        [class.error]="submitted && f['title'].errors"
+      />
+      <span class="error-msg" *ngIf="submitted && f['title'].errors?.['required']">
+        El título es obligatorio
+      </span>
+      <span class="error-msg" *ngIf="submitted && f['title'].errors?.['minlength']">
+        El título debe tener al menos 3 caracteres
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label for="level">Nivel</label>
+      <select id="level" formControlName="level" [class.error]="submitted && f['level'].errors">
+        <option value="">Selecciona un nivel</option>
+        <option value="inicial">Inicial</option>
+        <option value="intermedio">Intermedio</option>
+        <option value="avanzado">Avanzado</option>
+      </select>
+      <span class="error-msg" *ngIf="submitted && f['level'].errors?.['required']">
+        El nivel es obligatorio
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label for="category">Categoría</label>
+      <select id="category" formControlName="category" [class.error]="submitted && f['category'].errors">
+        <option value="">Selecciona una categoría</option>
+        <option value="HTML">HTML</option>
+        <option value="CSS">CSS</option>
+        <option value="Layout">Layout</option>
+        <option value="Flexbox">Flexbox</option>
+        <option value="Grid">Grid</option>
+      </select>
+      <span class="error-msg" *ngIf="submitted && f['category'].errors?.['required']">
+        La categoría es obligatoria
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label for="content">Contenido</label>
+      <textarea
+        id="content"
+        formControlName="content"
+        placeholder="Escribe el contenido de la lección..."
+        rows="6"
+        [class.error]="submitted && f['content'].errors"
+      ></textarea>
+      <span class="error-msg" *ngIf="submitted && f['content'].errors?.['required']">
+        El contenido es obligatorio
+      </span>
+      <span class="error-msg" *ngIf="submitted && f['content'].errors?.['minlength']">
+        El contenido debe tener al menos 10 caracteres
+      </span>
+    </div>
+
+    <button type="submit">Guardar Lección</button>
+
+  </form>
+</div>
