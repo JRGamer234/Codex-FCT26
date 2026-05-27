@@ -19,11 +19,11 @@ interface Lesson {
 })
 export class MainLayoutComponent {
   // 1. Signal con la base de datos de lecciones (Estado inicial)
- lessons = signal<Lesson[]>([
-    { id: 1, title: 'Introducción a HTML', level: 'Inicial', icon: '📖', route: '/lessons/form' },
-    { id: 2, title: 'Flexbox y Grid', level: 'Intermedio', icon: '🎨', route: '/lessons/form' },
-    { id: 3, title: 'Animaciones CSS', level: 'Avanzado', icon: '🚀', route: '/lessons/form' },
-    { id: 4, title: 'Selectores Avanzados', level: 'Inicial', icon: '🎯', route: '/lessons/form' }
+lessons = signal<Lesson[]>([
+  { id: 1, title: 'Introducción a HTML', level: 'Inicial', icon: '📖', route: '/lessons/detail/1' },
+  { id: 2, title: 'Flexbox y Grid', level: 'Intermedio', icon: '🎨', route: '/lessons/detail/2' },
+  { id: 3, title: 'Animaciones CSS', level: 'Avanzado', icon: '🚀', route: '/lessons/detail/3' },
+  { id: 4, title: 'Selectores Avanzados', level: 'Inicial', icon: '🎯', route: '/lessons/detail/4' }
 ]);
 
   // 2. Signal para capturar lo que el usuario escribe en el buscador (RF-03)
