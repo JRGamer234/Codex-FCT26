@@ -1,0 +1,158 @@
+.profesor-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+
+  .profesor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.5rem;
+    padding: 1.5rem 2rem;
+    background: rgba(white, 0.03);
+    border: 1px solid rgba(white, 0.08);
+    border-radius: 20px;
+
+    .profesor-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      .profesor-avatar {
+        font-size: 3rem;
+        width: 64px;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(white, 0.05);
+        border-radius: 50%;
+      }
+
+      h1 {
+        font-size: 1.3rem;
+        color: white;
+        margin-bottom: 0.2rem;
+      }
+
+      p {
+        color: rgba(white, 0.5);
+        font-size: 0.85rem;
+      }
+    }
+
+    .btn-logout {
+      padding: 0.6rem 1.2rem;
+      background: rgba(red, 0.1);
+      border: 1px solid rgba(red, 0.2);
+      border-radius: 10px;
+      color: #f87171;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+
+      &:hover {
+        background: rgba(red, 0.2);
+      }
+    }
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+
+    .stat-card {
+      background: rgba(white, 0.03);
+      border: 1px solid rgba(white, 0.08);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+
+      .stat-icon { font-size: 1.8rem; }
+      .stat-value { font-size: 2rem; font-weight: 700; color: white; }
+      .stat-label { color: rgba(white, 0.5); font-size: 0.8rem; }
+    }
+  }
+
+  .alumnos-section {
+    h2 {
+      font-size: 1.2rem;
+      color: white;
+      margin-bottom: 1rem;
+    }
+
+    .alumnos-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .alumno-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.2rem;
+      background: rgba(white, 0.03);
+      border: 1px solid rgba(white, 0.08);
+      border-radius: 12px;
+      gap: 1rem;
+
+      &:hover {
+        border-color: rgba(white, 0.15);
+      }
+
+      .alumno-info {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+
+        .alumno-avatar { font-size: 1.5rem; }
+
+        .alumno-name {
+          display: block;
+          color: white;
+          font-weight: 600;
+          font-size: 0.95rem;
+        }
+
+        .alumno-lessons {
+          display: block;
+          color: rgba(white, 0.4);
+          font-size: 0.8rem;
+        }
+      }
+
+      .alumno-progress {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        min-width: 200px;
+
+        .progress-bar {
+          flex: 1;
+          height: 8px;
+          background: rgba(white, 0.08);
+          border-radius: 4px;
+          overflow: hidden;
+
+          .progress-fill {
+            height: 100%;
+            background: #38bdf8;
+            border-radius: 4px;
+          }
+        }
+
+        .progress-label {
+          color: rgba(white, 0.5);
+          font-size: 0.85rem;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+}
