@@ -1,0 +1,129 @@
+@use '../../../styles/settings/variables' as *;
+
+.achievements-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+
+  .achievements-header {
+    margin-bottom: 2rem;
+
+    .btn-back {
+      display: inline-block;
+      color: rgba(white, 0.5);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      transition: color 0.2s;
+
+      &:hover {
+        color: white;
+      }
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: white;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      color: rgba(white, 0.5);
+    }
+  }
+
+  .achievements-summary {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+
+    .summary-bar {
+      flex: 1;
+      height: 10px;
+      background: rgba(white, 0.08);
+      border-radius: 6px;
+      overflow: hidden;
+
+      .summary-bar-fill {
+        height: 100%;
+        background: $color-primary;
+        box-shadow: 0 0 10px $color-primary;
+        border-radius: 6px;
+        transition: width 0.5s ease;
+      }
+    }
+
+    span {
+      color: rgba(white, 0.5);
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+  }
+
+  .achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1rem;
+  }
+
+  .achievement-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.2rem;
+    border-radius: 14px;
+    border: 1px solid rgba(white, 0.08);
+    transition: transform 0.2s;
+
+    &.unlocked {
+      background: rgba(white, 0.04);
+      border-color: rgba($color-primary, 0.3);
+
+      &:hover {
+        transform: translateY(-3px);
+      }
+    }
+
+    &.locked {
+      background: rgba(white, 0.02);
+      opacity: 0.5;
+    }
+
+    .achievement-icon {
+      font-size: 2rem;
+      width: 52px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(white, 0.05);
+      border-radius: 12px;
+      flex-shrink: 0;
+    }
+
+    .achievement-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+
+      .achievement-title {
+        color: white;
+        font-weight: 700;
+        font-size: 0.95rem;
+      }
+
+      .achievement-desc {
+        color: rgba(white, 0.5);
+        font-size: 0.8rem;
+      }
+
+      .achievement-date {
+        color: $color-primary;
+        font-size: 0.75rem;
+        margin-top: 0.2rem;
+      }
+    }
+  }
+}

@@ -6,7 +6,7 @@ import { LessonDetailComponent } from './features/lesson-detail/lesson-detail';
 import { MainLayoutComponent } from './core/layout/main-layout/main-layout';
 import { LoginComponent } from './features/login/login';
 import { ProgressComponent } from './features/progress/progress';
-
+import { AchievementsComponent } from './features/achievements/achievements';
 
 export const routes: Routes = [
   {
@@ -31,13 +31,17 @@ export const routes: Routes = [
         component: LessonFormComponent
       },
       {
+        path: 'progress',
+        component: ProgressComponent
+      },
+      {
+        path: 'achievements',
+        component: AchievementsComponent
+      },
+      {
         path: '',
         redirectTo: 'dashboard',
         pathMatch: 'full'
-      },
-      {
-        path: 'progress',
-         component: ProgressComponent
       }
     ]
   },
