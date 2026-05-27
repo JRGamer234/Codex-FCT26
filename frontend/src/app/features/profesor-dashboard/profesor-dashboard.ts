@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { UserService, Alumno } from '../../core/services/user';
 
 @Component({
   selector: 'app-profesor-dashboard',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
   templateUrl: './profesor-dashboard.html',
   styleUrl: './profesor-dashboard.scss'
 })
-export class ProfesorDashboardComponent {
+export class ProfesorDashboardComponent implements OnInit {
   profesor = {
     name: 'Profesor Codex',
     email: 'profesor@codex.com',
@@ -17,20 +18,21 @@ export class ProfesorDashboardComponent {
   };
 
   stats = [
-    { icon: '👨‍🎓', label: 'Alumnos activos', value: 24 },
+    { icon: '👨‍🎓', label: 'Alumnos activos', value: 4 },
     { icon: '📚', label: 'Lecciones creadas', value: 7 },
     { icon: '✅', label: 'Tests completados', value: 132 },
     { icon: '⭐', label: 'Valoración media', value: '4.8' }
   ];
 
-alumnos = [
-  { name: 'Alex', progress: 30, completedLessons: 2 },
-  { name: 'Jorge', progress: 45, completedLessons: 3 },
-  { name: 'Mario', progress: 60, completedLessons: 4 },
-  { name: 'Itziar', progress: 55, completedLessons: 5 },
-];
+  alumnos: Alumno[] = [];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private userService: UserService) {}
+
+  ngOnInit() {
+    this.userService.getAlumnos().subscribe(data => {
+      this.alumnos = data;
+    });
+  }
 
   logout() {
     localStorage.removeItem('token');
