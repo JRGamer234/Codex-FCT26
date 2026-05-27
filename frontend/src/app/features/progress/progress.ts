@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 interface CompletedLesson {
@@ -11,7 +12,7 @@ interface CompletedLesson {
 @Component({
   selector: 'app-progress',
   standalone: true,
-  imports: [RouterLink],
+  imports: [CommonModule, RouterLink],
   templateUrl: './progress.html',
   styleUrl: './progress.scss'
 })

@@ -30,7 +30,8 @@
 
   <div class="completed-section">
     <h2>Lecciones completadas</h2>
-    <div class="completed-list">
+
+    <div class="completed-list" *ngIf="completedLessons.length > 0">
       <div class="completed-card" *ngFor="let lesson of completedLessons">
         <span class="lesson-icon">{{ lesson.icon }}</span>
         <div class="lesson-info">
@@ -43,6 +44,13 @@
         </div>
       </div>
     </div>
+
+    <div class="empty-state" *ngIf="completedLessons.length === 0">
+      <span class="empty-icon">📚</span>
+      <p>Todavía no has completado ninguna lección.</p>
+      <a routerLink="/lessons/dashboard" class="btn-start">¡Empieza ahora!</a>
+    </div>
+
   </div>
 
 </div>

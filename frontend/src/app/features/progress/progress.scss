@@ -152,5 +152,38 @@
         }
       }
     }
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+
+      .empty-icon {
+        font-size: 3rem;
+      }
+
+      p {
+        color: rgba(white, 0.4);
+        font-size: 0.95rem;
+      }
+
+      .btn-start {
+        display: inline-block;
+        padding: 0.7rem 1.5rem;
+        background: rgba(white, 0.05);
+        border: 1px solid rgba(white, 0.1);
+        border-radius: 10px;
+        color: white;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: all 0.2s;
+
+        &:hover {
+          background: rgba(white, 0.1);
+        }
+      }
+    }
   }
 }
