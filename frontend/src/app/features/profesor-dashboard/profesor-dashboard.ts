@@ -23,12 +23,12 @@ export class ProfesorDashboardComponent {
     { icon: '⭐', label: 'Valoración media', value: '4.8' }
   ];
 
-  alumnos = [
-    { name: 'Itziar', progress: 75, completedLessons: 5 },
-    { name: 'Mario', progress: 50, completedLessons: 3 },
-    { name: 'Jorge', progress: 25, completedLessons: 2 },
-    { name: 'Ana', progress: 100, completedLessons: 7 },
-  ];
+alumnos = [
+  { name: 'Alex', progress: 30, completedLessons: 2 },
+  { name: 'Jorge', progress: 45, completedLessons: 3 },
+  { name: 'Mario', progress: 60, completedLessons: 4 },
+  { name: 'Itziar', progress: 55, completedLessons: 5 },
+];
 
   constructor(private router: Router) {}
 
