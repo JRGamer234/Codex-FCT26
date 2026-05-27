@@ -5,6 +5,8 @@ import { DashboardComponent } from './features/dashboard/dashboard';
 import { LessonDetailComponent } from './features/lesson-detail/lesson-detail';
 import { MainLayoutComponent } from './core/layout/main-layout/main-layout';
 import { LoginComponent } from './features/login/login';
+import { ProgressComponent } from './features/progress/progress';
+
 
 export const routes: Routes = [
   {
@@ -32,6 +34,10 @@ export const routes: Routes = [
         path: '',
         redirectTo: 'dashboard',
         pathMatch: 'full'
+      },
+      {
+        path: 'progress',
+         component: ProgressComponent
       }
     ]
   },

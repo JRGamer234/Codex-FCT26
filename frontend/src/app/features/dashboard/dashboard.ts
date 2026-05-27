@@ -11,6 +11,12 @@ interface Lesson {
   tags: string[];
 }
 
+interface CompletedLesson {
+  title: string;
+  category: string;
+  icon: string;
+}
+
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -22,6 +28,13 @@ export class DashboardComponent {
   searchText = '';
   selectedLevel = '';
   selectedCategory = '';
+  showProgress = false;
+
+  completedLessons: CompletedLesson[] = [
+    { title: 'Introducción a HTML', category: 'HTML', icon: '📖' },
+    { title: 'Etiquetas básicas', category: 'HTML', icon: '🏷️' },
+    { title: 'Selectores CSS', category: 'CSS', icon: '🎨' },
+  ];
 
   lessons: Lesson[] = [
     { id: '1', title: 'Introducción a HTML', level: 'inicial', category: 'HTML', tags: ['html', 'básico'] },
@@ -39,5 +52,9 @@ export class DashboardComponent {
       const matchesCategory = this.selectedCategory ? lesson.category === this.selectedCategory : true;
       return matchesSearch && matchesLevel && matchesCategory;
     });
+  }
+
+  toggleProgress() {
+    this.showProgress = !this.showProgress;
   }
 }

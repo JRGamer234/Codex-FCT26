@@ -1,0 +1,49 @@
+Reemplaza todo el contenido de progress.html con esto:
+html<div class="progress-container">
+
+  <div class="progress-header">
+    <a routerLink="/lessons/dashboard" class="btn-back">← Volver</a>
+    <h1>Tu Progreso</h1>
+    <p>Lleva un seguimiento de tu aprendizaje</p>
+  </div>
+
+  <div class="progress-stats">
+    <div class="stat-box">
+      <span class="stat-number">{{ completedLessons.length }}</span>
+      <span class="stat-label">Completadas</span>
+    </div>
+    <div class="stat-box">
+      <span class="stat-number">{{ totalLessons - completedLessons.length }}</span>
+      <span class="stat-label">Pendientes</span>
+    </div>
+    <div class="stat-box highlight">
+      <span class="stat-number">{{ progressPercent }}%</span>
+      <span class="stat-label">Completado</span>
+    </div>
+  </div>
+
+  <div class="progress-bar-section">
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" [style.width.%]="progressPercent"></div>
+    </div>
+    <span class="progress-bar-label">{{ progressPercent }}% del curso completado</span>
+  </div>
+
+  <div class="completed-section">
+    <h2>Lecciones completadas</h2>
+    <div class="completed-list">
+      <div class="completed-card" *ngFor="let lesson of completedLessons">
+        <span class="lesson-icon">{{ lesson.icon }}</span>
+        <div class="lesson-info">
+          <span class="lesson-title">{{ lesson.title }}</span>
+          <span class="lesson-category">{{ lesson.category }}</span>
+        </div>
+        <div class="lesson-meta">
+          <span class="lesson-date">{{ lesson.completedAt }}</span>
+          <span class="lesson-check">✅</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
