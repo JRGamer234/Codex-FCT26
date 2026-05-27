@@ -1,8 +1,14 @@
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 .profesor-container {
   max-width: 900px;
   margin: 0 auto;
   padding: 2rem;
 
+  // ── Header ────────────────────────────────────────────────
   .profesor-header {
     display: flex;
     justify-content: space-between;
@@ -51,12 +57,11 @@
       cursor: pointer;
       transition: all 0.2s;
 
-      &:hover {
-        background: rgba(red, 0.2);
-      }
+      &:hover { background: rgba(red, 0.2); }
     }
   }
 
+  // ── Stats ─────────────────────────────────────────────────
   .stats-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -72,13 +77,23 @@
       display: flex;
       flex-direction: column;
       gap: 0.4rem;
+      cursor: pointer;
+      transition: all 0.2s;
 
-      .stat-icon { font-size: 1.8rem; }
+      &:hover { transform: translateY(-3px); }
+
+      &.active {
+        border-color: #38bdf8;
+        background: rgba(#38bdf8, 0.05);
+      }
+
+      .stat-icon  { font-size: 1.8rem; }
       .stat-value { font-size: 2rem; font-weight: 700; color: white; }
       .stat-label { color: rgba(white, 0.5); font-size: 0.8rem; }
     }
   }
 
+  // ── Alumnos ───────────────────────────────────────────────
   .alumnos-section {
     h2 {
       font-size: 1.2rem;
@@ -102,9 +117,7 @@
       border-radius: 12px;
       gap: 1rem;
 
-      &:hover {
-        border-color: rgba(white, 0.15);
-      }
+      &:hover { border-color: rgba(white, 0.15); }
 
       .alumno-info {
         display: flex;
@@ -152,6 +165,169 @@
           font-size: 0.85rem;
           white-space: nowrap;
         }
+      }
+    }
+  }
+
+  // ── Panel ─────────────────────────────────────────────────
+  .panel {
+    margin-bottom: 2rem;
+    background: rgba(white, 0.03);
+    border: 1px solid rgba(white, 0.08);
+    border-radius: 16px;
+    padding: 1.5rem;
+    animation: fadeIn 0.3s ease;
+
+    h2 {
+      font-size: 1.2rem;
+      color: white;
+      margin-bottom: 1.2rem;
+    }
+
+    .panel-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.2rem;
+
+      h2 { margin-bottom: 0; }
+
+      .btn-new {
+        padding: 0.5rem 1rem;
+        background: #38bdf8;
+        color: #0f172a;
+        border: none;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: opacity 0.2s;
+
+        &:hover { opacity: 0.9; }
+      }
+    }
+
+    .leccion-form {
+      display: flex;
+      gap: 0.8rem;
+      margin-bottom: 1.2rem;
+      flex-wrap: wrap;
+
+      input,
+      select {
+        padding: 0.6rem 1rem;
+        border: 1px solid rgba(white, 0.08);
+        border-radius: 8px;
+        background: rgba(white, 0.05);
+        color: white;
+        font-size: 0.9rem;
+        outline: none;
+        flex: 1;
+        min-width: 150px;
+
+        option { background: #1a1f2e; }
+      }
+
+      button {
+        padding: 0.6rem 1.2rem;
+        background: #38bdf8;
+        color: #0f172a;
+        border: none;
+        border-radius: 8px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+    }
+
+    .lecciones-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+
+      .leccion-card {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.8rem 1rem;
+        background: rgba(white, 0.03);
+        border: 1px solid rgba(white, 0.06);
+        border-radius: 10px;
+
+        .leccion-icon { font-size: 1.2rem; }
+
+        .leccion-info {
+          display: flex;
+          flex-direction: column;
+
+          .leccion-title { color: white; font-weight: 600; font-size: 0.9rem; }
+          .leccion-meta  { color: rgba(white, 0.4); font-size: 0.8rem; }
+        }
+      }
+    }
+
+    .tests-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+
+      .test-card {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.8rem 1rem;
+        background: rgba(white, 0.03);
+        border: 1px solid rgba(white, 0.06);
+        border-radius: 10px;
+
+        .test-info {
+          display: flex;
+          flex-direction: column;
+
+          .test-alumno  { color: white; font-weight: 600; font-size: 0.9rem; }
+          .test-leccion { color: rgba(white, 0.4); font-size: 0.8rem; }
+        }
+
+        .test-result {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          gap: 0.2rem;
+
+          .test-score {
+            color: white;
+            font-weight: 700;
+
+            &.perfect { color: #4ade80; }
+          }
+
+          .test-date { color: rgba(white, 0.3); font-size: 0.75rem; }
+        }
+      }
+    }
+
+    .valoraciones-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+
+      .valoracion-card {
+        padding: 1rem;
+        background: rgba(white, 0.03);
+        border: 1px solid rgba(white, 0.06);
+        border-radius: 10px;
+
+        .valoracion-header {
+          display: flex;
+          gap: 1rem;
+          align-items: center;
+          margin-bottom: 0.5rem;
+
+          .val-alumno    { color: white; font-weight: 600; font-size: 0.9rem; }
+          .val-leccion   { color: rgba(white, 0.4); font-size: 0.8rem; flex: 1; }
+          .val-estrellas { font-size: 0.9rem; }
+        }
+
+        .val-comentario { color: rgba(white, 0.6); font-size: 0.85rem; }
       }
     }
   }

@@ -1,0 +1,32 @@
+<div class="alumnos-container">
+
+  <div class="alumnos-header">
+    <a routerLink="/profesor/dashboard" class="btn-back">← Volver</a>
+    <h1>👨‍🎓 Alumnos activos</h1>
+    <p>Seguimiento del progreso de tus alumnos</p>
+  </div>
+
+  <div class="alumnos-grid">
+    <div class="alumno-card" *ngFor="let alumno of alumnos">
+      <div class="alumno-avatar">👤</div>
+      <div class="alumno-info">
+        <h3>{{ alumno.name }}</h3>
+        <p>{{ alumno.email }}</p>
+      </div>
+      <div class="alumno-stats">
+        <div class="stat">
+          <span class="stat-value">{{ alumno.completedLessons }}</span>
+          <span class="stat-label">Lecciones</span>
+        </div>
+        <div class="stat highlight">
+          <span class="stat-value">{{ alumno.progress }}%</span>
+          <span class="stat-label">Progreso</span>
+        </div>
+      </div>
+      <div class="alumno-progress-bar">
+        <div class="progress-fill" [style.width.%]="alumno.progress"></div>
+      </div>
+    </div>
+  </div>
+
+</div>

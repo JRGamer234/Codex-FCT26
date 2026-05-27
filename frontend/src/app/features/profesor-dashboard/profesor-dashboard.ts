@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { UserService, Alumno } from '../../core/services/user';
 
 @Component({
   selector: 'app-profesor-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './profesor-dashboard.html',
   styleUrl: './profesor-dashboard.scss'
 })
@@ -16,13 +16,6 @@ export class ProfesorDashboardComponent implements OnInit {
     email: 'profesor@codex.com',
     avatar: '👨‍🏫'
   };
-
-  stats = [
-    { icon: '👨‍🎓', label: 'Alumnos activos', value: 4 },
-    { icon: '📚', label: 'Lecciones creadas', value: 7 },
-    { icon: '✅', label: 'Tests completados', value: 132 },
-    { icon: '⭐', label: 'Valoración media', value: '4.8' }
-  ];
 
   alumnos: Alumno[] = [];
 
@@ -39,4 +32,7 @@ export class ProfesorDashboardComponent implements OnInit {
     localStorage.removeItem('rol');
     this.router.navigate(['/login']);
   }
+  navigate(path: string) {
+  this.router.navigate([path]);
+}
 }

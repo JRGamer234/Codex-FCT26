@@ -16,12 +16,12 @@ export class UserService {
   private apiUrl = 'http://localhost:3000'; // URL del backend cuando esté listo
 
   // Datos simulados mientras el backend no está listo
-  private mockAlumnos: Alumno[] = [
-    { name: 'Alex', email: 'alex@codex.com', progress: 30, completedLessons: 2 },
-    { name: 'Jorge', email: 'jorge@codex.com', progress: 45, completedLessons: 3 },
-    { name: 'Mario', email: 'mario@codex.com', progress: 60, completedLessons: 4 },
-    { name: 'Itziar', email: 'itziar@codex.com', progress: 55, completedLessons: 5 },
-  ];
+private mockAlumnos: Alumno[] = [
+  { name: 'Alex', email: 'alex@codex.com', progress: 30, completedLessons: 2 },
+  { name: 'Jorge', email: 'jorge@codex.com', progress: 45, completedLessons: 3 },
+  { name: 'Mario', email: 'mario@codex.com', progress: 60, completedLessons: 4 },
+  { name: 'Itziar', email: 'itziar@codex.com', progress: 55, completedLessons: 5 },
+];
 
   constructor(private http: HttpClient) {}
 
