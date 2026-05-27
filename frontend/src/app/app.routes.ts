@@ -13,6 +13,7 @@ import { ProfesorDashboardComponent } from './features/profesor-dashboard/profes
 import { ProfesorAlumnosComponent } from './features/profesor-alumnos/profesor-alumnos';
 import { ProfesorLeccionesComponent } from './features/profesor-lecciones/profesor-lecciones';
 import { ProfesorTestsComponent } from './features/profesor-tests/profesor-tests';
+import { ProfesorValoracionesComponent } from './features/profesor-valoraciones/profesor-valoraciones';
 
 export const routes: Routes = [
   {
@@ -41,6 +42,11 @@ export const routes: Routes = [
   {
     path: 'profesor/tests',
     component: ProfesorTestsComponent,
+    canActivate: [authGuard]
+  },
+  {
+    path: 'profesor/valoraciones',
+    component: ProfesorValoracionesComponent,
     canActivate: [authGuard]
   },
   {

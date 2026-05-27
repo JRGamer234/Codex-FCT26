@@ -1,0 +1,42 @@
+<div class="valoraciones-container">
+
+  <div class="valoraciones-header">
+    <a routerLink="/profesor/dashboard" class="btn-back">← Volver</a>
+    <div class="header-title">
+      <h1>⭐ Valoraciones</h1>
+      <p>Lo que opinan tus alumnos</p>
+    </div>
+  </div>
+
+  <div class="valoraciones-stats">
+    <div class="stat-box highlight">
+      <span class="stat-number">{{ mediaEstrellas }}</span>
+      <span class="stat-stars">⭐⭐⭐⭐⭐</span>
+      <span class="stat-label">Valoración media</span>
+    </div>
+    <div class="stat-box">
+      <span class="stat-number">{{ totalValoraciones }}</span>
+      <span class="stat-label">Total valoraciones</span>
+    </div>
+  </div>
+
+  <div class="valoraciones-list">
+    <div class="valoracion-card" *ngFor="let val of valoraciones">
+      <div class="val-header">
+        <div class="val-alumno-info">
+          <span class="val-avatar">👤</span>
+          <div>
+            <span class="val-alumno">{{ val.alumno }}</span>
+            <span class="val-leccion">{{ val.leccion }}</span>
+          </div>
+        </div>
+        <div class="val-meta">
+          <span class="val-estrellas">{{ estrellas(val.estrellas) }}</span>
+          <span class="val-fecha">{{ val.fecha }}</span>
+        </div>
+      </div>
+      <p class="val-comentario">{{ val.comentario }}</p>
+    </div>
+  </div>
+
+</div>
