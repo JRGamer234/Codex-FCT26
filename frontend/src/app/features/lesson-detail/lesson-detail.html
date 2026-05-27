@@ -30,8 +30,13 @@
   }
 
   @if (showTest) {
-    <app-lesson-form [questions]="lesson.questions"></app-lesson-form>
-
+    <app-lesson-form
+      [questions]="lesson.questions"
+      [lessonId]="lesson.id"
+      [lessonTitle]="lesson.title"
+      [lessonCategory]="lesson.category"
+      [lessonIcon]="'📖'">
+    </app-lesson-form>
   }
 
 </div>

@@ -11,7 +11,7 @@
         <h3>Tu Progreso</h3>
         <p>{{ completedLessons.length }} lecciones completadas de {{ lessons.length }}</p>
         <div class="a-progress-bar">
-          <div class="a-progress-bar__fill" [style.width.%]="(completedLessons.length / lessons.length) * 100"></div>
+          <div class="a-progress-bar__fill" [style.width.%]="progressService.progressPercent()"></div>
         </div>
       </div>
     </article>
@@ -29,7 +29,7 @@
       <div class="m-stat-card__icon">🏆</div>
       <div class="m-stat-card__info">
         <h3>Logros</h3>
-        <p>Has ganado 2 insignias esta semana</p>
+        <p>{{ completedLessons.length }} insignias conseguidas</p>
       </div>
     </article>
   </div>
@@ -65,6 +65,7 @@
         <div class="lesson-header">
           <span class="badge level-{{ lesson.level }}">{{ lesson.level }}</span>
           <span class="badge category">{{ lesson.category }}</span>
+          <span class="badge completed" *ngIf="progressService.isCompleted(+lesson.id)">✅ Completada</span>
         </div>
         <h3>{{ lesson.title }}</h3>
         <div class="tags">

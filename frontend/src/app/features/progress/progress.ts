@@ -1,13 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-
-interface CompletedLesson {
-  title: string;
-  category: string;
-  icon: string;
-  completedAt: string;
-}
+import { ProgressService } from '../../core/services/progress';
 
 @Component({
   selector: 'app-progress',
@@ -17,15 +11,17 @@ interface CompletedLesson {
   styleUrl: './progress.scss'
 })
 export class ProgressComponent {
-  totalLessons = 12;
+  constructor(public progressService: ProgressService) {}
 
-  completedLessons: CompletedLesson[] = [
-    { title: 'Introducción a HTML', category: 'HTML', icon: '📖', completedAt: 'Hace 2 días' },
-    { title: 'Etiquetas básicas', category: 'HTML', icon: '🏷️', completedAt: 'Hace 1 día' },
-    { title: 'Selectores CSS', category: 'CSS', icon: '🎨', completedAt: 'Hoy' },
-  ];
+  get completedLessons() {
+    return this.progressService.completedLessons();
+  }
 
-  get progressPercent(): number {
-    return Math.round((this.completedLessons.length / this.totalLessons) * 100);
+  get totalLessons() {
+    return this.progressService.totalLessons;
+  }
+
+  get progressPercent() {
+    return this.progressService.progressPercent();
   }
 }

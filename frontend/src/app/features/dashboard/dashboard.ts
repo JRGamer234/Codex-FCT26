@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { ProgressService } from '../../core/services/progress';
 
 interface Lesson {
   id: string;
@@ -9,12 +10,6 @@ interface Lesson {
   level: string;
   category: string;
   tags: string[];
-}
-
-interface CompletedLesson {
-  title: string;
-  category: string;
-  icon: string;
 }
 
 @Component({
@@ -28,13 +23,12 @@ export class DashboardComponent {
   searchText = '';
   selectedLevel = '';
   selectedCategory = '';
-  showProgress = false;
 
-  completedLessons: CompletedLesson[] = [
-    { title: 'Introducción a HTML', category: 'HTML', icon: '📖' },
-    { title: 'Etiquetas básicas', category: 'HTML', icon: '🏷️' },
-    { title: 'Selectores CSS', category: 'CSS', icon: '🎨' },
-  ];
+  constructor(public progressService: ProgressService) {}
+
+  get completedLessons() {
+    return this.progressService.completedLessons();
+  }
 
   lessons: Lesson[] = [
     { id: '1', title: 'Introducción a HTML', level: 'inicial', category: 'HTML', tags: ['html', 'básico'] },
@@ -52,9 +46,5 @@ export class DashboardComponent {
       const matchesCategory = this.selectedCategory ? lesson.category === this.selectedCategory : true;
       return matchesSearch && matchesLevel && matchesCategory;
     });
-  }
-
-  toggleProgress() {
-    this.showProgress = !this.showProgress;
   }
 }

@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ProgressService } from '../../core/services/progress';
 
 interface Question {
   question: string;
@@ -16,6 +17,10 @@ interface Question {
 })
 export class LessonFormComponent implements OnInit {
   @Input() questions: Question[] = [];
+  @Input() lessonId: number = 0;
+  @Input() lessonTitle: string = '';
+  @Input() lessonCategory: string = '';
+  @Input() lessonIcon: string = '📖';
 
   currentIndex = 0;
   selectedOption: number | null = null;
@@ -50,6 +55,8 @@ export class LessonFormComponent implements OnInit {
     }
   ];
 
+  constructor(private progressService: ProgressService) {}
+
   ngOnInit() {
     if (this.questions.length === 0) {
       this.questions = this.defaultQuestions;
@@ -77,6 +84,13 @@ export class LessonFormComponent implements OnInit {
       this.currentIndex++;
     } else {
       this.finished = true;
+      this.progressService.completeLesson({
+        id: this.lessonId,
+        title: this.lessonTitle,
+        category: this.lessonCategory,
+        icon: this.lessonIcon,
+        completedAt: 'Hoy'
+      });
     }
   }
 
