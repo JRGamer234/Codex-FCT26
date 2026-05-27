@@ -7,6 +7,7 @@ import { MainLayoutComponent } from './core/layout/main-layout/main-layout';
 import { LoginComponent } from './features/login/login';
 import { ProgressComponent } from './features/progress/progress';
 import { AchievementsComponent } from './features/achievements/achievements';
+import { ProfileComponent } from './features/profile/profile';
 
 export const routes: Routes = [
   {
@@ -37,6 +38,10 @@ export const routes: Routes = [
       {
         path: 'achievements',
         component: AchievementsComponent
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent
       },
       {
         path: '',

@@ -4,7 +4,10 @@
         <div class="o-sidebar__search-container">
             <input type="text" class="a-input" placeholder="Buscar lección..." (input)="updateSearch($event)">
         </div>
-
+        <a routerLink="/lessons/profile" routerLinkActive="m-nav-item--active" class="m-nav-item">
+          <span class="m-nav-item__icon">👤</span>
+          <span class="m-nav-item__label">Mi Perfil</span>
+        </a>
         <nav class="o-sidebar__menu">
             <a routerLink="/lessons/dashboard" routerLinkActive="m-nav-item--active" class="m-nav-item">
                 <span class="m-nav-item__icon">🏠</span>
