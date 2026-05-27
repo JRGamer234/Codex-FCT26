@@ -1,0 +1,145 @@
+@use '../../../styles/settings/variables' as *;
+
+.tests-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+
+  .tests-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+
+    .btn-back {
+      color: rgba(white, 0.5);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+      white-space: nowrap;
+
+      &:hover { color: white; }
+    }
+
+    .header-title {
+      h1 {
+        font-size: 1.8rem;
+        color: white;
+        margin-bottom: 0.3rem;
+      }
+      p { color: rgba(white, 0.5); font-size: 0.9rem; }
+    }
+  }
+
+  .tests-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+
+    .stat-box {
+      background: rgba(white, 0.03);
+      border: 1px solid rgba(white, 0.08);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+
+      &.highlight {
+        border-color: rgba($color-primary, 0.3);
+        background: linear-gradient(145deg, rgba($color-primary, 0.05), transparent);
+      }
+
+      .stat-number {
+        font-size: 2rem;
+        font-weight: 700;
+        color: white;
+      }
+
+      .stat-label {
+        color: rgba(white, 0.5);
+        font-size: 0.8rem;
+      }
+    }
+  }
+
+  .tests-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .test-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.2rem 1.5rem;
+    background: rgba(white, 0.03);
+    border: 1px solid rgba(white, 0.08);
+    border-radius: 14px;
+    transition: transform 0.2s;
+
+    &:hover {
+      transform: translateX(4px);
+      border-color: rgba(white, 0.15);
+    }
+
+    .test-avatar { font-size: 1.5rem; }
+
+    .test-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+
+      .test-alumno {
+        color: white;
+        font-weight: 600;
+        font-size: 0.95rem;
+      }
+
+      .test-leccion {
+        color: rgba(white, 0.4);
+        font-size: 0.8rem;
+      }
+    }
+
+    .test-score-bar {
+      width: 150px;
+      height: 8px;
+      background: rgba(white, 0.08);
+      border-radius: 4px;
+      overflow: hidden;
+
+      .score-fill {
+        height: 100%;
+        background: #f87171;
+        border-radius: 4px;
+
+        &.perfect { background: #4ade80; }
+      }
+    }
+
+    .test-result {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.2rem;
+      min-width: 60px;
+
+      .test-score {
+        color: #f87171;
+        font-weight: 700;
+        font-size: 0.95rem;
+
+        &.perfect { color: #4ade80; }
+      }
+
+      .test-date {
+        color: rgba(white, 0.3);
+        font-size: 0.75rem;
+      }
+    }
+  }
+}
