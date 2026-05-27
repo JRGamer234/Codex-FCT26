@@ -38,11 +38,11 @@ export class DashboardComponent {
 
   lessons: Lesson[] = [
     { id: '1', title: 'Introducción a HTML', level: 'inicial', category: 'HTML', tags: ['html', 'básico'] },
-    { id: '2', title: 'Formularios en HTML', level: 'inicial', category: 'HTML', tags: ['html', 'forms'] },
-    { id: '3', title: 'Selectores CSS', level: 'inicial', category: 'CSS', tags: ['css', 'selectores'] },
-    { id: '4', title: 'Flexbox', level: 'intermedio', category: 'Layout', tags: ['css', 'flex'] },
-    { id: '5', title: 'CSS Grid', level: 'intermedio', category: 'Grid', tags: ['css', 'grid'] },
-    { id: '6', title: 'Animaciones CSS', level: 'avanzado', category: 'CSS', tags: ['css', 'animaciones'] },
+    { id: '5', title: 'Formularios en HTML', level: 'inicial', category: 'HTML', tags: ['html', 'forms'] },
+    { id: '4', title: 'Selectores Avanzados', level: 'inicial', category: 'CSS', tags: ['css', 'selectores'] },
+    { id: '6', title: 'Flexbox', level: 'intermedio', category: 'Layout', tags: ['css', 'flex'] },
+    { id: '7', title: 'CSS Grid', level: 'intermedio', category: 'Grid', tags: ['css', 'grid'] },
+    { id: '3', title: 'Animaciones CSS', level: 'avanzado', category: 'CSS', tags: ['css', 'animaciones'] },
   ];
 
   get filteredLessons(): Lesson[] {

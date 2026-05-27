@@ -140,6 +140,84 @@ export class LessonDetailComponent implements OnInit {
         { question: '¿Qué selector selecciona elementos con un atributo específico?', options: ['.atributo', '#atributo', '[atributo]', '*atributo'], correct: 2 },
         { question: '¿Qué pseudoclase se activa cuando un input tiene el foco?', options: [':hover', ':active', ':visited', ':focus'], correct: 3 }
       ]
+    },
+    {
+      id: 5,
+      title: 'Formularios en HTML',
+      level: 'Inicial',
+      category: 'HTML',
+      description: 'Aprende a crear formularios interactivos en HTML para recoger datos del usuario.',
+      sections: [
+        {
+          title: '¿Qué es un formulario?',
+          content: 'Un formulario HTML permite recoger información del usuario mediante campos de texto, botones, checkboxes y más. Se define con la etiqueta form.',
+          code: `<form action="/enviar" method="POST">\n  <input type="text" placeholder="Tu nombre">\n  <input type="email" placeholder="Tu email">\n  <button type="submit">Enviar</button>\n</form>`
+        },
+        {
+          title: 'Tipos de input',
+          content: 'El elemento input puede tener muchos tipos según el dato que queremos recoger.',
+          code: `<input type="text">\n<input type="email">\n<input type="password">\n<input type="number">\n<input type="checkbox">\n<input type="radio">`
+        }
+      ],
+      questions: [
+        { question: '¿Qué etiqueta define un formulario en HTML?', options: ['<input>', '<form>', '<field>', '<submit>'], correct: 1 },
+        { question: '¿Qué atributo define el tipo de input?', options: ['kind', 'mode', 'type', 'style'], correct: 2 },
+        { question: '¿Qué tipo de input es para contraseñas?', options: ['text', 'secret', 'password', 'hidden'], correct: 2 },
+        { question: '¿Qué atributo envía el formulario a una URL?', options: ['method', 'action', 'href', 'url'], correct: 1 },
+        { question: '¿Qué tipo de botón envía el formulario?', options: ['type="send"', 'type="submit"', 'type="post"', 'type="form"'], correct: 1 }
+      ]
+    },
+    {
+      id: 6,
+      title: 'Flexbox',
+      level: 'Intermedio',
+      category: 'Layout',
+      description: 'Domina Flexbox para crear layouts unidimensionales flexibles y responsivos.',
+      sections: [
+        {
+          title: 'Conceptos básicos de Flexbox',
+          content: 'Flexbox organiza elementos en un eje principal. El contenedor flex distribuye el espacio entre sus hijos automáticamente.',
+          code: `.container {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: center;\n}`
+        },
+        {
+          title: 'Propiedades de los hijos',
+          content: 'Los elementos hijos de un contenedor flex pueden controlarse individualmente con flex-grow, flex-shrink y flex-basis.',
+          code: `.item {\n  flex: 1;\n  flex-grow: 1;\n  flex-shrink: 1;\n  flex-basis: 0%;\n}`
+        }
+      ],
+      questions: [
+        { question: '¿Qué propiedad activa Flexbox?', options: ['display: block', 'display: flex', 'display: grid', 'display: inline'], correct: 1 },
+        { question: '¿Qué propiedad cambia la dirección del eje principal?', options: ['flex-wrap', 'flex-direction', 'align-items', 'justify-content'], correct: 1 },
+        { question: '¿Qué propiedad alinea elementos en el eje secundario?', options: ['justify-content', 'flex-wrap', 'align-items', 'flex-grow'], correct: 2 },
+        { question: '¿Qué valor de justify-content distribuye el espacio entre elementos?', options: ['center', 'flex-start', 'space-between', 'stretch'], correct: 2 },
+        { question: '¿Qué propiedad permite que los elementos se envuelvan en varias filas?', options: ['flex-wrap', 'flex-flow', 'flex-direction', 'flex-grow'], correct: 0 }
+      ]
+    },
+    {
+      id: 7,
+      title: 'CSS Grid',
+      level: 'Intermedio',
+      category: 'Grid',
+      description: 'Aprende CSS Grid para crear layouts bidimensionales con filas y columnas.',
+      sections: [
+        {
+          title: 'Conceptos básicos de Grid',
+          content: 'CSS Grid permite crear layouts en dos dimensiones: filas y columnas. Es ideal para estructuras complejas de página.',
+          code: `.container {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  grid-template-rows: auto;\n  gap: 1rem;\n}`
+        },
+        {
+          title: 'Posicionamiento en Grid',
+          content: 'Los elementos de un grid pueden ocupar múltiples columnas o filas usando grid-column y grid-row.',
+          code: `.item-grande {\n  grid-column: 1 / 3;\n  grid-row: 1 / 2;\n}`
+        }
+      ],
+      questions: [
+        { question: '¿Qué propiedad activa CSS Grid?', options: ['display: flex', 'display: block', 'display: grid', 'display: table'], correct: 2 },
+        { question: '¿Qué propiedad define las columnas del grid?', options: ['grid-template-rows', 'grid-template-columns', 'grid-gap', 'grid-area'], correct: 1 },
+        { question: '¿Qué significa fr en CSS Grid?', options: ['1 pixel', '1 fracción del espacio disponible', '1 porcentaje', 'free space'], correct: 1 },
+        { question: '¿Qué propiedad añade espacio entre celdas?', options: ['margin', 'padding', 'gap', 'border'], correct: 2 },
+        { question: '¿Qué propiedad hace que un elemento ocupe varias columnas?', options: ['grid-row', 'grid-area', 'grid-column', 'grid-span'], correct: 2 }
+      ]
     }
   ];
 
