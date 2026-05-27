@@ -11,6 +11,7 @@ import { ProfileComponent } from './features/profile/profile';
 import { RegisterComponent } from './features/register/register';
 import { ProfesorDashboardComponent } from './features/profesor-dashboard/profesor-dashboard';
 import { ProfesorAlumnosComponent } from './features/profesor-alumnos/profesor-alumnos';
+import { ProfesorLeccionesComponent } from './features/profesor-lecciones/profesor-lecciones';
 
 export const routes: Routes = [
   {
@@ -29,6 +30,11 @@ export const routes: Routes = [
   {
     path: 'profesor/alumnos',
     component: ProfesorAlumnosComponent,
+    canActivate: [authGuard]
+  },
+  {
+    path: 'profesor/lecciones',
+    component: ProfesorLeccionesComponent,
     canActivate: [authGuard]
   },
   {

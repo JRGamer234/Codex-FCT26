@@ -1,0 +1,60 @@
+<div class="lecciones-container">
+
+  <div class="lecciones-header">
+    <a routerLink="/profesor/dashboard" class="btn-back">← Volver</a>
+    <div class="header-title">
+      <h1>📚 Lecciones creadas</h1>
+      <p>Gestiona las lecciones del curso</p>
+    </div>
+    <button class="btn-new" (click)="showForm = !showForm">+ Nueva lección</button>
+  </div>
+
+  <!-- Formulario nueva lección -->
+  <div class="form-card" *ngIf="showForm">
+    <h3>Nueva lección</h3>
+    <form [formGroup]="leccionForm" (ngSubmit)="crearLeccion()">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Título</label>
+          <input formControlName="title" placeholder="Título de la lección" />
+        </div>
+        <div class="form-group">
+          <label>Nivel</label>
+          <select formControlName="level">
+            <option value="">Selecciona nivel</option>
+            <option value="Inicial">Inicial</option>
+            <option value="Intermedio">Intermedio</option>
+            <option value="Avanzado">Avanzado</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Categoría</label>
+          <select formControlName="category">
+            <option value="">Selecciona categoría</option>
+            <option value="HTML">HTML</option>
+            <option value="CSS">CSS</option>
+            <option value="Layout">Layout</option>
+            <option value="Grid">Grid</option>
+          </select>
+        </div>
+      </div>
+      <button type="submit" class="btn-save">Guardar lección</button>
+    </form>
+  </div>
+
+  <!-- Lista de lecciones -->
+  <div class="lecciones-grid">
+    <div class="leccion-card" *ngFor="let leccion of lecciones">
+      <div class="leccion-icon">📖</div>
+      <div class="leccion-info">
+        <h3>{{ leccion.title }}</h3>
+        <div class="leccion-badges">
+          <span class="badge level">{{ leccion.level }}</span>
+          <span class="badge category">{{ leccion.category }}</span>
+        </div>
+      </div>
+      <button class="btn-delete" (click)="eliminarLeccion(leccion.id)">🗑️</button>
+    </div>
+  </div>
+
+</div>

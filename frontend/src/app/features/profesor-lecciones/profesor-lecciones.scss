@@ -1,0 +1,172 @@
+@use '../../../styles/settings/variables' as *;
+
+.lecciones-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+
+  .lecciones-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    .btn-back {
+      color: rgba(white, 0.5);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+
+      &:hover { color: white; }
+    }
+
+    .header-title {
+      h1 {
+        font-size: 1.8rem;
+        color: white;
+        margin-bottom: 0.3rem;
+      }
+      p { color: rgba(white, 0.5); font-size: 0.9rem; }
+    }
+
+    .btn-new {
+      padding: 0.7rem 1.5rem;
+      background: $color-primary;
+      color: #0f172a;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s;
+
+      &:hover { opacity: 0.9; }
+    }
+  }
+
+  .form-card {
+    background: rgba(white, 0.03);
+    border: 1px solid rgba($color-primary, 0.3);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    animation: fadeIn 0.3s ease;
+
+    h3 {
+      color: white;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+
+      label {
+        color: rgba(white, 0.6);
+        font-size: 0.85rem;
+      }
+
+      input, select {
+        padding: 0.6rem 1rem;
+        border: 1px solid rgba(white, 0.08);
+        border-radius: 8px;
+        background: rgba(white, 0.05);
+        color: white;
+        font-size: 0.9rem;
+        outline: none;
+
+        &:focus { border-color: $color-primary; }
+        option { background: #1a1f2e; }
+      }
+    }
+
+    .btn-save {
+      padding: 0.7rem 1.5rem;
+      background: $color-primary;
+      color: #0f172a;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s;
+
+      &:hover { opacity: 0.9; }
+    }
+  }
+
+  .lecciones-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .leccion-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.2rem 1.5rem;
+    background: rgba(white, 0.03);
+    border: 1px solid rgba(white, 0.08);
+    border-radius: 14px;
+    transition: transform 0.2s;
+
+    &:hover {
+      transform: translateX(4px);
+      border-color: rgba(white, 0.15);
+    }
+
+    .leccion-icon { font-size: 1.5rem; }
+
+    .leccion-info {
+      flex: 1;
+
+      h3 {
+        color: white;
+        font-size: 1rem;
+        margin-bottom: 0.4rem;
+      }
+
+      .leccion-badges {
+        display: flex;
+        gap: 0.5rem;
+
+        .badge {
+          font-size: 0.75rem;
+          padding: 0.2rem 0.6rem;
+          border-radius: 20px;
+          font-weight: 600;
+
+          &.level { background: rgba($color-primary, 0.15); color: $color-primary; }
+          &.category { background: rgba(white, 0.08); color: rgba(white, 0.7); }
+        }
+      }
+    }
+
+    .btn-delete {
+      background: none;
+      border: none;
+      font-size: 1.1rem;
+      cursor: pointer;
+      opacity: 0.4;
+      transition: opacity 0.2s;
+
+      &:hover { opacity: 1; }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
