@@ -8,11 +8,16 @@ import { LoginComponent } from './features/login/login';
 import { ProgressComponent } from './features/progress/progress';
 import { AchievementsComponent } from './features/achievements/achievements';
 import { ProfileComponent } from './features/profile/profile';
+import { RegisterComponent } from './features/register/register';
 
 export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'register',
+    component: RegisterComponent
   },
   {
     path: 'lessons',

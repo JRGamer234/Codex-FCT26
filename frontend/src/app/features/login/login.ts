@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './login.html',
   styleUrl: './login.scss'
 })
@@ -31,7 +32,6 @@ export class LoginComponent {
 
     const { email, password } = this.loginForm.value;
 
-    // Login simulado — luego se conectará al backend
     if (email === 'alumno@codex.com' && password === '123456') {
       localStorage.setItem('token', 'fake-token-123');
       this.router.navigate(['/lessons/dashboard']);
