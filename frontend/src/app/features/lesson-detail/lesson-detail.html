@@ -30,7 +30,8 @@
   }
 
   @if (showTest) {
-    <app-lesson-form></app-lesson-form>
+    <app-lesson-form [questions]="lesson.questions"></app-lesson-form>
+
   }
 
 </div>

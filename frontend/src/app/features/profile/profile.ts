@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class ProfileComponent {
   user = {
-    name: 'Itziar',
+    name: 'Grupo Codex',
     email: 'alumno@codex.com',
     avatar: '👩‍💻',
     joinedAt: 'Mayo 2026',

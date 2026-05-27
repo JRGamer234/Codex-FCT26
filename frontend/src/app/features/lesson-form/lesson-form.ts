@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 interface Question {
   question: string;
@@ -9,25 +10,22 @@ interface Question {
 @Component({
   selector: 'app-lesson-form',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './lesson-form.html',
   styleUrl: './lesson-form.scss'
 })
-export class LessonFormComponent {
+export class LessonFormComponent implements OnInit {
+  @Input() questions: Question[] = [];
+
   currentIndex = 0;
   selectedOption: number | null = null;
   answers: (number | null)[] = [];
   finished = false;
 
-  questions: Question[] = [
+  defaultQuestions: Question[] = [
     {
       question: '¿Qué significa HTML?',
-      options: [
-        'HyperText Markup Language',
-        'HighText Machine Language',
-        'HyperText and links Markup Language',
-        'None of the above'
-      ],
+      options: ['HyperText Markup Language', 'HighText Machine Language', 'HyperText and links Markup Language', 'None of the above'],
       correct: 0
     },
     {
@@ -42,12 +40,7 @@ export class LessonFormComponent {
     },
     {
       question: '¿Qué significa CSS?',
-      options: [
-        'Creative Style Sheets',
-        'Cascading Style Sheets',
-        'Computer Style Sheets',
-        'Colorful Style Sheets'
-      ],
+      options: ['Creative Style Sheets', 'Cascading Style Sheets', 'Computer Style Sheets', 'Colorful Style Sheets'],
       correct: 1
     },
     {
@@ -56,6 +49,12 @@ export class LessonFormComponent {
       correct: 1
     }
   ];
+
+  ngOnInit() {
+    if (this.questions.length === 0) {
+      this.questions = this.defaultQuestions;
+    }
+  }
 
   get currentQuestion(): Question {
     return this.questions[this.currentIndex];
