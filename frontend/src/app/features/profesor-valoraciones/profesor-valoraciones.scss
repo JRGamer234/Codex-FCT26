@@ -1,0 +1,138 @@
+@use '../../../styles/settings/variables' as *;
+
+.valoraciones-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+
+  .valoraciones-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+
+    .btn-back {
+      color: rgba(white, 0.5);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+      white-space: nowrap;
+
+      &:hover { color: white; }
+    }
+
+    .header-title {
+      h1 {
+        font-size: 1.8rem;
+        color: white;
+        margin-bottom: 0.3rem;
+      }
+      p { color: rgba(white, 0.5); font-size: 0.9rem; }
+    }
+  }
+
+  .valoraciones-stats {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+
+    .stat-box {
+      background: rgba(white, 0.03);
+      border: 1px solid rgba(white, 0.08);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      align-items: center;
+
+      &.highlight {
+        border-color: rgba($color-primary, 0.3);
+        background: linear-gradient(145deg, rgba($color-primary, 0.05), transparent);
+      }
+
+      .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: white;
+      }
+
+      .stat-stars { font-size: 1.2rem; }
+
+      .stat-label {
+        color: rgba(white, 0.5);
+        font-size: 0.8rem;
+      }
+    }
+  }
+
+  .valoraciones-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .valoracion-card {
+    background: rgba(white, 0.03);
+    border: 1px solid rgba(white, 0.08);
+    border-radius: 14px;
+    padding: 1.2rem 1.5rem;
+    transition: transform 0.2s;
+
+    &:hover {
+      transform: translateX(4px);
+      border-color: rgba(white, 0.15);
+    }
+
+    .val-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.8rem;
+
+      .val-alumno-info {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+
+        .val-avatar { font-size: 1.5rem; }
+
+        .val-alumno {
+          display: block;
+          color: white;
+          font-weight: 600;
+          font-size: 0.95rem;
+        }
+
+        .val-leccion {
+          display: block;
+          color: rgba(white, 0.4);
+          font-size: 0.8rem;
+        }
+      }
+
+      .val-meta {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0.2rem;
+
+        .val-estrellas { font-size: 0.9rem; }
+
+        .val-fecha {
+          color: rgba(white, 0.3);
+          font-size: 0.75rem;
+        }
+      }
+    }
+
+    .val-comentario {
+      color: rgba(white, 0.6);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      padding-left: 2.3rem;
+    }
+  }
+}

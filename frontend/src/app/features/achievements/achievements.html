@@ -1,0 +1,33 @@
+<div class="achievements-container">
+
+  <div class="achievements-header">
+    <a routerLink="/lessons/dashboard" class="btn-back">← Volver</a>
+    <h1>🏆 Logros</h1>
+    <p>{{ unlockedCount }} de {{ achievements.length }} logros desbloqueados</p>
+  </div>
+
+  <div class="achievements-summary">
+    <div class="summary-bar">
+      <div class="summary-bar-fill" [style.width.%]="(unlockedCount / achievements.length) * 100"></div>
+    </div>
+    <span>{{ unlockedCount }}/{{ achievements.length }}</span>
+  </div>
+
+  <div class="achievements-grid">
+    <div
+      class="achievement-card"
+      *ngFor="let achievement of achievements"
+      [class.unlocked]="achievement.unlocked"
+      [class.locked]="!achievement.unlocked"
+    >
+      <div class="achievement-icon">{{ achievement.unlocked ? achievement.icon : '🔒' }}</div>
+      <div class="achievement-info">
+        <span class="achievement-title">{{ achievement.title }}</span>
+        <span class="achievement-desc">{{ achievement.description }}</span>
+        <span class="achievement-date" *ngIf="achievement.unlocked">{{ achievement.unlockedAt }}</span>
+      </div>
+      <div class="achievement-badge" *ngIf="achievement.unlocked">✅</div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,189 @@
+@use '../../../styles/settings/variables' as *;
+
+.progress-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+
+  .progress-header {
+    margin-bottom: 2.5rem;
+
+    .btn-back {
+      display: inline-block;
+      color: rgba(white, 0.5);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      transition: color 0.2s;
+
+      &:hover {
+        color: white;
+      }
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: white;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      color: rgba(white, 0.5);
+    }
+  }
+
+  .progress-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+
+    .stat-box {
+      background: rgba(white, 0.03);
+      border: 1px solid rgba(white, 0.08);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+
+      &.highlight {
+        border-color: rgba($color-primary, 0.3);
+        background: linear-gradient(145deg, rgba($color-primary, 0.05), transparent);
+      }
+
+      .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: white;
+      }
+
+      .stat-label {
+        color: rgba(white, 0.5);
+        font-size: 0.85rem;
+      }
+    }
+  }
+
+  .progress-bar-section {
+    margin-bottom: 3rem;
+
+    .progress-bar-track {
+      width: 100%;
+      height: 12px;
+      background: rgba(white, 0.08);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 0.5rem;
+
+      .progress-bar-fill {
+        height: 100%;
+        background: $color-primary;
+        box-shadow: 0 0 10px $color-primary;
+        border-radius: 6px;
+        transition: width 0.5s ease;
+      }
+    }
+
+    .progress-bar-label {
+      color: rgba(white, 0.4);
+      font-size: 0.85rem;
+    }
+  }
+
+  .completed-section {
+    h2 {
+      font-size: 1.2rem;
+      color: white;
+      margin-bottom: 1rem;
+    }
+
+    .completed-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .completed-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.2rem;
+      background: rgba(white, 0.03);
+      border: 1px solid rgba(white, 0.08);
+      border-radius: 12px;
+      transition: transform 0.2s;
+
+      &:hover {
+        transform: translateX(4px);
+        border-color: rgba(white, 0.15);
+      }
+
+      .lesson-icon {
+        font-size: 1.5rem;
+      }
+
+      .lesson-info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+
+        .lesson-title {
+          color: white;
+          font-weight: 600;
+          font-size: 0.95rem;
+        }
+
+        .lesson-category {
+          color: rgba(white, 0.4);
+          font-size: 0.8rem;
+        }
+      }
+
+      .lesson-meta {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+
+        .lesson-date {
+          color: rgba(white, 0.3);
+          font-size: 0.8rem;
+        }
+      }
+    }
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+
+      .empty-icon {
+        font-size: 3rem;
+      }
+
+      p {
+        color: rgba(white, 0.4);
+        font-size: 0.95rem;
+      }
+
+      .btn-start {
+        display: inline-block;
+        padding: 0.7rem 1.5rem;
+        background: rgba(white, 0.05);
+        border: 1px solid rgba(white, 0.1);
+        border-radius: 10px;
+        color: white;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: all 0.2s;
+
+        &:hover {
+          background: rgba(white, 0.1);
+        }
+      }
+    }
+  }
+}

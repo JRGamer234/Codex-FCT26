@@ -1,80 +1,81 @@
 <section class="dashboard-page">
-    <header class="dashboard-header">
-        <h1>{{ greeting() }}, Mario</h1>
-        <p>Continúa tu camino para convertirse en un experto en Frontend.</p>
-    </header>
+  <header class="dashboard-header">
+    <h1>Hola de nuevo 🙌</h1>
+    <p>Continúa tu camino para convertirte en un experto en Frontend.</p>
+  </header>
 
-    <div class="dashboard-grid">
-        <article class="m-stat-card">
-            <div class="m-stat-card__icon">🎯</div>
-            <div class="m-stat-card__info">
-                <h3>Tu Progreso</h3>
-                <p>{{ completedLessons() }} lecciones completadas de {{ totalLessons() }}</p>
-                <div class="a-progress-bar">
-                    <div class="a-progress-bar__fill" [style.width.%]="progressPercentage()"></div>
-                </div>
-                <small style="color: #2ec4b6; font-weight: 600; display: block; margin-top: 0.5rem;">
-                    {{ progressPercentage() }}% Completado
-                </small>
-            </div>
-        </article>
+  <div class="dashboard-grid">
+    <article class="m-stat-card" routerLink="/lessons/progress" style="cursor:pointer">
+      <div class="m-stat-card__icon">🎯</div>
+      <div class="m-stat-card__info">
+        <h3>Tu Progreso</h3>
+        <p>{{ completedLessons.length }} lecciones completadas de {{ lessons.length }}</p>
+        <div class="a-progress-bar">
+          <div class="a-progress-bar__fill" [style.width.%]="progressService.progressPercent()"></div>
+        </div>
+      </div>
+    </article>
 
-        <article class="m-stat-card m-stat-card--featured">
-            @if (nextLesson()) {
-            <div class="m-stat-card__icon">📖</div>
-            <div class="m-stat-card__info">
-                <h3>Continuar leyendo</h3>
-                <p>{{ nextLesson()?.title }}</p>
-                <a [routerLink]="['/lesson', nextLesson()?._id]" class="a-btn--primary">Reanudar lección</a>
-            </div>
-            } @else if (totalLessons() > 0 && progressPercentage() === 100) {
-            <div class="m-stat-card__icon">🚀</div>
-            <div class="m-stat-card__info">
-                <h3>¡Curso Completado!</h3>
-                <p>Has terminado todas las lecciones disponibles. ¡Eres una máquina!</p>
-                <a routerLink="/lesson" class="a-btn--primary" style="background: #2ec4b6;">Repasar Temario</a>
-            </div>
-            } @else {
-            <div class="m-stat-card__icon">⏳</div>
-            <div class="m-stat-card__info">
-                <h3>Cargando cursos</h3>
-                <p>Buscando tu próxima lección...</p>
-            </div>
-            }
-        </article>
+    <article class="m-stat-card m-stat-card--featured">
+      <div class="m-stat-card__icon">📖</div>
+      <div class="m-stat-card__info">
+        <h3>Continuar leyendo</h3>
+        <p>Flexbox y Grid: Layouts modernos</p>
+        <a routerLink="/lessons/detail/1" class="a-btn--primary">Reanudar lección</a>
+      </div>
+    </article>
 
-        <article class="m-stat-card">
-            <div class="m-stat-card__icon">{{ currentBadge().icon }}</div>
-            <div class="m-stat-card__info">
-                <h3>{{ currentBadge().title }}</h3>
-                <p style="margin-bottom: 0;">{{ currentBadge().desc }}</p>
-            </div>
-        </article>
+    <article class="m-stat-card" routerLink="/lessons/achievements" style="cursor:pointer">
+      <div class="m-stat-card__icon">🏆</div>
+      <div class="m-stat-card__info">
+        <h3>Logros</h3>
+        <p>{{ completedLessons.length }} insignias conseguidas</p>
+      </div>
+    </article>
+  </div>
+
+  <!-- Catálogo de lecciones -->
+  <div class="catalog-section">
+    <h2>Catálogo de Lecciones</h2>
+
+    <div class="filters">
+      <input
+        type="text"
+        [(ngModel)]="searchText"
+        placeholder="Buscar lección..."
+        class="search-input"
+      />
+      <select [(ngModel)]="selectedLevel">
+        <option value="">Todos los niveles</option>
+        <option value="inicial">Inicial</option>
+        <option value="intermedio">Intermedio</option>
+        <option value="avanzado">Avanzado</option>
+      </select>
+      <select [(ngModel)]="selectedCategory">
+        <option value="">Todas las categorías</option>
+        <option value="HTML">HTML</option>
+        <option value="CSS">CSS</option>
+        <option value="Layout">Layout</option>
+        <option value="Grid">Grid</option>
+      </select>
     </div>
 
-    @if (upcomingLessons().length > 0) {
-    <footer style="margin-top: 3.5rem;">
-        <h2 style="color: white; font-size: 1.4rem; margin-bottom: 1.2rem; font-weight: 600;">Tus próximos objetivos
-        </h2>
-        <div style="display: flex; flex-direction: column; gap: 0.85rem;">
-            @for (lesson of upcomingLessons(); track lesson._id) {
-            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); padding: 1.2rem 1.5rem; border-radius: 16px; display: flex; justify-content: space-between; align-items: center; transition: background 0.2s;"
-                onmouseover="this.style.background='rgba(255, 255, 255, 0.05)'"
-                onmouseout="this.style.background='rgba(255, 255, 255, 0.03)'">
-                <div>
-                    <span
-                        style="color: #00adb5; font-size: 0.75rem; text-transform: uppercase; font-weight: bold; display: block; margin-bottom: 0.25rem;">
-                        {{ lesson.level }}
-                    </span>
-                    <strong style="color: white; font-size: 1.05rem; font-weight: 500;">{{ lesson.title }}</strong>
-                </div>
-                <a [routerLink]="['/lesson', lesson._id]"
-                    style="color: #2ec4b6; text-decoration: none; font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 0.25rem;">
-                    Empezar ➔
-                </a>
-            </div>
-            }
+    <div class="lessons-grid">
+      <div class="lesson-card" *ngFor="let lesson of filteredLessons" [routerLink]="'/lessons/detail/' + lesson.id" style="cursor:pointer">
+        <div class="lesson-header">
+          <span class="badge level-{{ lesson.level }}">{{ lesson.level }}</span>
+          <span class="badge category">{{ lesson.category }}</span>
+          <span class="badge completed" *ngIf="progressService.isCompleted(+lesson.id)">✅ Completada</span>
         </div>
-    </footer>
-    }
+        <h3>{{ lesson.title }}</h3>
+        <div class="tags">
+          <span class="tag" *ngFor="let tag of lesson.tags">#{{ tag }}</span>
+        </div>
+      </div>
+      <p class="no-results" *ngIf="filteredLessons.length === 0">
+        No se encontraron lecciones con esos filtros.
+      </p>
+    </div>
+  </div>
+
 </section>

@@ -1,0 +1,43 @@
+<div class="tests-container">
+
+  <div class="tests-header">
+    <a routerLink="/profesor/dashboard" class="btn-back">← Volver</a>
+    <div class="header-title">
+      <h1>✅ Tests completados</h1>
+      <p>Resumen de todos los tests realizados</p>
+    </div>
+  </div>
+
+  <div class="tests-stats">
+    <div class="stat-box">
+      <span class="stat-number">{{ totalTests }}</span>
+      <span class="stat-label">Tests totales</span>
+    </div>
+    <div class="stat-box highlight">
+      <span class="stat-number">{{ mediaScore }}%</span>
+      <span class="stat-label">Media de aciertos</span>
+    </div>
+    <div class="stat-box">
+      <span class="stat-number">{{ perfectos }}</span>
+      <span class="stat-label">Tests perfectos</span>
+    </div>
+  </div>
+
+  <div class="tests-list">
+    <div class="test-card" *ngFor="let test of tests">
+      <div class="test-avatar">👤</div>
+      <div class="test-info">
+        <span class="test-alumno">{{ test.alumno }}</span>
+        <span class="test-leccion">{{ test.leccion }}</span>
+      </div>
+      <div class="test-score-bar">
+        <div class="score-fill" [style.width.%]="(test.score / test.total) * 100" [class.perfect]="test.score === test.total"></div>
+      </div>
+      <div class="test-result">
+        <span class="test-score" [class.perfect]="test.score === test.total">{{ test.score }}/{{ test.total }}</span>
+        <span class="test-date">{{ test.fecha }}</span>
+      </div>
+    </div>
+  </div>
+
+</div>

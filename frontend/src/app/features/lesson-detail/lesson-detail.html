@@ -1,32 +1,42 @@
-<div class="lesson-container">
-    @if (lesson()) {
-    <h1 class="lesson-title">{{ lesson()?.title }}</h1>
-    <div class="lesson-meta">
-        <span class="badge">{{ lesson()?.level }}</span>
-        <span class="duration">⏱️ {{ lesson()?.duration }} min</span>
+<div class="lesson-detail-container">
+
+  @if (!showTest) {
+    <div class="lesson-hero">
+      <div class="lesson-badges">
+        <span class="badge level-inicial">{{ lesson.level }}</span>
+        <span class="badge category">{{ lesson.category }}</span>
+      </div>
+      <h1>{{ lesson.title }}</h1>
+      <p class="lesson-description">{{ lesson.description }}</p>
     </div>
 
-    <hr>
-
-    <div class="lesson-content">
-        <p class="lesson-description">{{ lesson()?.description }}</p>
-
-        <div class="full-text">
-            <markdown [data]="lesson()?.content"></markdown>
+    <div class="lesson-sections">
+      @for (section of lesson.sections; track section.title) {
+        <div class="section">
+          <h2>{{ section.title }}</h2>
+          <p>{{ section.content }}</p>
+          @if (section.code) {
+            <pre><code>{{ section.code }}</code></pre>
+          }
         </div>
+      }
     </div>
 
-    <footer class="m-lesson-actions" style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #e0e0e0;">
-        <button (click)="toggleComplete()" class="a-btn"
-            [ngClass]="lesson()?.completed ? 'a-btn--success' : 'a-btn--primary'"
-            style="cursor: pointer; display: flex; align-items: center; gap: 0.5rem;">
-            <span>{{ lesson()?.completed ? '✅ Lección Completada' : '✔ Marcar como Completada' }}</span>
-        </button>
-    </footer>
-
-    } @else {
-    <div class="loading">
-        <p>Cargando contenido de la lección...</p>
+    <div class="lesson-footer">
+      <button class="btn-test" (click)="startTest()">
+        ¡Hacer el test! 🎯
+      </button>
     </div>
-    }
+  }
+
+  @if (showTest) {
+    <app-lesson-form
+      [questions]="lesson.questions"
+      [lessonId]="lesson.id"
+      [lessonTitle]="lesson.title"
+      [lessonCategory]="lesson.category"
+      [lessonIcon]="'📖'">
+    </app-lesson-form>
+  }
+
 </div>

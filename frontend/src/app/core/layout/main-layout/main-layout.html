@@ -38,6 +38,21 @@
                 <span class="m-nav-item__label">Catálogo</span>
             </a>
 
+            <a routerLink="/progress" routerLinkActive="m-nav-item--active" class="m-nav-item" (click)="closeSidebar()">
+                <span class="m-nav-item__icon">📈</span>
+                <span class="m-nav-item__label">Progreso</span>
+            </a>
+
+            <a routerLink="/achievements" routerLinkActive="m-nav-item--active" class="m-nav-item" (click)="closeSidebar()">
+                <span class="m-nav-item__icon">🏆</span>
+                <span class="m-nav-item__label">Logros</span>
+            </a>
+
+            <a routerLink="/profile" routerLinkActive="m-nav-item--active" class="m-nav-item" (click)="closeSidebar()">
+                <span class="m-nav-item__icon">👤</span>
+                <span class="m-nav-item__label">Mi Perfil</span>
+            </a>
+
             <header class="o-sidebar__section-title">Nivel Inicial</header>
             @for (lesson of filteredLessons(); track lesson._id) {
             @if (lesson.level === 'Inicial') {
