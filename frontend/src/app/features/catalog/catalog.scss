@@ -13,10 +13,18 @@
         color: white;
         font-size: 2rem;
         margin-bottom: 0.5rem;
+
+        @media (max-width: 480px) {
+            font-size: 1.6rem;
+        }
     }
 
     &__subtitle {
         color: rgba(white, 0.6);
+
+        @media (max-width: 480px) {
+            font-size: 0.85rem;
+        }
     }
 }
 

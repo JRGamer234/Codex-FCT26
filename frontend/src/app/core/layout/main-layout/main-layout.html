@@ -1,23 +1,39 @@
 <div class="main-screen">
 
-    <aside class="o-sidebar">
+    <!-- Barra superior solo visible en móvil -->
+    <div class="mobile-topbar">
+        <button class="mobile-topbar__hamburger" (click)="toggleSidebar()" aria-label="Abrir menú">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <span class="mobile-topbar__title">Codex</span>
+    </div>
+
+    <!-- Fondo oscuro al abrir la sidebar en móvil -->
+    <div class="sidebar-overlay" [class.is-visible]="sidebarOpen()" (click)="closeSidebar()"></div>
+
+    <aside class="o-sidebar" [class.is-open]="sidebarOpen()">
+
+        <button class="o-sidebar__close" (click)="closeSidebar()" aria-label="Cerrar menú">✕</button>
+
         <div class="o-sidebar__search-container">
             <input type="text" class="a-input" placeholder="Buscar lección..." (input)="updateSearch($event)">
         </div>
 
         <div class="o-sidebar__actions" style="padding: 0 1rem; margin-bottom: 1rem;">
-            <button routerLink="/create-lesson" class="a-btn a-btn--primary" style="width: 100%; cursor: pointer;">
+            <button routerLink="/create-lesson" class="a-btn a-btn--primary" style="width: 100%; cursor: pointer;" (click)="closeSidebar()">
                 ➕ Nueva Lección
             </button>
         </div>
 
         <nav class="o-sidebar__menu">
-            <a routerLink="/dashboard" routerLinkActive="m-nav-item--active" class="m-nav-item">
+            <a routerLink="/dashboard" routerLinkActive="m-nav-item--active" class="m-nav-item" (click)="closeSidebar()">
                 <span class="m-nav-item__icon">🏠</span>
                 <span class="m-nav-item__label">Dashboard</span>
             </a>
 
-            <a routerLink="/catalog" routerLinkActive="m-nav-item--active" class="m-nav-item">
+            <a routerLink="/catalog" routerLinkActive="m-nav-item--active" class="m-nav-item" (click)="closeSidebar()">
                 <span class="m-nav-item__icon">🧭</span>
                 <span class="m-nav-item__label">Catálogo</span>
             </a>
@@ -25,7 +41,7 @@
             <header class="o-sidebar__section-title">Nivel Inicial</header>
             @for (lesson of filteredLessons(); track lesson._id) {
             @if (lesson.level === 'Inicial') {
-            <a [routerLink]="['/lesson', lesson._id]" routerLinkActive="m-nav-item--active" class="m-nav-item">
+            <a [routerLink]="['/lesson', lesson._id]" routerLinkActive="m-nav-item--active" class="m-nav-item" (click)="closeSidebar()">
                 <span class="m-nav-item__icon">📚</span>
                 <span class="m-nav-item__label">{{ lesson.title }}</span>
             </a>
@@ -35,7 +51,7 @@
             <header class="o-sidebar__section-title">Nivel Intermedio</header>
             @for (lesson of filteredLessons(); track lesson._id) {
             @if (lesson.level === 'Intermedio') {
-            <a [routerLink]="['/lesson', lesson._id]" routerLinkActive="m-nav-item--active" class="m-nav-item">
+            <a [routerLink]="['/lesson', lesson._id]" routerLinkActive="m-nav-item--active" class="m-nav-item" (click)="closeSidebar()">
                 <span class="m-nav-item__icon">📖</span>
                 <span class="m-nav-item__label">{{ lesson.title }}</span>
             </a>

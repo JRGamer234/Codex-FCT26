@@ -1,0 +1,47 @@
+@use '../../../styles/settings/variables' as *;
+
+.profile-page {
+    width: 100%;
+    max-width: 480px;
+    box-sizing: border-box;
+
+    h2 {
+        font-size: 2rem;
+        color: white;
+        margin-bottom: 0.5rem;
+
+        @media (max-width: 480px) {
+            font-size: 1.6rem;
+        }
+    }
+
+    p {
+        color: rgba(white, 0.7);
+        margin-bottom: 2rem;
+    }
+}
+
+.profile-field {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+
+    .a-label {
+        margin-bottom: 0.4rem;
+    }
+
+    .a-input {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+.profile-actions {
+    @media (max-width: 480px) {
+        .a-btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+        }
+    }
+}

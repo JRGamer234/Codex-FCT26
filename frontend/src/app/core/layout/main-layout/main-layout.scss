@@ -1,65 +1,158 @@
 @use "../../../../styles/settings/variables" as *;
 @use "sass:color";
 
-// ORGANISMO: Main Layout (Estructura global)
+$topbar-height: 56px;
+
 .main-screen {
-    display: flex; // Usamos Flex para alinear Sidebar y Contenido en horizontal
+    display: flex;
     width: 100vw;
     height: 100vh;
-    overflow: hidden; // Evita que la web entera haga scroll
+    overflow: hidden;
     background-color: $color-bg;
+}
 
-    // 📱 Cuando estamos en pantallas medianas/pequeñas, cambiamos a diseño vertical
+// ── BARRA SUPERIOR MÓVIL ──────────────────────────────────────────────────────
+.mobile-topbar {
+    display: none;
+
     @media (max-width: 992px) {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: $topbar-height;
+        background-color: color.adjust($color-bg, $lightness: -3%);
+        border-bottom: 1px solid rgba($color-primary, 0.1);
+        padding: 0 1rem;
+        z-index: 1001;
+    }
+
+    &__hamburger {
+        display: flex;
         flex-direction: column;
+        justify-content: center;
+        gap: 5px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 4px;
+
+        span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background-color: $color-text;
+            border-radius: 2px;
+            transition: background-color 0.2s;
+        }
+
+        &:hover span {
+            background-color: $color-primary;
+        }
+    }
+
+    &__title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: $color-primary;
+        letter-spacing: 1px;
     }
 }
 
-// ORGANISMO: Sidebar 
+// ── OVERLAY FONDO OSCURO ──────────────────────────────────────────────────────
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+
+    &.is-visible {
+        display: block;
+        opacity: 1;
+    }
+}
+
+// ── SIDEBAR ───────────────────────────────────────────────────────────────────
 .o-sidebar {
     width: 280px;
-    min-width: 280px; // Evita que se deforme en escritorio
-    flex-shrink: 0; // 🚨 CLAVE: Impide que el contenido derecho lo aplaste
+    min-width: 280px;
+    flex-shrink: 0;
     height: 100%;
     background-color: color.adjust($color-bg, $lightness: -3%);
     border-right: 1px solid rgba($color-primary, 0.1);
     display: flex;
     flex-direction: column;
-    overflow-y: auto; // Por si hay muchas lecciones en el menú
+    overflow-y: auto;
 
-    // 📱 Ajuste adaptativo para tablets y móviles
     @media (max-width: 992px) {
-        width: 100%;
-        min-width: 100%;
-        height: auto;
-        max-height: 250px; // Limitamos su tamaño arriba en móviles para que no se coma la pantalla
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        z-index: 1000;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
         border-right: none;
-        border-bottom: 1px solid rgba($color-primary, 0.1);
+
+        &.is-open {
+            transform: translateX(0);
+            box-shadow: 4px 0 32px rgba(0, 0, 0, 0.5);
+        }
     }
 }
 
-// ÁREA DE CONTENIDO: Donde se carga el Dashboard y las Lecciones
+// Botón cerrar solo visible en móvil
+.o-sidebar__close {
+    display: none;
+
+    @media (max-width: 992px) {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 1rem 1rem 0.5rem;
+        background: none;
+        border: none;
+        color: rgba($color-text, 0.5);
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: color 0.2s;
+
+        &:hover {
+            color: $color-text;
+        }
+    }
+}
+
+// ── ÁREA DE CONTENIDO ─────────────────────────────────────────────────────────
 .main-layout__content {
-    flex: 1; // 🚨 CLAVE: Se queda con todo el espacio restante automáticamente
-    min-width: 0; // 🚨 Evita que grids o tablas internas fuercen un desbordamiento horizontal
+    flex: 1;
+    min-width: 0;
     height: 100%;
-    overflow-y: auto; // Solo esta parte tiene scroll vertical principal
+    overflow-y: auto;
     background-color: $color-bg;
     padding: 2rem;
     color: $color-text;
     position: relative;
     box-sizing: border-box;
 
-    // 📱 En pantallas pequeñas reducimos el espacio de respiración
+    @media (max-width: 992px) {
+        padding-top: calc(#{$topbar-height} + 1.25rem);
+    }
+
     @media (max-width: 768px) {
-        padding: 1.25rem;
+        padding: calc(#{$topbar-height} + 1rem) 1.25rem 1.25rem;
     }
 
     @media (max-width: 480px) {
-        padding: 1rem;
+        padding: calc(#{$topbar-height} + 0.75rem) 1rem 1rem;
     }
 
-    // Aseguramos que el contenido del router-outlet se vea bien
     router-outlet+* {
         display: block;
         width: 100%;
@@ -69,7 +162,7 @@
     }
 }
 
-// El resto de tus estilos se quedan intactos pero optimizados:
+// ── ELEMENTOS DE LA SIDEBAR ───────────────────────────────────────────────────
 .o-sidebar__search-container {
     padding: 1rem;
 
@@ -117,6 +210,7 @@
     margin: 1.5rem 1rem 0.5rem 1.5rem;
 }
 
+// ── ANIMACIÓN ─────────────────────────────────────────────────────────────────
 @keyframes fadeIn {
     from {
         opacity: 0;

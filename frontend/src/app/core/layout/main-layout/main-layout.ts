@@ -11,17 +11,14 @@ import { LessonService } from '../../services/lesson.service'; // Asegura esta r
   styleUrls: ['./main-layout.scss']
 })
 export class MainLayoutComponent implements OnInit {
-  // Inyectamos el nuevo servicio
   private lessonService = inject(LessonService);
 
-  // searchTerm sigue siendo un signal para el input
   searchTerm = signal('');
+  sidebarOpen = signal(false);
 
-  // filteredLessons ahora mira directamente al signal del servicio
   filteredLessons = computed(() => {
     const term = this.searchTerm().toLowerCase();
-    const allLessons = this.lessonService.lessons(); // <--- Datos de la DB
-
+    const allLessons = this.lessonService.lessons();
     return allLessons.filter(l =>
       l.title.toLowerCase().includes(term) ||
       l.level.toLowerCase().includes(term)
@@ -29,15 +26,22 @@ export class MainLayoutComponent implements OnInit {
   });
 
   ngOnInit() {
-    // Llamamos al backend nada más cargar la página
     this.lessonService.getLessons().subscribe({
       next: (res) => console.log('Lecciones cargadas:', res),
-      error: (err) => console.error('Error al conectar con el backend de Alejandro:', err)
+      error: (err) => console.error('Error al conectar con el backend:', err)
     });
   }
 
   updateSearch(event: Event) {
     const value = (event.target as HTMLInputElement).value;
     this.searchTerm.set(value);
+  }
+
+  toggleSidebar() {
+    this.sidebarOpen.update(v => !v);
+  }
+
+  closeSidebar() {
+    this.sidebarOpen.set(false);
   }
 }
