@@ -1,94 +1,96 @@
-<div class="register-container">
-  <div class="register-card">
+<div class="login-wrapper">
 
-    <div class="register-header">
-      <h1>👨‍💻 Codex</h1>
-      <p>Crea tu cuenta y empieza a aprender</p>
+  <div class="login-brand">
+    <div class="brand-logo">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="40" height="40" rx="10" fill="#38bdf8" fill-opacity="0.15"/>
+        <path d="M10 15 L18 20 L10 25" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M22 25 H30" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+      <span>Codex</span>
     </div>
-
-    @if (success) {
-      <div class="success-msg">
-        ✅ Cuenta creada correctamente. Redirigiendo al login...
-      </div>
-    }
-
-    @if (!success) {
-      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-
-        <div class="form-group">
-          <label for="name">Nombre</label>
-          <input
-            id="name"
-            type="text"
-            formControlName="name"
-            placeholder="Tu nombre"
-            [class.error]="submitted && f['name'].errors"
-          />
-          @if (submitted && f['name'].errors?.['required']) {
-            <span class="error-msg">El nombre es obligatorio</span>
-          }
-          @if (submitted && f['name'].errors?.['minlength']) {
-            <span class="error-msg">Mínimo 2 caracteres</span>
-          }
-        </div>
-
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            formControlName="email"
-            placeholder="tu@email.com"
-            [class.error]="submitted && f['email'].errors"
-          />
-          @if (submitted && f['email'].errors?.['required']) {
-            <span class="error-msg">El email es obligatorio</span>
-          }
-          @if (submitted && f['email'].errors?.['email']) {
-            <span class="error-msg">El email no es válido</span>
-          }
-        </div>
-
-        <div class="form-group">
-          <label for="password">Contraseña</label>
-          <input
-            id="password"
-            type="password"
-            formControlName="password"
-            placeholder="••••••"
-            [class.error]="submitted && f['password'].errors"
-          />
-          @if (submitted && f['password'].errors?.['required']) {
-            <span class="error-msg">La contraseña es obligatoria</span>
-          }
-          @if (submitted && f['password'].errors?.['minlength']) {
-            <span class="error-msg">Mínimo 6 caracteres</span>
-          }
-        </div>
-
-        <div class="form-group">
-          <label for="confirmPassword">Confirmar contraseña</label>
-          <input
-            id="confirmPassword"
-            type="password"
-            formControlName="confirmPassword"
-            placeholder="••••••"
-            [class.error]="submitted && (f['confirmPassword'].errors || registerForm.errors?.['mismatch'])"
-          />
-          @if (submitted && f['confirmPassword'].errors?.['required']) {
-            <span class="error-msg">Confirma tu contraseña</span>
-          }
-          @if (submitted && registerForm.errors?.['mismatch']) {
-            <span class="error-msg">Las contraseñas no coinciden</span>
-          }
-        </div>
-
-        <button type="submit">Crear cuenta</button>
-
-      </form>
-    }
-
-    <p class="login-link">¿Ya tienes cuenta? <a routerLink="/login">Inicia sesión</a></p>
-
+    <h2>Empieza tu camino como desarrollador</h2>
+    <p>Crea tu cuenta gratis y accede a todo el contenido de la plataforma.</p>
+    <ul class="brand-features">
+      <li>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        Acceso completo al catálogo
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        Guarda tu progreso automáticamente
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        Desbloquea logros y badges
+      </li>
+    </ul>
   </div>
+
+  <div class="login-form-panel">
+    <div class="login-card">
+      <div class="login-card__header">
+        <h1>Crear cuenta</h1>
+        <p>Rellena tus datos para empezar</p>
+      </div>
+
+      @if (success) {
+        <div class="alert-success">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Cuenta creada. Redirigiendo al login...
+        </div>
+      }
+
+      @if (!success) {
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="name">Nombre</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <input id="name" type="text" formControlName="name" placeholder="Tu nombre" [class.error]="submitted && f['name'].errors"/>
+            </div>
+            @if (submitted && f['name'].errors?.['required']) { <span class="error-msg">El nombre es obligatorio</span> }
+            @if (submitted && f['name'].errors?.['minlength']) { <span class="error-msg">Mínimo 2 caracteres</span> }
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <input id="email" type="email" formControlName="email" placeholder="tu@email.com" [class.error]="submitted && f['email'].errors"/>
+            </div>
+            @if (submitted && f['email'].errors?.['required']) { <span class="error-msg">El email es obligatorio</span> }
+            @if (submitted && f['email'].errors?.['email']) { <span class="error-msg">El email no es válido</span> }
+          </div>
+
+          <div class="form-group">
+            <label for="password">Contraseña</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <input id="password" type="password" formControlName="password" placeholder="••••••" [class.error]="submitted && f['password'].errors"/>
+            </div>
+            @if (submitted && f['password'].errors?.['required']) { <span class="error-msg">La contraseña es obligatoria</span> }
+            @if (submitted && f['password'].errors?.['minlength']) { <span class="error-msg">Mínimo 6 caracteres</span> }
+          </div>
+
+          <div class="form-group">
+            <label for="confirmPassword">Confirmar contraseña</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <input id="confirmPassword" type="password" formControlName="confirmPassword" placeholder="••••••" [class.error]="submitted && (f['confirmPassword'].errors || registerForm.errors?.['mismatch'])"/>
+            </div>
+            @if (submitted && f['confirmPassword'].errors?.['required']) { <span class="error-msg">Confirma tu contraseña</span> }
+            @if (submitted && registerForm.errors?.['mismatch']) { <span class="error-msg">Las contraseñas no coinciden</span> }
+          </div>
+
+          <button type="submit" class="btn-submit">Crear cuenta</button>
+        </form>
+      }
+
+      <div class="login-card__footer">
+        <p>¿Ya tienes cuenta? <a routerLink="/login">Inicia sesión</a></p>
+      </div>
+    </div>
+  </div>
+
 </div>

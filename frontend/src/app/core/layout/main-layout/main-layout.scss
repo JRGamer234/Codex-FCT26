@@ -4,221 +4,230 @@
 $topbar-height: 56px;
 
 .main-screen {
-    display: flex;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    background-color: $color-bg;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: $color-bg;
 }
 
-// ── BARRA SUPERIOR MÓVIL ──────────────────────────────────────────────────────
 .mobile-topbar {
-    display: none;
+  display: none;
 
-    @media (max-width: 992px) {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: $topbar-height;
-        background-color: color.adjust($color-bg, $lightness: -3%);
-        border-bottom: 1px solid rgba($color-primary, 0.1);
-        padding: 0 1rem;
-        z-index: 1001;
-    }
-
-    &__hamburger {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        gap: 5px;
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 4px;
-
-        span {
-            display: block;
-            width: 22px;
-            height: 2px;
-            background-color: $color-text;
-            border-radius: 2px;
-            transition: background-color 0.2s;
-        }
-
-        &:hover span {
-            background-color: $color-primary;
-        }
-    }
-
-    &__title {
-        font-size: 1.1rem;
-        font-weight: 700;
-        color: $color-primary;
-        letter-spacing: 1px;
-    }
-}
-
-// ── OVERLAY FONDO OSCURO ──────────────────────────────────────────────────────
-.sidebar-overlay {
-    display: none;
+  @media (max-width: 992px) {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
     position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.6);
-    z-index: 999;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    top: 0; left: 0; right: 0;
+    height: $topbar-height;
+    background: color.adjust($color-bg, $lightness: -2%);
+    border-bottom: 1px solid rgba(white, 0.06);
+    padding: 0 1rem;
+    z-index: 1001;
+  }
 
-    &.is-visible {
-        display: block;
-        opacity: 1;
-    }
-}
-
-// ── SIDEBAR ───────────────────────────────────────────────────────────────────
-.o-sidebar {
-    width: 280px;
-    min-width: 280px;
-    flex-shrink: 0;
-    height: 100%;
-    background-color: color.adjust($color-bg, $lightness: -3%);
-    border-right: 1px solid rgba($color-primary, 0.1);
+  &__hamburger {
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
 
-    @media (max-width: 992px) {
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100%;
-        z-index: 1000;
-        transform: translateX(-100%);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        border-right: none;
+    span { display: block; width: 20px; height: 2px; background: rgba(white, 0.7); border-radius: 2px; transition: background 0.2s; }
+    &:hover span { background: $color-primary; }
+  }
 
-        &.is-open {
-            transform: translateX(0);
-            box-shadow: 4px 0 32px rgba(0, 0, 0, 0.5);
-        }
-    }
+  &__logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    svg { width: 28px; height: 28px; }
+    span { font-size: 1rem; font-weight: 700; color: white; letter-spacing: -0.3px; }
+  }
 }
 
-// Botón cerrar solo visible en móvil
-.o-sidebar__close {
-    display: none;
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 999;
 
-    @media (max-width: 992px) {
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        padding: 1rem 1rem 0.5rem;
-        background: none;
-        border: none;
-        color: rgba($color-text, 0.5);
-        font-size: 1.2rem;
-        cursor: pointer;
-        transition: color 0.2s;
-
-        &:hover {
-            color: $color-text;
-        }
-    }
+  &.is-visible { display: block; }
 }
 
-// ── ÁREA DE CONTENIDO ─────────────────────────────────────────────────────────
-.main-layout__content {
-    flex: 1;
-    min-width: 0;
+.o-sidebar {
+  width: 260px;
+  min-width: 260px;
+  flex-shrink: 0;
+  height: 100%;
+  background: color.adjust($color-bg, $lightness: -2%);
+  border-right: 1px solid rgba(white, 0.06);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+
+  @media (max-width: 992px) {
+    position: fixed;
+    top: 0; left: 0;
     height: 100%;
-    overflow-y: auto;
-    background-color: $color-bg;
-    padding: 2rem;
-    color: $color-text;
-    position: relative;
-    box-sizing: border-box;
+    z-index: 1000;
+    transform: translateX(-100%);
+    transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
 
-    @media (max-width: 992px) {
-        padding-top: calc(#{$topbar-height} + 1.25rem);
+    &.is-open {
+      transform: translateX(0);
+      box-shadow: 8px 0 40px rgba(0, 0, 0, 0.4);
     }
+  }
 
-    @media (max-width: 768px) {
-        padding: calc(#{$topbar-height} + 1rem) 1.25rem 1.25rem;
-    }
+  &__logo {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 1.5rem 1.25rem 1rem;
+    svg { width: 30px; height: 30px; }
+    span { font-size: 1.05rem; font-weight: 800; color: white; letter-spacing: -0.3px; }
 
-    @media (max-width: 480px) {
-        padding: calc(#{$topbar-height} + 0.75rem) 1rem 1rem;
-    }
+    @media (max-width: 992px) { display: none; }
+  }
 
-    router-outlet+* {
-        display: block;
-        width: 100%;
-        max-width: 100%;
-        box-sizing: border-box;
-        animation: fadeIn 0.3s ease-in;
-    }
+  &__search-container { padding: 0.75rem 1rem; }
+  &__actions { padding: 0 1rem 0.75rem; }
+  &__menu { flex: 1; padding: 0.25rem 0; }
+
+  &__divider {
+    height: 1px;
+    background: rgba(white, 0.05);
+    margin: 0.75rem 1rem;
+  }
+
+  &__section-title {
+    font-size: 0.67rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: rgba(white, 0.3);
+    padding: 0.75rem 1.25rem 0.4rem;
+    font-weight: 600;
+  }
+
+  &__close {
+    display: none;
+    position: absolute;
+    top: 1rem; right: 1rem;
+    background: rgba(white, 0.05);
+    border: none;
+    border-radius: 8px;
+    width: 32px; height: 32px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: rgba(white, 0.5);
+    transition: background 0.2s, color 0.2s;
+    svg { width: 16px; height: 16px; }
+    &:hover { background: rgba(white, 0.1); color: white; }
+
+    @media (max-width: 992px) { display: flex; }
+  }
 }
 
-// ── ELEMENTOS DE LA SIDEBAR ───────────────────────────────────────────────────
-.o-sidebar__search-container {
-    padding: 1rem;
+.search-wrapper {
+  position: relative;
 
-    .a-input {
-        width: 100%;
-        padding: 0.5rem;
-        background: rgba(0, 0, 0, 0.2);
-        border: 1px solid rgba(white, 0.1);
-        border-radius: 6px;
-        color: white;
-        box-sizing: border-box;
-    }
+  .search-icon {
+    position: absolute;
+    left: 0.7rem; top: 50%;
+    transform: translateY(-50%);
+    width: 14px; height: 14px;
+    color: rgba(white, 0.25);
+    pointer-events: none;
+  }
+
+  .a-input {
+    padding-left: 2.2rem;
+    font-size: 0.85rem;
+    height: 36px;
+    background: rgba(white, 0.04);
+    border-color: rgba(white, 0.06);
+  }
+}
+
+.a-btn--full {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  svg { width: 15px; height: 15px; }
 }
 
 .m-nav-item {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.75rem 1rem;
-    margin: 0 1rem 0.25rem 1rem;
-    border-radius: 8px;
-    color: rgba($color-text, 0.7);
-    text-decoration: none;
-    transition: all 0.2s ease;
-    font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.6rem 1rem;
+  margin: 0.1rem 0.75rem;
+  border-radius: 8px;
+  color: rgba($color-text, 0.55);
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+  font-size: 0.88rem;
+  font-weight: 500;
 
-    &:hover {
-        background-color: rgba($color-primary, 0.05);
-        color: $color-primary;
-    }
+  &__icon { width: 17px; height: 17px; flex-shrink: 0; }
+  &__label { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-    &--active {
-        background-color: rgba($color-primary, 0.1);
-        color: $color-primary;
-        font-weight: 600;
-        border-left: 3px solid $color-primary;
-    }
-}
+  &:hover { background: rgba(white, 0.04); color: rgba($color-text, 0.85); }
 
-.o-sidebar__section-title {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
+  &--active {
+    background: rgba($color-primary, 0.1);
+    color: $color-primary;
+    font-weight: 600;
+  }
+
+  &--lesson {
+    font-size: 0.82rem;
+    padding: 0.5rem 1rem;
     color: rgba($color-text, 0.4);
-    margin: 1.5rem 1rem 0.5rem 1.5rem;
+    .m-nav-item__icon { width: 14px; height: 14px; color: rgba(white, 0.2); }
+    &:hover { color: rgba($color-text, 0.7); }
+    &.m-nav-item--active { color: $color-primary; }
+  }
 }
 
-// ── ANIMACIÓN ─────────────────────────────────────────────────────────────────
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
+.main-layout__content {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  overflow-y: auto;
+  background-color: $color-bg;
+  padding: 2.5rem;
+  color: $color-text;
+  box-sizing: border-box;
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  @media (max-width: 992px) { padding-top: calc(#{$topbar-height} + 1.5rem); }
+  @media (max-width: 768px) { padding: calc(#{$topbar-height} + 1rem) 1.25rem 1.25rem; }
+  @media (max-width: 480px) { padding: calc(#{$topbar-height} + 0.75rem) 1rem 1rem; }
+
+  router-outlet+* {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    animation: fadeIn 0.25s ease-out;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }

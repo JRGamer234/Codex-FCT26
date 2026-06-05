@@ -11,6 +11,9 @@
 // 4. Organisms
 @use 'organisms/sidebar';
 
+// 5. Auth layout (compartido por login y register)
+@use 'layouts/auth';
+
 * {
     margin: 0;
     padding: 0;
