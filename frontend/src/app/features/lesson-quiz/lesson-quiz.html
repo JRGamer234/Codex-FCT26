@@ -1,0 +1,39 @@
+<div class="test-container">
+
+  @if (!finished) {
+    <div class="test-header">
+      <span class="progress">Pregunta {{ currentIndex + 1 }} de {{ questions.length }}</span>
+      <div class="progress-bar">
+        <div class="progress-bar__fill" [style.width.%]="((currentIndex + 1) / questions.length) * 100"></div>
+      </div>
+    </div>
+
+    <div class="question-card">
+      <h2>{{ currentQuestion.question }}</h2>
+
+      <div class="options">
+        @for (option of currentQuestion.options; track $index) {
+          <button class="option" [class.selected]="selectedOption === $index" (click)="selectOption($index)">
+            <span class="option-letter">{{ ['A','B','C','D'][$index] }}</span>
+            {{ option }}
+          </button>
+        }
+      </div>
+
+      <button class="btn-next" [disabled]="selectedOption === null" (click)="next()">
+        {{ currentIndex + 1 < questions.length ? 'Siguiente' : 'Finalizar' }}
+      </button>
+    </div>
+  }
+
+  @if (finished) {
+    <div class="result-card">
+      <div class="result-icon">{{ score >= questions.length / 2 ? '🎉' : '📚' }}</div>
+      <h2>{{ score >= questions.length / 2 ? '¡Bien hecho!' : '¡Sigue practicando!' }}</h2>
+      <div class="score">{{ score }} / {{ questions.length }}</div>
+      <p class="result-msg">Respondiste correctamente {{ score }} de {{ questions.length }} preguntas.</p>
+      <button class="btn-restart" (click)="restart()">Volver a intentarlo</button>
+    </div>
+  }
+
+</div>

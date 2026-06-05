@@ -45,7 +45,7 @@ export class LoginComponent {
       if (user.rol === 'profesor') {
         this.router.navigate(['/profesor/dashboard']);
       } else {
-        this.router.navigate(['/lessons/dashboard']);
+        this.router.navigate(['/dashboard']);
       }
     } else {
       this.errorMsg = 'Email o contraseña incorrectos';

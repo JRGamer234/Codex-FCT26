@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink, ActivatedRoute } from '@angular/router';
-import { LessonFormComponent } from '../lesson-form/lesson-form';
+import { ActivatedRoute } from '@angular/router';
+import { LessonQuizComponent } from '../lesson-quiz/lesson-quiz';
 
 interface Section {
   title: string;
@@ -28,7 +28,7 @@ interface Lesson {
 @Component({
   selector: 'app-lesson-detail',
   standalone: true,
-  imports: [CommonModule, RouterLink, LessonFormComponent],
+  imports: [CommonModule, LessonQuizComponent],
   templateUrl: './lesson-detail.html',
   styleUrl: './lesson-detail.scss'
 })
