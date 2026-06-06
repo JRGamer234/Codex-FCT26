@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProgressService } from '../../core/services/progress';
 
@@ -17,49 +17,21 @@ interface Question {
 })
 export class LessonQuizComponent implements OnInit {
   @Input() questions: Question[] = [];
-  @Input() lessonId: number = 0;
+  @Input() lessonId: string = '';
   @Input() lessonTitle: string = '';
   @Input() lessonCategory: string = '';
-  @Input() lessonIcon: string = '📖';
+  @Output() lessonCompleted = new EventEmitter<void>();
 
   currentIndex = 0;
   selectedOption: number | null = null;
   answers: (number | null)[] = [];
   finished = false;
 
-  defaultQuestions: Question[] = [
-    {
-      question: '¿Qué significa HTML?',
-      options: ['HyperText Markup Language', 'HighText Machine Language', 'HyperText and links Markup Language', 'None of the above'],
-      correct: 0
-    },
-    {
-      question: '¿Cuál es la etiqueta correcta para un párrafo en HTML?',
-      options: ['<paragraph>', '<p>', '<par>', '<pg>'],
-      correct: 1
-    },
-    {
-      question: '¿Qué propiedad CSS se usa para cambiar el color del texto?',
-      options: ['text-color', 'font-color', 'color', 'foreground-color'],
-      correct: 2
-    },
-    {
-      question: '¿Qué significa CSS?',
-      options: ['Creative Style Sheets', 'Cascading Style Sheets', 'Computer Style Sheets', 'Colorful Style Sheets'],
-      correct: 1
-    },
-    {
-      question: '¿Cuál es la propiedad CSS para hacer un elemento flexible?',
-      options: ['display: block', 'display: flex', 'display: grid', 'display: inline'],
-      correct: 1
-    }
-  ];
-
   constructor(private progressService: ProgressService) {}
 
   ngOnInit() {
     if (this.questions.length === 0) {
-      this.questions = this.defaultQuestions;
+      this.questions = [];
     }
   }
 
@@ -84,13 +56,10 @@ export class LessonQuizComponent implements OnInit {
       this.currentIndex++;
     } else {
       this.finished = true;
-      this.progressService.completeLesson({
-        id: this.lessonId,
-        title: this.lessonTitle,
-        category: this.lessonCategory,
-        icon: this.lessonIcon,
-        completedAt: 'Hoy'
-      });
+      if (this.lessonId) {
+        this.progressService.completeLesson(this.lessonId, this.lessonTitle, this.lessonCategory).subscribe();
+        this.lessonCompleted.emit();
+      }
     }
   }
 

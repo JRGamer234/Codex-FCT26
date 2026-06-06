@@ -11,7 +11,7 @@
       </div>
       <div class="m-stat-card__info">
         <h3>Tu Progreso</h3>
-        <p>{{ completedLessons.length }} lecciones completadas de {{ lessons.length }}</p>
+        <p>{{ completedLessons.length }} lecciones completadas de {{ progressService.totalLessons }}</p>
         <div class="a-progress-bar">
           <div class="a-progress-bar__fill" [style.width.%]="progressService.progressPercent()"></div>
         </div>
@@ -66,16 +66,14 @@
     </div>
 
     <div class="lessons-grid">
-      <div class="lesson-card" *ngFor="let lesson of filteredLessons" [routerLink]="'/lesson/' + lesson.id" style="cursor:pointer">
+      <div class="lesson-card" *ngFor="let lesson of filteredLessons" [routerLink]="'/lesson/' + lesson._id" style="cursor:pointer">
         <div class="lesson-card__header">
           <span class="badge level-{{ lesson.level }}">{{ lesson.level }}</span>
           <span class="badge category">{{ lesson.category }}</span>
-          <span class="badge completed" *ngIf="progressService.isCompleted(+lesson.id)">Completada</span>
+          <span class="badge completed" *ngIf="progressService.isCompleted(lesson._id || '')">Completada</span>
         </div>
         <h3>{{ lesson.title }}</h3>
-        <div class="tags">
-          <span class="tag" *ngFor="let tag of lesson.tags">#{{ tag }}</span>
-        </div>
+        <p class="lesson-desc">{{ lesson.description }}</p>
         <div class="lesson-card__footer">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </div>

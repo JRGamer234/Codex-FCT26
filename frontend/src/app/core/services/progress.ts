@@ -1,21 +1,21 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, inject, signal, computed } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 export interface CompletedLesson {
-  id: number;
-  title: string;
-  category: string;
-  icon: string;
+  lessonId: string;
+  lessonTitle: string;
+  lessonCategory: string;
   completedAt: string;
 }
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class ProgressService {
-  private _completedLessons = signal<CompletedLesson[]>(
-    JSON.parse(localStorage.getItem('completedLessons') || '[]')
-  );
+  private http = inject(HttpClient);
+  private apiUrl = 'http://localhost:3000/progress';
 
+  private _completedLessons = signal<CompletedLesson[]>([]);
   completedLessons = this._completedLessons.asReadonly();
 
   totalLessons = 7;
@@ -24,14 +24,29 @@ export class ProgressService {
     Math.round((this._completedLessons().length / this.totalLessons) * 100)
   );
 
-  isCompleted(id: number): boolean {
-    return this._completedLessons().some(l => l.id === id);
+  loadProgress(): Observable<CompletedLesson[]> {
+    return this.http.get<CompletedLesson[]>(this.apiUrl).pipe(
+      tap(data => this._completedLessons.set(data))
+    );
   }
 
-  completeLesson(lesson: CompletedLesson) {
-    if (this.isCompleted(lesson.id)) return;
-    const updated = [...this._completedLessons(), lesson];
-    this._completedLessons.set(updated);
-    localStorage.setItem('completedLessons', JSON.stringify(updated));
+  isCompleted(lessonId: string): boolean {
+    return this._completedLessons().some(l => l.lessonId === lessonId);
+  }
+
+  completeLesson(lessonId: string, lessonTitle: string, lessonCategory: string): Observable<CompletedLesson> {
+    return this.http.post<CompletedLesson>(`${this.apiUrl}/complete`, { lessonId, lessonTitle, lessonCategory }).pipe(
+      tap(entry => {
+        if (!this.isCompleted(lessonId)) {
+          this._completedLessons.update(list => [...list, entry]);
+        }
+      })
+    );
+  }
+
+  uncompleteLesson(lessonId: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${lessonId}`).pipe(
+      tap(() => this._completedLessons.update(list => list.filter(l => l.lessonId !== lessonId)))
+    );
   }
 }

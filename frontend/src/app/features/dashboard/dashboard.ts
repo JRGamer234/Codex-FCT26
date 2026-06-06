@@ -1,16 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { ProgressService } from '../../core/services/progress';
-
-interface Lesson {
-  id: string;
-  title: string;
-  level: string;
-  category: string;
-  tags: string[];
-}
+import { LessonService } from '../../core/services/lesson.service';
+import { Lesson } from '../../core/models/lesson.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,30 +13,26 @@ interface Lesson {
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss'
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   searchText = '';
   selectedLevel = '';
   selectedCategory = '';
 
-  constructor(public progressService: ProgressService) {}
+  private _lessons = signal<Lesson[]>([]);
 
-  get completedLessons() {
-    return this.progressService.completedLessons();
+  constructor(public progressService: ProgressService, private lessonService: LessonService) {}
+
+  ngOnInit() {
+    this.progressService.loadProgress().subscribe();
+    this.lessonService.getLessons().subscribe(data => this._lessons.set(data));
   }
 
-  lessons: Lesson[] = [
-    { id: '1', title: 'Introducción a HTML', level: 'inicial', category: 'HTML', tags: ['html', 'básico'] },
-    { id: '5', title: 'Formularios en HTML', level: 'inicial', category: 'HTML', tags: ['html', 'forms'] },
-    { id: '4', title: 'Selectores Avanzados', level: 'inicial', category: 'CSS', tags: ['css', 'selectores'] },
-    { id: '6', title: 'Flexbox', level: 'intermedio', category: 'Layout', tags: ['css', 'flex'] },
-    { id: '7', title: 'CSS Grid', level: 'intermedio', category: 'Grid', tags: ['css', 'grid'] },
-    { id: '3', title: 'Animaciones CSS', level: 'avanzado', category: 'CSS', tags: ['css', 'animaciones'] },
-  ];
+  get completedLessons() { return this.progressService.completedLessons(); }
 
   get filteredLessons(): Lesson[] {
-    return this.lessons.filter(lesson => {
+    return this._lessons().filter(lesson => {
       const matchesSearch = lesson.title.toLowerCase().includes(this.searchText.toLowerCase());
-      const matchesLevel = this.selectedLevel ? lesson.level === this.selectedLevel : true;
+      const matchesLevel = this.selectedLevel ? lesson.level?.toLowerCase() === this.selectedLevel : true;
       const matchesCategory = this.selectedCategory ? lesson.category === this.selectedCategory : true;
       return matchesSearch && matchesLevel && matchesCategory;
     });

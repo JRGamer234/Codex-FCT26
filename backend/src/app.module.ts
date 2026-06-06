@@ -1,19 +1,19 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { LessonsController } from './lessons.controller';
-import { LessonSchema } from './lessons/schemas/lesson.schema';
-import { LessonsService } from './lessons.service'; // 👉 Importamos el servicio
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
+import { LessonsModule } from './lessons/lessons.module';
+import { ProgressModule } from './progress/progress.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forRoot(process.env.MONGO_URL || 'mongodb://localhost:27017/codex'),
-    MongooseModule.forFeature([{ name: 'Lesson', schema: LessonSchema }]),
+    AuthModule,
+    UsersModule,
+    LessonsModule,
+    ProgressModule,
   ],
-  controllers: [AppController, LessonsController],
-  providers: [AppService, LessonsService], // 👉 Lo añadimos aquí
 })
-export class AppModule { }
+export class AppModule {}

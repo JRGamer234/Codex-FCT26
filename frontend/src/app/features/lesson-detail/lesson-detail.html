@@ -1,6 +1,20 @@
 <div class="lesson-detail-container">
 
-  @if (!showTest) {
+  @if (loading) {
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>Cargando lección...</p>
+    </div>
+  }
+
+  @if (error) {
+    <div class="error-state">
+      <p>{{ error }}</p>
+      <a routerLink="/catalog" class="btn-test">Volver al catálogo</a>
+    </div>
+  }
+
+  @if (lesson && !loading && !showTest) {
     <div class="lesson-hero">
       <div class="lesson-badges">
         <span class="badge level-inicial">{{ lesson.level }}</span>
@@ -16,7 +30,7 @@
           <h2>{{ section.title }}</h2>
           <p>{{ section.content }}</p>
           @if (section.code) {
-            <pre><code>{{ section.code }}</code></pre>
+            <pre [class]="getLangClass(section.code)"><code [class]="getLangClass(section.code)">{{ section.code }}</code></pre>
           }
         </div>
       }
@@ -24,18 +38,19 @@
 
     <div class="lesson-footer">
       <button class="btn-test" (click)="startTest()">
-        ¡Hacer el test! 🎯
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        Hacer el test
       </button>
     </div>
   }
 
-  @if (showTest) {
+  @if (lesson && showTest) {
     <app-lesson-quiz
       [questions]="lesson.questions"
-      [lessonId]="lesson.id"
+      [lessonId]="lesson._id"
       [lessonTitle]="lesson.title"
       [lessonCategory]="lesson.category"
-      [lessonIcon]="'📖'">
+      (lessonCompleted)="onLessonCompleted()">
     </app-lesson-quiz>
   }
 

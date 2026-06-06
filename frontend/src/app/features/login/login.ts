@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -14,41 +15,37 @@ export class LoginComponent {
   loginForm: FormGroup;
   submitted = false;
   errorMsg = '';
+  loading = false;
 
-  users = [
-    { email: 'alumno@codex.com', password: '123456', rol: 'alumno' },
-    { email: 'profesor@codex.com', password: '123456', rol: 'profesor' }
-  ];
-
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router, private auth: AuthService) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
-  get f() {
-    return this.loginForm.controls;
-  }
+  get f() { return this.loginForm.controls; }
 
   onSubmit() {
     this.submitted = true;
     if (this.loginForm.invalid) return;
 
+    this.loading = true;
+    this.errorMsg = '';
     const { email, password } = this.loginForm.value;
-    const user = this.users.find(u => u.email === email && u.password === password);
 
-    if (user) {
-      localStorage.setItem('token', 'fake-token-123');
-      localStorage.setItem('rol', user.rol);
-
-      if (user.rol === 'profesor') {
-        this.router.navigate(['/profesor/dashboard']);
-      } else {
-        this.router.navigate(['/dashboard']);
+    this.auth.login(email, password).subscribe({
+      next: (res) => {
+        if (res.user.rol === 'profesor') {
+          this.router.navigate(['/profesor/dashboard']);
+        } else {
+          this.router.navigate(['/dashboard']);
+        }
+      },
+      error: (err) => {
+        this.loading = false;
+        this.errorMsg = err.error?.message ?? 'Email o contraseña incorrectos';
       }
-    } else {
-      this.errorMsg = 'Email o contraseña incorrectos';
-    }
+    });
   }
 }

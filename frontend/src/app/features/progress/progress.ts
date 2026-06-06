@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ProgressService } from '../../core/services/progress';
@@ -10,18 +10,14 @@ import { ProgressService } from '../../core/services/progress';
   templateUrl: './progress.html',
   styleUrl: './progress.scss'
 })
-export class ProgressComponent {
+export class ProgressComponent implements OnInit {
   constructor(public progressService: ProgressService) {}
 
-  get completedLessons() {
-    return this.progressService.completedLessons();
+  ngOnInit() {
+    this.progressService.loadProgress().subscribe();
   }
 
-  get totalLessons() {
-    return this.progressService.totalLessons;
-  }
-
-  get progressPercent() {
-    return this.progressService.progressPercent();
-  }
+  get completedLessons() { return this.progressService.completedLessons(); }
+  get totalLessons() { return this.progressService.totalLessons; }
+  get progressPercent() { return this.progressService.progressPercent(); }
 }

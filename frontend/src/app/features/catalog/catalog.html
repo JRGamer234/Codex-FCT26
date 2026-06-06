@@ -29,7 +29,7 @@
             </div>
 
             <div class="lesson-card__body">
-                <span class="lesson-card__duration">⏱️ {{ lesson.duration || 15 }} min</span>
+                <span class="lesson-card__duration">{{ lesson.category }}</span>
                 <h3 class="lesson-card__title">{{ lesson.title }}</h3>
                 <p class="lesson-card__description">
                     {{ lesson.description || 'Aprende los fundamentos avanzados y mejores prácticas de desarrollo en
@@ -38,9 +38,8 @@
             </div>
 
             <div class="lesson-card__footer">
-                <a [routerLink]="['/lesson', lesson._id]" class="lesson-card__btn"
-                    [class.lesson-card__btn--completed]="lesson.completed">
-                    {{ lesson.completed ? '✅ Repasar lección' : 'Empezar curso ➔' }}
+                <a [routerLink]="['/lesson', lesson._id]" class="lesson-card__btn">
+                    Empezar lección
                 </a>
             </div>
         </article>
