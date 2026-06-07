@@ -21,6 +21,10 @@ const Lesson = mongoose.model('Lesson', LessonSchema);
 const users = [
   { name: 'Alumno Demo', email: 'alumno@codex.com', password: '123456', rol: 'alumno' },
   { name: 'Profesor Demo', email: 'profesor@codex.com', password: '123456', rol: 'profesor' },
+  { name: 'Alex', email: 'alex@codex.com', password: '123456', rol: 'alumno' },
+  { name: 'Jorge', email: 'jorge@codex.com', password: '123456', rol: 'alumno' },
+  { name: 'Mario', email: 'mario@codex.com', password: '123456', rol: 'alumno' },
+  { name: 'Itziar', email: 'itziar@codex.com', password: '123456', rol: 'alumno' },
 ];
 
 const lessons = [
