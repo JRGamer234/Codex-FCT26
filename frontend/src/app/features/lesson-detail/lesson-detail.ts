@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewChecked, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { LessonService } from '../../core/services/lesson.service';
 import { LessonQuizComponent } from '../lesson-quiz/lesson-quiz';
 import { ProgressService } from '../../core/services/progress';
 
@@ -28,7 +28,7 @@ export interface LessonData {
 })
 export class LessonDetailComponent implements OnInit, AfterViewChecked {
   private route = inject(ActivatedRoute);
-  private http = inject(HttpClient);
+  private lessonService = inject(LessonService);
   private progressService = inject(ProgressService);
 
   lesson: LessonData | null = null;
@@ -44,8 +44,18 @@ export class LessonDetailComponent implements OnInit, AfterViewChecked {
       this.loading = true;
       this.showTest = false;
       this.highlighted = false;
-      this.http.get<LessonData>(`http://localhost:3000/lessons/${id}`).subscribe({
-        next: (data) => { this.lesson = data; this.loading = false; },
+
+      // Usar caché del servicio si ya tenemos la lección cargada
+      const cached = this.lessonService.lessons().find(l => l._id === id) as LessonData | undefined;
+      if (cached?.sections?.length) {
+        this.lesson = cached;
+        this.loading = false;
+        return;
+      }
+
+      // Si no está en caché, pedir al API
+      this.lessonService.getLessonById(id).subscribe({
+        next: (data) => { this.lesson = data as LessonData; this.loading = false; },
         error: () => { this.error = 'No se pudo cargar la lección.'; this.loading = false; }
       });
     });
