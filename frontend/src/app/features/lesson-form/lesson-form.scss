@@ -1,139 +1,234 @@
 @use '../../../styles/settings/variables' as *;
 
 .lesson-form-page {
-    padding: 2rem;
-    max-width: 800px;
-    margin: 0 auto;
+  padding: 2rem;
+  max-width: 860px;
+  margin: 0 auto;
 
-    .lesson-form-header {
-        margin-bottom: 2.5rem;
-
-        h1 {
-            font-size: 2rem;
-            color: white;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, white, rgba(white, 0.7));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        p {
-            color: rgba(white, 0.6);
-            font-size: 1rem;
-        }
+  .lesson-form-header {
+    margin-bottom: 2rem;
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 0.4rem;
     }
+    p { color: rgba(white, 0.5); font-size: 0.95rem; }
+  }
 }
 
-.lesson-form-card {
-    background: rgba($color-surface, 0.4);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(white, 0.08);
-    border-radius: 16px;
-    padding: 2.5rem;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    transition: border-color 0.3s ease;
+// Tarjeta de cada bloque del formulario
+.form-card {
+  background: rgba(white, 0.02);
+  border: 1px solid rgba(white, 0.07);
+  border-radius: 16px;
+  padding: 1.75rem;
+  margin-bottom: 1.5rem;
 
-    &:hover {
-        border-color: rgba($color-primary, 0.2);
-    }
+  &__title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 1.25rem;
+  }
+
+  &__title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+
+    .form-card__title { margin-bottom: 0; }
+  }
 }
 
+// Grid de 2 columnas para datos básicos
 .form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
 
-    .full-width {
-        grid-column: span 2;
-    }
+  .full-width { grid-column: span 2; }
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+    .full-width { grid-column: span 1; }
+  }
 }
 
+// Grupo individual de campo
 .form-group {
-    display: flex;
-    flex-direction: column;
-
-    .a-textarea {
-        resize: vertical;
-        min-height: 150px;
-        line-height: 1.5;
-    }
-
-    .a-select {
-        cursor: pointer;
-        appearance: none;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.6)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-        background-repeat: no-repeat;
-        background-position: right 12px center;
-        background-size: 16px;
-        padding-right: 40px;
-
-        option {
-            background-color: $color-surface;
-            color: $color-text;
-        }
-    }
-
-    .is-invalid {
-        border-color: rgba(#ef4444, 0.5) !important;
-        background-color: rgba(#ef4444, 0.03) !important;
-
-        &:focus {
-            box-shadow: 0 0 0 4px rgba(#ef4444, 0.1) !important;
-        }
-    }
-
-    .error-message {
-        color: #f87171;
-        font-size: 0.8rem;
-        margin-top: 6px;
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-    }
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
 }
 
+// Textareas
+.a-textarea {
+  resize: vertical;
+  min-height: 90px;
+  line-height: 1.6;
+
+  &--code {
+    font-family: 'Fira Code', 'Courier New', monospace;
+    font-size: 0.82rem;
+    min-height: 110px;
+    background: rgba(0, 0, 0, 0.25);
+    color: #a5f3fc;
+  }
+}
+
+// Select personalizado
+.a-select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.5)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+  padding-right: 36px;
+
+  option { background-color: $color-surface; color: $color-text; }
+}
+
+// Labels
+.a-label {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: rgba(white, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  .label-optional {
+    font-weight: 400;
+    text-transform: none;
+    color: rgba(white, 0.35);
+    letter-spacing: 0;
+  }
+}
+
+// Validación
+.is-invalid {
+  border-color: rgba(#ef4444, 0.5) !important;
+}
+
+.error-msg {
+  color: #f87171;
+  font-size: 0.8rem;
+  margin-top: 2px;
+}
+
+// Lista dinámica de items (secciones / preguntas)
+.dynamic-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.dynamic-item {
+  background: rgba(white, 0.02);
+  border: 1px solid rgba(white, 0.06);
+  border-radius: 12px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__num {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: $color-primary;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+}
+
+// Grid de 2 columnas para las 4 opciones de respuesta
+.options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+
+  @media (max-width: 500px) { grid-template-columns: 1fr; }
+}
+
+.correct-selector {
+  border-top: 1px solid rgba(white, 0.06);
+  padding-top: 1rem;
+
+  select { max-width: 200px; }
+}
+
+// Botón añadir
+.btn-add {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: $color-primary;
+  background: rgba($color-primary, 0.08);
+  border: 1px solid rgba($color-primary, 0.2);
+  border-radius: 8px;
+  padding: 0.4rem 0.85rem;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+
+  svg { width: 14px; height: 14px; }
+
+  &:hover {
+    background: rgba($color-primary, 0.15);
+    border-color: rgba($color-primary, 0.35);
+  }
+}
+
+// Botón eliminar
+.btn-remove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: rgba(#ef4444, 0.08);
+  border: 1px solid rgba(#ef4444, 0.18);
+  border-radius: 6px;
+  cursor: pointer;
+  color: #f87171;
+  transition: background 0.15s;
+
+  svg { width: 13px; height: 13px; }
+
+  &:hover { background: rgba(#ef4444, 0.18); }
+}
+
+// Error global
 .alert-error {
-    background-color: rgba(#ef4444, 0.1);
-    border: 1px solid rgba(#ef4444, 0.2);
-    color: #f87171;
-    padding: 1rem;
-    border-radius: 8px;
-    margin-bottom: 2rem;
-    font-size: 0.9rem;
+  background: rgba(#ef4444, 0.08);
+  border: 1px solid rgba(#ef4444, 0.2);
+  color: #f87171;
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+  font-size: 0.88rem;
 }
 
+// Acciones del formulario
 .form-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-    border-top: 1px solid rgba(white, 0.05);
-    padding-top: 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding-top: 0.5rem;
 
-    .a-btn {
-        min-width: 120px;
-    }
-}
+  .a-btn { min-width: 130px; }
 
-@media (max-width: 600px) {
-    .lesson-form-card {
-        padding: 1.5rem;
-    }
-
-    .form-grid {
-        grid-template-columns: 1fr;
-
-        .full-width {
-            grid-column: span 1;
-        }
-    }
-
-    .form-actions {
-        flex-direction: column-reverse;
-        
-        .a-btn {
-            width: 100%;
-        }
-    }
+  @media (max-width: 500px) {
+    flex-direction: column-reverse;
+    .a-btn { width: 100%; }
+  }
 }

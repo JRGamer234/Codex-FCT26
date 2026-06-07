@@ -1,114 +1,171 @@
 <section class="lesson-form-page">
-    <header class="lesson-form-header">
-        <h1>Crear nueva lección</h1>
-        <p>Añade una lección al catálogo de Frontend para ayudar a otros reclutas.</p>
-    </header>
+  <header class="lesson-form-header">
+    <h1>Crear nueva lección</h1>
+    <p>Rellena la información básica, añade las secciones de contenido y crea el test.</p>
+  </header>
 
-    <div class="lesson-form-card">
-        <form [formGroup]="lessonForm" (ngSubmit)="onSubmit()" novalidate>
-            <div class="form-grid">
-                <!-- Título -->
-                <div class="form-group full-width">
-                    <label for="title" class="a-label">Título de la lección</label>
-                    <input 
-                        type="text" 
-                        id="title"
-                        formControlName="title" 
-                        class="a-input" 
-                        [class.is-invalid]="lessonForm.get('title')?.touched && lessonForm.get('title')?.invalid"
-                        placeholder="Ej: Flexbox y Grid: Layouts modernos">
-                    <div class="error-message" *ngIf="lessonForm.get('title')?.touched && lessonForm.get('title')?.invalid">
-                        <span *ngIf="lessonForm.get('title')?.errors?.['required']">El título es requerido.</span>
-                        <span *ngIf="lessonForm.get('title')?.errors?.['minlength']">El título debe tener al menos 3 caracteres.</span>
-                    </div>
-                </div>
+  <form [formGroup]="lessonForm" (ngSubmit)="onSubmit()" novalidate>
 
-                <!-- Descripción corta -->
-                <div class="form-group full-width">
-                    <label for="description" class="a-label">Descripción breve</label>
-                    <input 
-                        type="text" 
-                        id="description"
-                        formControlName="description" 
-                        class="a-input" 
-                        [class.is-invalid]="lessonForm.get('description')?.touched && lessonForm.get('description')?.invalid"
-                        placeholder="Una pequeña introducción sobre lo que se aprenderá en esta lección...">
-                    <div class="error-message" *ngIf="lessonForm.get('description')?.touched && lessonForm.get('description')?.invalid">
-                        <span *ngIf="lessonForm.get('description')?.errors?.['required']">La descripción es requerida.</span>
-                        <span *ngIf="lessonForm.get('description')?.errors?.['minlength']">La descripción debe tener al menos 10 caracteres.</span>
-                    </div>
-                </div>
+    <!-- ─── DATOS BÁSICOS ─── -->
+    <div class="form-card">
+      <h2 class="form-card__title">Datos básicos</h2>
+      <div class="form-grid">
 
-                <!-- Duración -->
-                <div class="form-group">
-                    <label for="duration" class="a-label">Duración (minutos)</label>
-                    <input 
-                        type="number" 
-                        id="duration"
-                        formControlName="duration" 
-                        class="a-input" 
-                        [class.is-invalid]="lessonForm.get('duration')?.touched && lessonForm.get('duration')?.invalid"
-                        min="1">
-                    <div class="error-message" *ngIf="lessonForm.get('duration')?.touched && lessonForm.get('duration')?.invalid">
-                        <span *ngIf="lessonForm.get('duration')?.errors?.['required']">La duración es requerida.</span>
-                        <span *ngIf="lessonForm.get('duration')?.errors?.['min']">La duración debe ser de al menos 1 minuto.</span>
-                    </div>
-                </div>
+        <div class="form-group full-width">
+          <label class="a-label">Título</label>
+          <input type="text" formControlName="title" class="a-input"
+            [class.is-invalid]="lessonForm.get('title')?.touched && lessonForm.get('title')?.invalid"
+            placeholder="Ej: Flexbox: Layout Unidimensional">
+          @if (lessonForm.get('title')?.touched && lessonForm.get('title')?.invalid) {
+            <span class="error-msg">El título es obligatorio (mín. 3 caracteres).</span>
+          }
+        </div>
 
-                <!-- Nivel -->
-                <div class="form-group">
-                    <label for="level" class="a-label">Nivel de dificultad</label>
-                    <select 
-                        id="level"
-                        formControlName="level" 
-                        class="a-input a-select" 
-                        [class.is-invalid]="lessonForm.get('level')?.touched && lessonForm.get('level')?.invalid">
-                        <option value="Inicial">Inicial 🟢</option>
-                        <option value="Intermedio">Intermedio 🟡</option>
-                    </select>
-                    <div class="error-message" *ngIf="lessonForm.get('level')?.touched && lessonForm.get('level')?.invalid">
-                        <span>El nivel es requerido.</span>
-                    </div>
-                </div>
+        <div class="form-group full-width">
+          <label class="a-label">Descripción breve</label>
+          <input type="text" formControlName="description" class="a-input"
+            [class.is-invalid]="lessonForm.get('description')?.touched && lessonForm.get('description')?.invalid"
+            placeholder="Una introducción de lo que aprenderá el alumno...">
+          @if (lessonForm.get('description')?.touched && lessonForm.get('description')?.invalid) {
+            <span class="error-msg">La descripción es obligatoria (mín. 10 caracteres).</span>
+          }
+        </div>
 
-                <!-- Contenido detallado -->
-                <div class="form-group full-width">
-                    <label for="content" class="a-label">Contenido de la lección</label>
-                    <textarea 
-                        id="content"
-                        formControlName="content" 
-                        class="a-input a-textarea" 
-                        [class.is-invalid]="lessonForm.get('content')?.touched && lessonForm.get('content')?.invalid"
-                        rows="8"
-                        placeholder="Escribe el contenido detallado de la lección en formato de texto o Markdown..."></textarea>
-                    <div class="error-message" *ngIf="lessonForm.get('content')?.touched && lessonForm.get('content')?.invalid">
-                        <span>El contenido es requerido.</span>
-                    </div>
-                </div>
-            </div>
+        <div class="form-group">
+          <label class="a-label">Nivel</label>
+          <select formControlName="level" class="a-input a-select">
+            <option value="Inicial">Inicial</option>
+            <option value="Intermedio">Intermedio</option>
+            <option value="Avanzado">Avanzado</option>
+          </select>
+        </div>
 
-            <!-- Alerta de error de envío -->
-            <div class="alert-error" *ngIf="errorMessage">
-                ⚠️ {{ errorMessage }}
-            </div>
+        <div class="form-group">
+          <label class="a-label">Categoría</label>
+          <select formControlName="category" class="a-input a-select">
+            <option value="HTML">HTML</option>
+            <option value="CSS">CSS</option>
+            <option value="Layout">Layout</option>
+            <option value="Grid">Grid</option>
+          </select>
+        </div>
 
-            <!-- Botones de Acción -->
-            <div class="form-actions">
-                <button 
-                    type="button" 
-                    routerLink="/dashboard" 
-                    class="a-btn a-btn--outline" 
-                    [disabled]="isSubmitting">
-                    Cancelar
-                </button>
-                <button 
-                    type="submit" 
-                    class="a-btn a-btn--primary" 
-                    [disabled]="isSubmitting || lessonForm.invalid">
-                    <span *ngIf="!isSubmitting">Crear Lección</span>
-                    <span *ngIf="isSubmitting" class="spinner">Cargando...</span>
-                </button>
-            </div>
-        </form>
+      </div>
     </div>
+
+    <!-- ─── SECCIONES DE CONTENIDO ─── -->
+    <div class="form-card">
+      <div class="form-card__title-row">
+        <h2 class="form-card__title">Secciones de contenido</h2>
+        <button type="button" class="btn-add" (click)="addSection()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Añadir sección
+        </button>
+      </div>
+
+      <div formArrayName="sections" class="dynamic-list">
+        @for (section of sections.controls; track $index) {
+          <div class="dynamic-item" [formGroupName]="$index">
+            <div class="dynamic-item__header">
+              <span class="dynamic-item__num">Sección {{ $index + 1 }}</span>
+              @if (sections.length > 1) {
+                <button type="button" class="btn-remove" (click)="removeSection($index)" title="Eliminar">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+                </button>
+              }
+            </div>
+
+            <div class="form-group">
+              <label class="a-label">Título de la sección</label>
+              <input type="text" formControlName="title" class="a-input"
+                [class.is-invalid]="sectionGroup(section).get('title')?.touched && sectionGroup(section).get('title')?.invalid"
+                placeholder="Ej: ¿Qué es Flexbox y cómo funciona?">
+            </div>
+
+            <div class="form-group">
+              <label class="a-label">Contenido explicativo</label>
+              <textarea formControlName="content" class="a-input a-textarea" rows="4"
+                [class.is-invalid]="sectionGroup(section).get('content')?.touched && sectionGroup(section).get('content')?.invalid"
+                placeholder="Explica el concepto con detalle..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="a-label">Código de ejemplo <span class="label-optional">(opcional)</span></label>
+              <textarea formControlName="code" class="a-input a-textarea a-textarea--code" rows="5"
+                placeholder="/* CSS o HTML que ilustre el concepto */&#10;.container {&#10;  display: flex;&#10;}"></textarea>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- ─── PREGUNTAS DEL TEST ─── -->
+    <div class="form-card">
+      <div class="form-card__title-row">
+        <h2 class="form-card__title">Preguntas del test</h2>
+        <button type="button" class="btn-add" (click)="addQuestion()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Añadir pregunta
+        </button>
+      </div>
+
+      <div formArrayName="questions" class="dynamic-list">
+        @for (question of questions.controls; track $index) {
+          <div class="dynamic-item" [formGroupName]="$index">
+            <div class="dynamic-item__header">
+              <span class="dynamic-item__num">Pregunta {{ $index + 1 }}</span>
+              @if (questions.length > 1) {
+                <button type="button" class="btn-remove" (click)="removeQuestion($index)" title="Eliminar">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+                </button>
+              }
+            </div>
+
+            <div class="form-group">
+              <label class="a-label">Enunciado</label>
+              <input type="text" formControlName="question" class="a-input"
+                [class.is-invalid]="questionGroup(question).get('question')?.touched && questionGroup(question).get('question')?.invalid"
+                placeholder="¿Cuál es la propiedad CSS para activar Flexbox?">
+            </div>
+
+            <div class="options-grid" formArrayName="options">
+              @for (opt of optionsArray(question).controls; track $index) {
+                <div class="form-group">
+                  <label class="a-label">Opción {{ $index + 1 }}</label>
+                  <input type="text" [formControlName]="$index" class="a-input"
+                    placeholder="Respuesta {{ $index + 1 }}">
+                </div>
+              }
+            </div>
+
+            <div class="form-group correct-selector">
+              <label class="a-label">Respuesta correcta</label>
+              <select formControlName="correct" class="a-input a-select">
+                <option [value]="0">Opción 1</option>
+                <option [value]="1">Opción 2</option>
+                <option [value]="2">Opción 3</option>
+                <option [value]="3">Opción 4</option>
+              </select>
+            </div>
+
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- ─── ERROR Y ACCIONES ─── -->
+    @if (errorMessage) {
+      <div class="alert-error">{{ errorMessage }}</div>
+    }
+
+    <div class="form-actions">
+      <button type="button" routerLink="/catalog" class="a-btn a-btn--outline" [disabled]="isSubmitting">
+        Cancelar
+      </button>
+      <button type="submit" class="a-btn a-btn--primary" [disabled]="isSubmitting || lessonForm.invalid">
+        @if (isSubmitting) { Guardando... } @else { Crear lección }
+      </button>
+    </div>
+
+  </form>
 </section>
