@@ -1,6 +1,14 @@
 {
+  "scripts": {
+    "start": "npm run frontend",
+    "frontend": "npm start --prefix frontend",
+    "backend": "npm run start:dev --prefix backend",
+    "seed": "npm run seed --prefix backend",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\""
+  },
   "dependencies": {
     "class-transformer": "^0.5.1",
-    "class-validator": "^0.15.1"
+    "class-validator": "^0.15.1",
+    "concurrently": "^9.1.2"
   }
 }
