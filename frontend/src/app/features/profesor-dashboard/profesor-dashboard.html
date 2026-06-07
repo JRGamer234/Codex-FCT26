@@ -2,7 +2,7 @@
 
   <div class="profesor-header">
     <div class="profesor-info">
-      <span class="profesor-avatar">{{ profesor.avatar }}</span>
+      <span class="profesor-avatar">👨‍🏫</span>
       <div>
         <h1>Bienvenido, {{ profesor.name }}</h1>
         <p>{{ profesor.email }}</p>
@@ -14,31 +14,30 @@
   <div class="stats-grid">
     <div class="stat-card" (click)="navigate('/profesor/alumnos')" style="cursor:pointer">
       <span class="stat-icon">👨‍🎓</span>
-      <span class="stat-value">4</span>
+      <span class="stat-value">{{ alumnos().length }}</span>
       <span class="stat-label">Alumnos activos</span>
     </div>
     <div class="stat-card" (click)="navigate('/profesor/lecciones')" style="cursor:pointer">
       <span class="stat-icon">📚</span>
-      <span class="stat-value">7</span>
+      <span class="stat-value">{{ lessonCount() }}</span>
       <span class="stat-label">Lecciones creadas</span>
     </div>
     <div class="stat-card" (click)="navigate('/profesor/tests')" style="cursor:pointer">
       <span class="stat-icon">✅</span>
-      <span class="stat-value">132</span>
+      <span class="stat-value">{{ totalTests() }}</span>
       <span class="stat-label">Tests completados</span>
     </div>
     <div class="stat-card" (click)="navigate('/profesor/valoraciones')" style="cursor:pointer">
       <span class="stat-icon">⭐</span>
-      <span class="stat-value">4.8</span>
+      <span class="stat-value">{{ ratingStats().average || '—' }}</span>
       <span class="stat-label">Valoración media</span>
     </div>
   </div>
 
-  <!-- Progreso de alumnos -->
   <div class="alumnos-section">
     <h2>Progreso de alumnos</h2>
     <div class="alumnos-list">
-      <div class="alumno-card" *ngFor="let alumno of alumnos">
+      <div class="alumno-card" *ngFor="let alumno of alumnos()">
         <div class="alumno-info">
           <span class="alumno-avatar">👤</span>
           <div>

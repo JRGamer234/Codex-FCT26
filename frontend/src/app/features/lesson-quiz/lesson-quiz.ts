@@ -1,6 +1,8 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ProgressService } from '../../core/services/progress';
+import { RatingService } from '../../core/services/rating.service';
 
 interface Question {
   question: string;
@@ -11,7 +13,7 @@ interface Question {
 @Component({
   selector: 'app-lesson-quiz',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './lesson-quiz.html',
   styleUrl: './lesson-quiz.scss'
 })
@@ -22,12 +24,17 @@ export class LessonQuizComponent implements OnInit {
   @Input() lessonCategory: string = '';
   @Output() lessonCompleted = new EventEmitter<void>();
 
+  private progressService = inject(ProgressService);
+  private ratingService = inject(RatingService);
+
   currentIndex = 0;
   selectedOption: number | null = null;
   answers: (number | null)[] = [];
   finished = false;
 
-  constructor(private progressService: ProgressService) {}
+  selectedStars = 0;
+  ratingComment = '';
+  ratingSubmitted = false;
 
   ngOnInit() {
     if (this.questions.length === 0) {
@@ -63,10 +70,25 @@ export class LessonQuizComponent implements OnInit {
     }
   }
 
+  setStars(n: number) {
+    this.selectedStars = n;
+  }
+
+  submitRating() {
+    if (!this.selectedStars) return;
+    this.ratingService.submitRating(this.lessonId, this.lessonTitle, this.selectedStars, this.ratingComment).subscribe({
+      next: () => { this.ratingSubmitted = true; },
+      error: () => { this.ratingSubmitted = true; },
+    });
+  }
+
   restart() {
     this.currentIndex = 0;
     this.selectedOption = null;
     this.answers = [];
     this.finished = false;
+    this.selectedStars = 0;
+    this.ratingComment = '';
+    this.ratingSubmitted = false;
   }
 }

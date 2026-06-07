@@ -18,6 +18,9 @@ export class ProgressService {
   private _completedLessons = signal<CompletedLesson[]>([]);
   completedLessons = this._completedLessons.asReadonly();
 
+  private _progressLoaded = signal(false);
+  progressLoaded = this._progressLoaded.asReadonly();
+
   totalLessons = 7;
 
   progressPercent = computed(() =>
@@ -26,7 +29,10 @@ export class ProgressService {
 
   loadProgress(): Observable<CompletedLesson[]> {
     return this.http.get<CompletedLesson[]>(this.apiUrl).pipe(
-      tap(data => this._completedLessons.set(data))
+      tap(data => {
+        this._completedLessons.set(data);
+        this._progressLoaded.set(true);
+      }),
     );
   }
 

@@ -1,14 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-
-interface Valoracion {
-  alumno: string;
-  leccion: string;
-  estrellas: number;
-  comentario: string;
-  fecha: string;
-}
+import { RatingService, RatingData } from '../../core/services/rating.service';
 
 @Component({
   selector: 'app-profesor-valoraciones',
@@ -17,26 +10,32 @@ interface Valoracion {
   templateUrl: './profesor-valoraciones.html',
   styleUrl: './profesor-valoraciones.scss'
 })
-export class ProfesorValoracionesComponent {
-  valoraciones: Valoracion[] = [
-    { alumno: 'Itziar', leccion: 'Introducción a HTML', estrellas: 5, comentario: 'Muy clara y bien explicada!', fecha: 'Hoy' },
-    { alumno: 'Mario', leccion: 'Flexbox', estrellas: 4, comentario: 'Buena lección, podría tener más ejemplos.', fecha: 'Ayer' },
-    { alumno: 'Jorge', leccion: 'CSS Grid', estrellas: 5, comentario: 'Perfecta, lo entendí todo.', fecha: 'Hace 2 días' },
-    { alumno: 'Alex', leccion: 'Animaciones CSS', estrellas: 4, comentario: 'Muy interesante!', fecha: 'Hace 3 días' },
-    { alumno: 'Itziar', leccion: 'Selectores Avanzados', estrellas: 5, comentario: 'Excelente explicación de las pseudoclases.', fecha: 'Hace 4 días' },
-    { alumno: 'Mario', leccion: 'Formularios en HTML', estrellas: 3, comentario: 'Le falta profundidad en algunos temas.', fecha: 'Hace 5 días' },
-  ];
+export class ProfesorValoracionesComponent implements OnInit {
+  private ratingService = inject(RatingService);
 
-  get mediaEstrellas(): string {
-    const media = this.valoraciones.reduce((a, v) => a + v.estrellas, 0) / this.valoraciones.length;
-    return media.toFixed(1);
+  valoraciones: RatingData[] = [];
+  mediaEstrellas = '0.0';
+  totalValoraciones = 0;
+  loading = true;
+
+  ngOnInit() {
+    this.ratingService.getAllRatings().subscribe({
+      next: data => {
+        this.valoraciones = data;
+        this.totalValoraciones = data.length;
+        const media = data.length ? data.reduce((sum, v) => sum + v.stars, 0) / data.length : 0;
+        this.mediaEstrellas = media.toFixed(1);
+        this.loading = false;
+      },
+      error: () => { this.loading = false; }
+    });
   }
 
-  get totalValoraciones(): number {
-    return this.valoraciones.length;
-  }
-
-  estrellas(n: number): string {
+  starsStr(n: number): string {
     return '⭐'.repeat(n);
+  }
+
+  formatDate(iso: string): string {
+    return new Date(iso).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' });
   }
 }

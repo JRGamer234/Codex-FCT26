@@ -18,6 +18,12 @@ export class UsersController {
     return this.usersService.updateProfile(req.user._id, body);
   }
 
+  @Get('alumnos')
+  async getAlumnos(@Request() req: any) {
+    if (req.user.rol !== 'profesor') return [];
+    return this.usersService.getAlumnosWithProgress();
+  }
+
   @Get()
   async findAll(@Request() req: any) {
     if (req.user.rol !== 'profesor') return [];

@@ -32,6 +32,26 @@
       <h2>{{ score >= questions.length / 2 ? '¡Bien hecho!' : '¡Sigue practicando!' }}</h2>
       <div class="score">{{ score }} / {{ questions.length }}</div>
       <p class="result-msg">Respondiste correctamente {{ score }} de {{ questions.length }} preguntas.</p>
+
+      @if (!ratingSubmitted) {
+        <div class="rating-section">
+          <h3>¿Cómo valorarías esta lección?</h3>
+          <div class="star-rating">
+            @for (star of [1,2,3,4,5]; track star) {
+              <button type="button" class="star-btn" [class.filled]="star <= selectedStars" (click)="setStars(star)">★</button>
+            }
+          </div>
+          <textarea
+            [(ngModel)]="ratingComment"
+            placeholder="Comentario opcional..."
+            rows="3">
+          </textarea>
+          <button class="btn-rate" [disabled]="!selectedStars" (click)="submitRating()">Enviar valoración</button>
+        </div>
+      } @else {
+        <p class="rating-thanks">¡Gracias por tu valoración!</p>
+      }
+
       <button class="btn-restart" (click)="restart()">Volver a intentarlo</button>
     </div>
   }

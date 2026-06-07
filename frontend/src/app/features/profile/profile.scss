@@ -45,9 +45,15 @@
         margin-bottom: 0.25rem;
       }
 
-      .profile-joined {
-        font-size: 0.8rem;
-        color: rgba(white, 0.3);
+      .profile-role {
+        display: inline-block;
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: $color-primary;
+        background: rgba($color-primary, 0.12);
+        padding: 0.15rem 0.6rem;
+        border-radius: 20px;
+        text-transform: capitalize;
       }
     }
   }
@@ -144,6 +150,16 @@
     font-weight: 600;
     cursor: pointer;
     transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
 
     &:hover {
       background: rgba(red, 0.2);
