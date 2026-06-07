@@ -7,6 +7,20 @@
 
   .lesson-form-header {
     margin-bottom: 2rem;
+
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      color: rgba(white, 0.45);
+      font-size: 0.85rem;
+      text-decoration: none;
+      margin-bottom: 1rem;
+      transition: color 0.15s;
+      svg { width: 16px; height: 16px; }
+      &:hover { color: rgba(white, 0.8); }
+    }
+
     h1 {
       font-size: 1.8rem;
       font-weight: 700;

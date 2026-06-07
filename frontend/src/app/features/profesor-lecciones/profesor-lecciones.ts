@@ -1,57 +1,35 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-interface Leccion {
-  id: number;
-  title: string;
-  level: string;
-  category: string;
-}
+import { LessonService } from '../../core/services/lesson.service';
 
 @Component({
   selector: 'app-profesor-lecciones',
   standalone: true,
-  imports: [CommonModule, RouterLink, ReactiveFormsModule],
+  imports: [RouterLink],
   templateUrl: './profesor-lecciones.html',
   styleUrl: './profesor-lecciones.scss'
 })
-export class ProfesorLeccionesComponent {
-  showForm = false;
+export class ProfesorLeccionesComponent implements OnInit {
+  private lessonService = inject(LessonService);
 
-  lecciones: Leccion[] = [
-    { id: 1, title: 'Introducción a HTML', level: 'Inicial', category: 'HTML' },
-    { id: 2, title: 'Flexbox y Grid', level: 'Intermedio', category: 'Layout' },
-    { id: 3, title: 'Animaciones CSS', level: 'Avanzado', category: 'CSS' },
-    { id: 4, title: 'Selectores Avanzados', level: 'Inicial', category: 'CSS' },
-    { id: 5, title: 'Formularios en HTML', level: 'Inicial', category: 'HTML' },
-    { id: 6, title: 'Flexbox', level: 'Intermedio', category: 'Layout' },
-    { id: 7, title: 'CSS Grid', level: 'Intermedio', category: 'Grid' },
-  ];
+  lessons = this.lessonService.lessons;
+  loading = true;
+  deletingId: string | null = null;
 
-  leccionForm: FormGroup;
-
-  constructor(private fb: FormBuilder) {
-    this.leccionForm = this.fb.group({
-      title: ['', Validators.required],
-      level: ['', Validators.required],
-      category: ['', Validators.required]
+  ngOnInit() {
+    this.lessonService.getLessons().subscribe({
+      next: () => this.loading = false,
+      error: () => this.loading = false,
     });
   }
 
-  crearLeccion() {
-    if (this.leccionForm.invalid) return;
-    const nueva: Leccion = {
-      id: this.lecciones.length + 1,
-      ...this.leccionForm.value
-    };
-    this.lecciones.push(nueva);
-    this.leccionForm.reset();
-    this.showForm = false;
-  }
-
-  eliminarLeccion(id: number) {
-    this.lecciones = this.lecciones.filter(l => l.id !== id);
+  eliminar(id: string | undefined, e: Event) {
+    e.stopPropagation();
+    if (!id || !confirm('¿Eliminar esta lección? Esta acción no se puede deshacer.')) return;
+    this.deletingId = id;
+    this.lessonService.deleteLessonFromServer(id).subscribe({
+      next: () => { this.lessonService.getLessons().subscribe(); this.deletingId = null; },
+      error: () => this.deletingId = null,
+    });
   }
 }

@@ -32,15 +32,20 @@
     }
 
     .btn-new {
-      padding: 0.7rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.6rem 1.25rem;
       background: $color-primary;
       color: #0f172a;
       border: none;
       border-radius: 10px;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       font-weight: 700;
       cursor: pointer;
+      text-decoration: none;
       transition: opacity 0.2s;
+      svg { width: 16px; height: 16px; }
 
       &:hover { opacity: 0.9; }
     }
@@ -111,6 +116,20 @@
     gap: 0.8rem;
   }
 
+  .loading-state {
+    color: rgba(white, 0.4);
+    font-size: 0.9rem;
+    padding: 2rem 0;
+    text-align: center;
+  }
+
+  .no-lessons {
+    color: rgba(white, 0.35);
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 3rem 0;
+  }
+
   .leccion-card {
     display: flex;
     align-items: center;
@@ -153,15 +172,30 @@
       }
     }
 
-    .btn-delete {
-      background: none;
-      border: none;
-      font-size: 1.1rem;
-      cursor: pointer;
-      opacity: 0.4;
-      transition: opacity 0.2s;
+    p {
+      color: rgba(white, 0.45);
+      font-size: 0.85rem;
+      margin-top: 0.3rem;
+    }
 
-      &:hover { opacity: 1; }
+    .btn-delete {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: rgba(#ef4444, 0.08);
+      border: 1px solid rgba(#ef4444, 0.15);
+      border-radius: 8px;
+      cursor: pointer;
+      color: #f87171;
+      opacity: 0.6;
+      flex-shrink: 0;
+      transition: opacity 0.2s, background 0.2s;
+      svg { width: 14px; height: 14px; }
+
+      &:hover { opacity: 1; background: rgba(#ef4444, 0.18); }
+      &:disabled { opacity: 0.3; cursor: not-allowed; }
     }
   }
 }

@@ -19,6 +19,7 @@ import { ProfesorValoracionesComponent } from './features/profesor-valoraciones/
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'create-lesson', component: LessonFormComponent, canActivate: [authGuard] },
   { path: 'profesor/dashboard', component: ProfesorDashboardComponent, canActivate: [authGuard] },
   { path: 'profesor/alumnos', component: ProfesorAlumnosComponent, canActivate: [authGuard] },
   { path: 'profesor/lecciones', component: ProfesorLeccionesComponent, canActivate: [authGuard] },
@@ -34,7 +35,6 @@ export const routes: Routes = [
       { path: 'catalog', component: CatalogComponent },
       { path: 'profile', component: ProfileComponent },
       { path: 'lesson/:id', component: LessonDetailComponent },
-      { path: 'create-lesson', component: LessonFormComponent },
       { path: 'progress', component: ProgressComponent },
       { path: 'achievements', component: AchievementsComponent },
     ]
