@@ -1,30 +1,27 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Component, OnInit, inject } from '@angular/core';
+import { AuthService } from '../../core/services/auth.service';
+import { ProgressService } from '../../core/services/progress';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './profile.html',
   styleUrl: './profile.scss'
 })
-export class ProfileComponent {
-  user = {
-    name: 'Grupo Codex',
-    email: 'alumno@codex.com',
-    avatar: '👩‍💻',
-    joinedAt: 'Mayo 2026',
-    level: 'Inicial',
-    lessonsCompleted: 3,
-    totalLessons: 12,
-    achievements: 2
-  };
+export class ProfileComponent implements OnInit {
+  private authService = inject(AuthService);
+  progressService = inject(ProgressService);
 
-  constructor(private router: Router) {}
+  user = this.authService.getCurrentUser();
 
-  logout() {
-    localStorage.removeItem('token');
-    this.router.navigate(['/login']);
+  ngOnInit() {
+    this.progressService.loadProgress().subscribe();
   }
+
+  get completedCount() { return this.progressService.completedLessons().length; }
+  get totalLessons() { return this.progressService.totalLessons; }
+  get pendingCount() { return this.totalLessons - this.completedCount; }
+
+  logout() { this.authService.logout(); }
 }

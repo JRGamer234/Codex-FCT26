@@ -29,6 +29,7 @@ export class AuthService {
     localStorage.removeItem('token');
     localStorage.removeItem('rol');
     localStorage.removeItem('userName');
+    localStorage.removeItem('userEmail');
     localStorage.removeItem('userId');
     localStorage.removeItem('completedLessons');
     this.router.navigate(['/login']);
@@ -42,6 +43,7 @@ export class AuthService {
     return {
       id: localStorage.getItem('userId') ?? '',
       name: localStorage.getItem('userName') ?? '',
+      email: localStorage.getItem('userEmail') ?? '',
       rol: localStorage.getItem('rol') ?? 'alumno',
     };
   }
@@ -50,6 +52,7 @@ export class AuthService {
     localStorage.setItem('token', res.token);
     localStorage.setItem('rol', res.user.rol);
     localStorage.setItem('userName', res.user.name);
+    localStorage.setItem('userEmail', res.user.email);
     localStorage.setItem('userId', res.user.id);
   }
 }
