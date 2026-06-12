@@ -1,4 +1,4 @@
-import { Controller, Get, Patch, Body, Request, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Body, Request, UseGuards, ForbiddenException } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
@@ -22,6 +22,12 @@ export class UsersController {
   async getAlumnos(@Request() req: any) {
     if (req.user.rol !== 'profesor') return [];
     return this.usersService.getAlumnosWithProgress();
+  }
+
+  @Post('alumnos')
+  async createAlumno(@Request() req: any, @Body() body: { name: string; email: string; password: string }) {
+    if (req.user.rol !== 'profesor') throw new ForbiddenException();
+    return this.usersService.createAlumno(body.name, body.email, body.password);
   }
 
   @Get()

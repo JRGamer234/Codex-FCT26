@@ -23,6 +23,10 @@
     </div>
   </div>
 
+  <div *ngIf="loading" style="text-align:center;padding:3rem;color:#888">Cargando tests...</div>
+  <div *ngIf="error" style="text-align:center;padding:2rem;color:#ef4444;font-weight:600">{{ error }}</div>
+  <div *ngIf="!loading && !error && tests.length === 0" style="text-align:center;padding:3rem;color:#888">No hay tests completados aún.</div>
+
   <div class="tests-list">
     <div class="test-card" *ngFor="let test of tests">
       <div class="test-avatar">👤</div>
@@ -31,10 +35,12 @@
         <span class="test-leccion">{{ test.leccion }}</span>
       </div>
       <div class="test-score-bar">
-        <div class="score-fill" [style.width.%]="(test.score / test.total) * 100" [class.perfect]="test.score === test.total"></div>
+        <div class="score-fill" [style.width.%]="test.total > 0 ? (test.score / test.total) * 100 : 100" [class.perfect]="test.total > 0 && test.score === test.total"></div>
       </div>
       <div class="test-result">
-        <span class="test-score" [class.perfect]="test.score === test.total">{{ test.score }}/{{ test.total }}</span>
+        <span class="test-score" [class.perfect]="test.total > 0 && test.score === test.total">
+          {{ test.total > 0 ? (test.score + '/' + test.total) : 'Completado' }}
+        </span>
         <span class="test-date">{{ test.fecha }}</span>
       </div>
     </div>

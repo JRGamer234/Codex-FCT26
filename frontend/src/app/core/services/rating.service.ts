@@ -20,7 +20,7 @@ export interface RatingStats {
 @Injectable({ providedIn: 'root' })
 export class RatingService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:3000/ratings';
+  private apiUrl = '/api/ratings';
 
   submitRating(lessonId: string, lessonTitle: string, stars: number, comment: string): Observable<RatingData> {
     return this.http.post<RatingData>(this.apiUrl, { lessonId, lessonTitle, stars, comment });

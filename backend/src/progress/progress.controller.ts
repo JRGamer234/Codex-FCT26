@@ -17,16 +17,25 @@ export class ProgressController {
     return this.progressService.getUserStats(req.user._id);
   }
 
+  @Get('all')
+  getAllProgress(@Request() req: any) {
+    if (req.user.rol !== 'profesor') return [];
+    return this.progressService.getAllProgress();
+  }
+
   @Post('complete')
   complete(
     @Request() req: any,
-    @Body() body: { lessonId: string; lessonTitle: string; lessonCategory: string },
+    @Body() body: { lessonId: string; lessonTitle: string; lessonCategory: string; score?: number; total?: number },
   ) {
     return this.progressService.completeLesson(
       req.user._id,
+      req.user.name ?? '',
       body.lessonId,
       body.lessonTitle,
       body.lessonCategory,
+      body.score ?? 0,
+      body.total ?? 0,
     );
   }
 

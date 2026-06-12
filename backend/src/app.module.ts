@@ -10,7 +10,12 @@ import { RatingsModule } from './ratings/ratings.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    MongooseModule.forRoot(process.env.MONGO_URL || 'mongodb://localhost:27017/codex'),
+    MongooseModule.forRoot(process.env.MONGO_URL || 'mongodb://localhost:27017/codex', {
+      serverSelectionTimeoutMS: 8000,
+      connectTimeoutMS: 8000,
+      socketTimeoutMS: 15000,
+      family: 4,
+    }),
     AuthModule,
     UsersModule,
     LessonsModule,

@@ -8,7 +8,7 @@ import { Lesson } from '../models/lesson.model'; // 👉 ¡CORREGIDO! Importamos
 })
 export class LessonService {
     private http = inject(HttpClient);
-    private apiUrl = 'http://localhost:3000/lessons';
+    private apiUrl = '/api/lessons';
 
     // Este Signal guardará las lecciones reales de la base de datos
     lessons = signal<Lesson[]>([]);

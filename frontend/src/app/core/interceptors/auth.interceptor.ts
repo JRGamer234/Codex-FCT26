@@ -3,6 +3,8 @@ import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
 
+let redirectingToLogin = false;
+
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const token = localStorage.getItem('token');
   const router = inject(Router);
@@ -14,9 +16,12 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(req).pipe(
     catchError((err: HttpErrorResponse) => {
-      if (err.status === 401 && !isAuthRoute) {
+      if (err.status === 401 && !isAuthRoute && !redirectingToLogin) {
+        redirectingToLogin = true;
         localStorage.clear();
-        router.navigate(['/login']);
+        router.navigate(['/login']).then(() => {
+          redirectingToLogin = false;
+        });
       }
       return throwError(() => err);
     })

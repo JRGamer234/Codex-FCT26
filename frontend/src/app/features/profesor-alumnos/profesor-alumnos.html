@@ -2,9 +2,31 @@
 
   <div class="alumnos-header">
     <a routerLink="/profesor/dashboard" class="btn-back">← Volver</a>
-    <h1>👨‍🎓 Alumnos activos</h1>
-    <p>Seguimiento del progreso de tus alumnos</p>
+    <div>
+      <h1>👨‍🎓 Alumnos activos</h1>
+      <p>Seguimiento del progreso de tus alumnos</p>
+    </div>
+    <button class="btn-new" (click)="showForm = !showForm">
+      {{ showForm ? '✕ Cancelar' : '+ Nuevo alumno' }}
+    </button>
   </div>
+
+  <div class="form-card" *ngIf="showForm">
+    <h3>Añadir alumno</h3>
+    <div class="form-row">
+      <input [(ngModel)]="newName" placeholder="Nombre completo" type="text" />
+      <input [(ngModel)]="newEmail" placeholder="Email" type="email" />
+      <input [(ngModel)]="newPassword" placeholder="Contraseña" type="password" />
+      <button class="btn-save" (click)="submitForm()" [disabled]="saving">
+        {{ saving ? 'Guardando...' : 'Crear alumno' }}
+      </button>
+    </div>
+    <p class="form-error" *ngIf="formError">{{ formError }}</p>
+  </div>
+
+  <div *ngIf="loading" style="text-align:center;padding:3rem;color:#888">Cargando alumnos...</div>
+  <div *ngIf="error" style="text-align:center;padding:2rem;color:#ef4444;font-weight:600">{{ error }}</div>
+  <div *ngIf="!loading && !error && alumnos.length === 0" style="text-align:center;padding:3rem;color:#888">No hay alumnos registrados aún.</div>
 
   <div class="alumnos-grid">
     <div class="alumno-card" *ngFor="let alumno of alumnos">

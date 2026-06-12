@@ -64,7 +64,7 @@ export class LessonQuizComponent implements OnInit {
     } else {
       this.finished = true;
       if (this.lessonId) {
-        this.progressService.completeLesson(this.lessonId, this.lessonTitle, this.lessonCategory).subscribe();
+        this.progressService.completeLesson(this.lessonId, this.lessonTitle, this.lessonCategory, this.score, this.questions.length).subscribe();
         this.lessonCompleted.emit();
       }
     }

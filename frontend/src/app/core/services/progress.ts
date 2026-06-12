@@ -8,12 +8,19 @@ export interface CompletedLesson {
   lessonTitle: string;
   lessonCategory: string;
   completedAt: string;
+  score?: number;
+  total?: number;
+}
+
+export interface AllProgress extends CompletedLesson {
+  userId: string;
+  userName: string;
 }
 
 @Injectable({ providedIn: 'root' })
 export class ProgressService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:3000/progress';
+  private apiUrl = '/api/progress';
 
   private _completedLessons = signal<CompletedLesson[]>([]);
   completedLessons = this._completedLessons.asReadonly();
@@ -40,8 +47,12 @@ export class ProgressService {
     return this._completedLessons().some(l => l.lessonId === lessonId);
   }
 
-  completeLesson(lessonId: string, lessonTitle: string, lessonCategory: string): Observable<CompletedLesson> {
-    return this.http.post<CompletedLesson>(`${this.apiUrl}/complete`, { lessonId, lessonTitle, lessonCategory }).pipe(
+  getAllProgress(): Observable<AllProgress[]> {
+    return this.http.get<AllProgress[]>(`${this.apiUrl}/all`);
+  }
+
+  completeLesson(lessonId: string, lessonTitle: string, lessonCategory: string, score = 0, total = 0): Observable<CompletedLesson> {
+    return this.http.post<CompletedLesson>(`${this.apiUrl}/complete`, { lessonId, lessonTitle, lessonCategory, score, total }).pipe(
       tap(entry => {
         if (!this.isCompleted(lessonId)) {
           this._completedLessons.update(list => [...list, entry]);

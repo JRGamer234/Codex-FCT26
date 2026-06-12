@@ -12,9 +12,13 @@ export interface Alumno {
 @Injectable({ providedIn: 'root' })
 export class UserService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:3000/users';
+  private apiUrl = '/api/users';
 
   getAlumnos(): Observable<Alumno[]> {
     return this.http.get<Alumno[]>(`${this.apiUrl}/alumnos`);
+  }
+
+  createAlumno(name: string, email: string, password: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/alumnos`, { name, email, password });
   }
 }

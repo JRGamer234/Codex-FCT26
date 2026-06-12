@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { LessonService } from '../../core/services/lesson.service';
 
@@ -11,6 +11,7 @@ import { LessonService } from '../../core/services/lesson.service';
 })
 export class ProfesorLeccionesComponent implements OnInit {
   private lessonService = inject(LessonService);
+  private cdr = inject(ChangeDetectorRef);
 
   lessons = this.lessonService.lessons;
   loading = true;
@@ -18,8 +19,8 @@ export class ProfesorLeccionesComponent implements OnInit {
 
   ngOnInit() {
     this.lessonService.getLessons().subscribe({
-      next: () => this.loading = false,
-      error: () => this.loading = false,
+      next: () => { this.loading = false; this.cdr.detectChanges(); },
+      error: () => { this.loading = false; this.cdr.detectChanges(); },
     });
   }
 

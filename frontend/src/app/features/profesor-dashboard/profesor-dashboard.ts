@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { forkJoin } from 'rxjs';
 import { UserService, Alumno } from '../../core/services/user';
 import { LessonService } from '../../core/services/lesson.service';
 import { RatingService } from '../../core/services/rating.service';
@@ -19,6 +20,7 @@ export class ProfesorDashboardComponent implements OnInit {
   lessonCount = 0;
   totalTests = 0;
   ratingAverage: number | string = '—';
+  loading = true;
 
   constructor(
     private router: Router,
@@ -26,27 +28,31 @@ export class ProfesorDashboardComponent implements OnInit {
     private lessonService: LessonService,
     private ratingService: RatingService,
     private authService: AuthService,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
     const user = this.authService.getCurrentUser();
     this.profesor = { name: user.name, email: user.email };
 
-    this.userService.getAlumnos().subscribe({
-      next: data => {
-        this.alumnos = data;
-        this.totalTests = data.reduce((sum, a) => sum + a.completedLessons, 0);
-      }
-    });
-
-    this.lessonService.getLessons().subscribe({
-      next: data => { this.lessonCount = data.length; }
-    });
-
-    this.ratingService.getStats().subscribe({
-      next: stats => {
+    forkJoin({
+      alumnos: this.userService.getAlumnos(),
+      lessons: this.lessonService.getLessons(),
+      stats: this.ratingService.getStats(),
+    }).subscribe({
+      next: ({ alumnos, lessons, stats }) => {
+        this.alumnos = alumnos;
+        this.totalTests = alumnos.reduce((sum, a) => sum + a.completedLessons, 0);
+        this.lessonCount = lessons.length;
         this.ratingAverage = stats.total > 0 ? stats.average : '—';
-      }
+        this.loading = false;
+        this.cdr.detectChanges();
+      },
+      error: err => {
+        console.error('[Dashboard] Error cargando datos:', err.status, err.message);
+        this.loading = false;
+        this.cdr.detectChanges();
+      },
     });
   }
 

@@ -8,6 +8,9 @@ export class Progress {
   @Prop({ type: Types.ObjectId, ref: 'User', required: true })
   userId: Types.ObjectId;
 
+  @Prop({ default: '' })
+  userName: string;
+
   @Prop({ required: true })
   lessonId: string;
 
@@ -16,6 +19,12 @@ export class Progress {
 
   @Prop({ required: true })
   lessonCategory: string;
+
+  @Prop({ default: 0 })
+  score: number;
+
+  @Prop({ default: 0 })
+  total: number;
 
   @Prop({ default: Date.now })
   completedAt: Date;

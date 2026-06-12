@@ -1,6 +1,7 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import * as bcrypt from 'bcrypt';
 import { User, UserDocument } from './schemas/user.schema';
 import { ProgressService } from '../progress/progress.service';
 
@@ -46,5 +47,14 @@ export class UsersService {
     const user = await this.userModel.findByIdAndUpdate(id, updates, { new: true }).select('-password').exec();
     if (!user) throw new NotFoundException('Usuario no encontrado');
     return user;
+  }
+
+  async createAlumno(name: string, email: string, password: string): Promise<Omit<UserDocument, 'password'>> {
+    const existing = await this.userModel.findOne({ email }).exec();
+    if (existing) throw new ConflictException('Ya existe un usuario con ese email');
+    const hashed = await bcrypt.hash(password, 10);
+    const user = await this.userModel.create({ name, email, password: hashed, rol: 'alumno' });
+    const { password: _, ...result } = user.toObject();
+    return result as any;
   }
 }

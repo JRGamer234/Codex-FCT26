@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { ProgressService, AllProgress } from '../../core/services/progress';
 
 interface TestResumen {
   alumno: string;
@@ -17,26 +18,57 @@ interface TestResumen {
   templateUrl: './profesor-tests.html',
   styleUrl: './profesor-tests.scss'
 })
-export class ProfesorTestsComponent {
-  tests: TestResumen[] = [
-    { alumno: 'Itziar', leccion: 'Introducción a HTML', score: 5, total: 5, fecha: 'Hoy' },
-    { alumno: 'Mario', leccion: 'Selectores Avanzados', score: 4, total: 5, fecha: 'Ayer' },
-    { alumno: 'Jorge', leccion: 'Flexbox', score: 3, total: 5, fecha: 'Hace 2 días' },
-    { alumno: 'Alex', leccion: 'Formularios en HTML', score: 5, total: 5, fecha: 'Hace 3 días' },
-    { alumno: 'Itziar', leccion: 'CSS Grid', score: 4, total: 5, fecha: 'Hace 4 días' },
-    { alumno: 'Mario', leccion: 'Animaciones CSS', score: 3, total: 5, fecha: 'Hace 5 días' },
-  ];
+export class ProfesorTestsComponent implements OnInit {
+  tests: TestResumen[] = [];
+  loading = true;
+  error = '';
+
+  constructor(private progressService: ProgressService, private cdr: ChangeDetectorRef) {}
+
+  ngOnInit() {
+    this.progressService.getAllProgress().subscribe({
+      next: (data: AllProgress[]) => {
+        this.tests = data.map(p => ({
+          alumno: p.userName || 'Alumno',
+          leccion: p.lessonTitle,
+          score: p.score ?? 0,
+          total: p.total ?? 0,
+          fecha: this.formatDate(p.completedAt),
+        }));
+        this.loading = false;
+        this.cdr.detectChanges();
+      },
+      error: err => {
+        this.error = `Error ${err.status}: ${err.message}`;
+        this.loading = false;
+        this.cdr.detectChanges();
+      },
+    });
+  }
+
+  private formatDate(iso: string): string {
+    const d = new Date(iso);
+    const now = new Date();
+    const diffMs = now.getTime() - d.getTime();
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    if (diffDays === 0) return 'Hoy';
+    if (diffDays === 1) return 'Ayer';
+    return `Hace ${diffDays} días`;
+  }
 
   get totalTests(): number {
     return this.tests.length;
   }
 
   get mediaScore(): string {
-    const media = this.tests.reduce((a, t) => a + (t.score / t.total) * 100, 0) / this.tests.length;
+    if (!this.tests.length) return '0';
+    const withTotal = this.tests.filter(t => t.total > 0);
+    if (!withTotal.length) return '—';
+    const media = withTotal.reduce((a, t) => a + (t.score / t.total) * 100, 0) / withTotal.length;
     return media.toFixed(0);
   }
 
   get perfectos(): number {
-    return this.tests.filter(t => t.score === t.total).length;
+    return this.tests.filter(t => t.total > 0 && t.score === t.total).length;
   }
 }
