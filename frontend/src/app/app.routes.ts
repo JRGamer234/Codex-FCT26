@@ -20,6 +20,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'create-lesson', component: LessonFormComponent, canActivate: [authGuard] },
+  { path: 'edit-lesson/:id', component: LessonFormComponent, canActivate: [authGuard] },
   { path: 'profesor/dashboard', component: ProfesorDashboardComponent, canActivate: [authGuard] },
   { path: 'profesor/alumnos', component: ProfesorAlumnosComponent, canActivate: [authGuard] },
   { path: 'profesor/lecciones', component: ProfesorLeccionesComponent, canActivate: [authGuard] },

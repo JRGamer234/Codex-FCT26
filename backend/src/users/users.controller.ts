@@ -18,6 +18,12 @@ export class UsersController {
     return this.usersService.updateProfile(req.user._id, body);
   }
 
+  @Patch('me/password')
+  async changePassword(@Request() req: any, @Body() body: { currentPassword: string; newPassword: string }) {
+    await this.usersService.changePassword(req.user._id, body.currentPassword, body.newPassword);
+    return { message: 'Contraseña actualizada correctamente' };
+  }
+
   @Get('alumnos')
   async getAlumnos(@Request() req: any) {
     if (req.user.rol !== 'profesor') return [];

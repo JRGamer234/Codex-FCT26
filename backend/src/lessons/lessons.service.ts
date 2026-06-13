@@ -22,6 +22,12 @@ export class LessonsService {
     return this.lessonModel.create({ ...dto, createdBy });
   }
 
+  async update(id: string, dto: Partial<CreateLessonDto>): Promise<LessonDocument> {
+    const lesson = await this.lessonModel.findByIdAndUpdate(id, dto, { new: true }).exec();
+    if (!lesson) throw new NotFoundException('Lección no encontrada');
+    return lesson;
+  }
+
   async remove(id: string): Promise<void> {
     const result = await this.lessonModel.findByIdAndDelete(id).exec();
     if (!result) throw new NotFoundException('Lección no encontrada');

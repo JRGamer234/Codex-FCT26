@@ -45,6 +45,16 @@ export class LessonService {
     }
 
     // 🗑️ ¡NUEVO MÉTODO! Elimina físicamente una lección del servidor NestJS y la base de datos
+    updateLesson(id: string, lesson: Partial<Lesson>): Observable<Lesson> {
+        return this.http.patch<Lesson>(`${this.apiUrl}/${id}`, lesson).pipe(
+            tap(updated => {
+                this.lessons.update(current =>
+                    current.map(l => l._id === id ? { ...l, ...updated } : l)
+                );
+            })
+        );
+    }
+
     deleteLessonFromServer(id: string): Observable<any> {
         return this.http.delete<any>(`${this.apiUrl}/${id}`);
     }

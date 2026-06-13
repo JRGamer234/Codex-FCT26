@@ -82,6 +82,21 @@ export class LessonQuizComponent implements OnInit {
     });
   }
 
+  get reviewItems() {
+    return this.questions.map((q, qi) => ({
+      question: q.question,
+      correct: q.correct,
+      chosen: this.answers[qi] ?? -1,
+      options: q.options.map((opt, oi) => ({
+        text: opt,
+        letter: ['A', 'B', 'C', 'D'][oi],
+        isCorrect: oi === q.correct,
+        isChosen: oi === (this.answers[qi] ?? -1),
+        isWrong: oi === (this.answers[qi] ?? -1) && oi !== q.correct,
+      })),
+    }));
+  }
+
   restart() {
     this.currentIndex = 0;
     this.selectedOption = null;

@@ -33,6 +33,33 @@
       <div class="score">{{ score }} / {{ questions.length }}</div>
       <p class="result-msg">Respondiste correctamente {{ score }} de {{ questions.length }} preguntas.</p>
 
+      <!-- Revisión de respuestas -->
+      <div class="review-section">
+        <h3 class="review-title">Repaso de respuestas</h3>
+        @for (item of reviewItems; track $index) {
+          <div class="review-item" [class.review-item--correct]="item.chosen === item.correct" [class.review-item--wrong]="item.chosen !== item.correct">
+            <div class="review-question">
+              <span class="review-badge" [class.badge--ok]="item.chosen === item.correct" [class.badge--fail]="item.chosen !== item.correct">
+                {{ item.chosen === item.correct ? '✓' : '✗' }}
+              </span>
+              {{ item.question }}
+            </div>
+            <div class="review-options">
+              @for (opt of item.options; track $index) {
+                <div class="review-option"
+                  [class.review-option--correct]="opt.isCorrect"
+                  [class.review-option--wrong]="opt.isWrong">
+                  <span class="opt-letter">{{ opt.letter }}</span>
+                  {{ opt.text }}
+                  @if (opt.isCorrect) { <span class="opt-tag opt-tag--correct">Correcta</span> }
+                  @if (opt.isWrong) { <span class="opt-tag opt-tag--wrong">Tu respuesta</span> }
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+
       @if (!ratingSubmitted) {
         <div class="rating-section">
           <h3>¿Cómo valorarías esta lección?</h3>

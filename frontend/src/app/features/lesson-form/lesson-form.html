@@ -4,7 +4,7 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
       Volver
     </a>
-    <h1>Crear nueva lección</h1>
+    <h1>{{ isEditMode ? 'Editar lección' : 'Crear nueva lección' }}</h1>
     <p>Rellena la información básica, añade las secciones de contenido y crea el test.</p>
   </header>
 
@@ -163,11 +163,11 @@
     }
 
     <div class="form-actions">
-      <button type="button" routerLink="/catalog" class="a-btn a-btn--outline" [disabled]="isSubmitting">
+      <button type="button" routerLink="/profesor/lecciones" class="a-btn a-btn--outline" [disabled]="isSubmitting">
         Cancelar
       </button>
       <button type="submit" class="a-btn a-btn--primary" [disabled]="isSubmitting || lessonForm.invalid">
-        @if (isSubmitting) { Guardando... } @else { Crear lección }
+        @if (isSubmitting) { Guardando... } @else { {{ isEditMode ? 'Guardar cambios' : 'Crear lección' }} }
       </button>
     </div>
 

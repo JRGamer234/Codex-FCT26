@@ -21,4 +21,8 @@ export class UserService {
   createAlumno(name: string, email: string, password: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/alumnos`, { name, email, password });
   }
+
+  changePassword(currentPassword: string, newPassword: string): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/me/password`, { currentPassword, newPassword });
+  }
 }

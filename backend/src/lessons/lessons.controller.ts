@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Delete, Body, Param, Request, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Delete, Body, Param, Request, UseGuards } from '@nestjs/common';
 import { LessonsService } from './lessons.service';
 import { CreateLessonDto } from './dto/create-lesson.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
@@ -21,6 +21,11 @@ export class LessonsController {
   @Post()
   create(@Body() dto: CreateLessonDto, @Request() req: any) {
     return this.lessonsService.create(dto, req.user?.name);
+  }
+
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() dto: CreateLessonDto) {
+    return this.lessonsService.update(id, dto);
   }
 
   @Delete(':id')
