@@ -9,7 +9,7 @@ export const authGuard: CanActivateFn = (_route, state) => {
   if (!token) return router.createUrlTree(['/login']);
 
   const url = state.url;
-  const isProfesorRoute = url.startsWith('/profesor') || url.startsWith('/create-lesson');
+  const isProfesorRoute = url.startsWith('/profesor') || url.startsWith('/create-lesson') || url.startsWith('/edit-lesson');
 
   // Profesor intentando acceder a rutas de alumno → su dashboard
   if (rol === 'profesor' && !isProfesorRoute) {
