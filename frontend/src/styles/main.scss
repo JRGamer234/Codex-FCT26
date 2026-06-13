@@ -229,24 +229,65 @@ body.light-theme {
   }
 
   .filters-bar select {
-    background: rgba(0,0,0,0.04) !important;
+    background-color: rgba(0,0,0,0.04) !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgba(0,0,0,0.45)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 10px center !important;
+    background-size: 16px !important;
     border-color: #e2e8f0 !important;
     color: #0f172a !important;
   }
 
   .btn-back { color: #64748b !important; &:hover { color: #0f172a !important; } }
 
+  // Page h1 / h2 / p — apply !important to beat Angular's scoped specificity
   .lecciones-header .header-title h1,
   .tests-header .header-title h1,
   .valoraciones-header .header-title h1,
-  .alumnos-header h1 { color: #0f172a; }
+  .alumnos-header h1,
+  .lecciones-container h1,
+  .tests-container h1,
+  .valoraciones-container h1,
+  .alumnos-container h1 { color: #0f172a !important; }
+
   .lecciones-header .header-title p,
   .tests-header .header-title p,
   .valoraciones-header .header-title p,
-  .alumnos-header p { color: #64748b; }
+  .alumnos-header p,
+  .lecciones-container h2,
+  .tests-container h2,
+  .valoraciones-container h2,
+  .alumnos-container p { color: #64748b !important; }
 
-  .badge.level  { background: rgba(2,132,199,0.12); color: #0284c7; }
-  .badge.category { background: rgba(0,0,0,0.07); color: #475569; }
+  .badge.level  { background: rgba(2,132,199,0.12) !important; color: #0284c7 !important; }
+  .badge.category { background: rgba(0,0,0,0.07) !important; color: #475569 !important; }
+
+  // ── Lesson form ───────────────────────────────────────────────────────
+  .lesson-form-page {
+    .lesson-form-header h1 { color: #0f172a !important; }
+    .lesson-form-header p  { color: #64748b !important; }
+    .lesson-form-header .btn-back { color: #64748b !important; }
+  }
+  .form-card__title { color: #0f172a !important; }
+  .a-label          { color: #475569 !important; }
+  .a-label .label-optional { color: #94a3b8 !important; }
+  .dynamic-item {
+    background: rgba(0,0,0,0.02) !important;
+    border-color: #e2e8f0 !important;
+  }
+  .dynamic-item__num { color: #0284c7 !important; }
+  .correct-selector  { border-top-color: #e2e8f0 !important; }
+  // Replace white SVG arrow with dark one for light mode
+  .a-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgba(0,0,0,0.45)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") !important;
+    background-color: rgba(0,0,0,0.04) !important;
+    border-color: rgba(0,0,0,0.12) !important;
+    color: #0f172a !important;
+  }
+  .a-textarea--code {
+    background: rgba(0,0,0,0.05) !important;
+    color: #0369a1 !important;
+  }
 
   // ── Quiz ─────────────────────────────────────────────────────────────
   .question-card { background: #ffffff !important; border-color: #e2e8f0 !important; }
@@ -279,7 +320,7 @@ body.light-theme {
   input:not([type="checkbox"]):not([type="radio"]),
   textarea,
   select {
-    background: rgba(0,0,0,0.04) !important;
+    background-color: rgba(0,0,0,0.04) !important;
     border-color: rgba(0,0,0,0.12) !important;
     color: #0f172a !important;
     &::placeholder { color: #94a3b8 !important; }
