@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Codex — Presentación del Proyecto</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #0f172a;
+    --bg2:      #1e293b;
+    --border:   rgba(255,255,255,0.08);
+    --primary:  #38bdf8;
+    --primary2: #0ea5e9;
+    --white:    #f8fafc;
+    --muted:    rgba(248,250,252,0.5);
+    --accent:   #818cf8;
+    --green:    #4ade80;
+    --red:      #f87171;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--white);
+  }
+
+  /* ── SLIDE BASE ── */
+  .slide {
+    width: 297mm;
+    min-height: 210mm;
+    padding: 14mm 18mm;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .slide::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 80% 20%, rgba(56,189,248,.07) 0%, transparent 60%),
+                radial-gradient(ellipse 50% 40% at 10% 80%, rgba(129,140,248,.05) 0%, transparent 55%);
+    pointer-events: none;
+  }
+
+  /* decorative dots */
+  .slide::after {
+    content: '';
+    position: absolute;
+    right: 14mm;
+    bottom: 10mm;
+    width: 120px;
+    height: 120px;
+    background-image: radial-gradient(circle, rgba(56,189,248,.18) 1px, transparent 1px);
+    background-size: 12px 12px;
+    pointer-events: none;
+    border-radius: 50%;
+  }
+
+  /* slide number */
+  .slide-num {
+    position: absolute;
+    bottom: 8mm;
+    left: 18mm;
+    font-size: 9pt;
+    color: var(--muted);
+    letter-spacing: .05em;
+  }
+
+  /* top accent bar */
+  .accent-bar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+  }
+
+  /* ── PORTADA ── */
+  .slide-portada {
+    align-items: center;
+    text-align: center;
+    gap: 0;
+  }
+
+  .logo-mark {
+    width: 72px; height: 72px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    border-radius: 20px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 36px;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 auto 20px;
+    box-shadow: 0 0 40px rgba(56,189,248,.3);
+  }
+
+  .portada-title {
+    font-size: 48pt;
+    font-weight: 800;
+    background: linear-gradient(90deg, var(--white) 40%, var(--primary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+
+  .portada-subtitle {
+    font-size: 14pt;
+    color: var(--muted);
+    margin-bottom: 32px;
+  }
+
+  .portada-tags {
+    display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;
+    margin-bottom: 40px;
+  }
+
+  .tag {
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 9pt;
+    font-weight: 600;
+    letter-spacing: .04em;
+  }
+  .tag-blue  { background: rgba(56,189,248,.15); color: var(--primary); border: 1px solid rgba(56,189,248,.25); }
+  .tag-purple{ background: rgba(129,140,248,.15); color: var(--accent);  border: 1px solid rgba(129,140,248,.25); }
+  .tag-green { background: rgba(74,222,128,.12);  color: var(--green);   border: 1px solid rgba(74,222,128,.2); }
+
+  .portada-meta {
+    font-size: 10pt;
+    color: var(--muted);
+    margin-top: 10px;
+  }
+
+  /* ── SECTION HEADER ── */
+  .slide-section {
+    align-items: center;
+    text-align: center;
+    background: radial-gradient(ellipse 80% 70% at 50% 50%, rgba(56,189,248,.06) 0%, transparent 70%);
+  }
+
+  .section-number {
+    font-size: 10pt;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .section-title {
+    font-size: 36pt;
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .section-desc {
+    font-size: 12pt;
+    color: var(--muted);
+    max-width: 500px;
+  }
+
+  /* ── CONTENT SLIDES ── */
+  .slide-title {
+    font-size: 22pt;
+    font-weight: 700;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .slide-title .icon {
+    width: 40px; height: 40px;
+    background: rgba(56,189,248,.12);
+    border: 1px solid rgba(56,189,248,.2);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  /* ── GRID LAYOUTS ── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; }
+
+  /* ── CARDS ── */
+  .card {
+    background: rgba(255,255,255,.03);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 18px;
+  }
+
+  .card-title {
+    font-size: 10pt;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 8px;
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .card-body {
+    font-size: 9.5pt;
+    color: rgba(248,250,252,.7);
+    line-height: 1.6;
+  }
+
+  .card-accent { border-color: rgba(56,189,248,.2); background: rgba(56,189,248,.04); }
+  .card-purple { border-color: rgba(129,140,248,.2); background: rgba(129,140,248,.04); }
+  .card-green  { border-color: rgba(74,222,128,.2);  background: rgba(74,222,128,.04); }
+
+  /* ── STAT BOX ── */
+  .stat-box {
+    background: rgba(255,255,255,.03);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 14px;
+    text-align: center;
+  }
+
+  .stat-value {
+    font-size: 26pt;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-label {
+    font-size: 9pt;
+    color: var(--muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+  }
+
+  /* ── CODE ── */
+  .code-block {
+    background: rgba(0,0,0,.4);
+    border: 1px solid rgba(255,255,255,.06);
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5pt;
+    color: #cbd5e1;
+    line-height: 1.7;
+    overflow: hidden;
+  }
+
+  .code-block .kw  { color: #c084fc; }
+  .code-block .str { color: #86efac; }
+  .code-block .cmt { color: #64748b; }
+  .code-block .fn  { color: #60a5fa; }
+  .code-block .num { color: #fb923c; }
+
+  /* ── LIST ── */
+  .check-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .check-list li {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 10pt; color: rgba(248,250,252,.8); line-height: 1.5;
+  }
+  .check-list li::before {
+    content: '✓';
+    color: var(--primary);
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ── BADGE ── */
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 7.5pt;
+    font-weight: 700;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .badge-blue   { background: rgba(56,189,248,.2);  color: var(--primary); }
+  .badge-purple { background: rgba(129,140,248,.2); color: var(--accent); }
+  .badge-green  { background: rgba(74,222,128,.15); color: var(--green); }
+  .badge-red    { background: rgba(248,113,113,.15); color: var(--red); }
+
+  /* ── TABLE ── */
+  table { width: 100%; border-collapse: collapse; font-size: 9.5pt; }
+  th {
+    background: rgba(56,189,248,.08);
+    color: var(--primary);
+    font-weight: 700;
+    padding: 9px 12px;
+    text-align: left;
+    border-bottom: 1px solid rgba(56,189,248,.2);
+    font-size: 8.5pt;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+  }
+  td {
+    padding: 8px 12px;
+    border-bottom: 1px solid rgba(255,255,255,.04);
+    color: rgba(248,250,252,.8);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,.02); }
+
+  /* ── FLOW ── */
+  .flow { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .flow-step {
+    background: rgba(255,255,255,.04);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 9pt;
+    font-weight: 600;
+    text-align: center;
+    flex: 1;
+    min-width: 80px;
+  }
+  .flow-arrow { color: var(--primary); font-size: 14pt; flex-shrink: 0; }
+
+  /* ── DIVIDER ── */
+  .divider {
+    width: 48px; height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    border-radius: 2px;
+    margin: 12px 0;
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    body { background: var(--bg); }
+    .slide {
+      page-break-after: always;
+      break-after: page;
+      width: 100vw;
+      min-height: 100vh;
+    }
+  }
+
+  @page { size: A4 landscape; margin: 0; }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════ SLIDE 1 — PORTADA ════════════════════ -->
+<div class="slide slide-portada">
+  <div class="accent-bar"></div>
+  <div class="logo-mark">C</div>
+  <div class="portada-title">Codex</div>
+  <div class="portada-subtitle">Plataforma de Aprendizaje Web Interactivo</div>
+  <div class="portada-tags">
+    <span class="tag tag-blue">Angular 21</span>
+    <span class="tag tag-purple">NestJS</span>
+    <span class="tag tag-green">MongoDB Atlas</span>
+    <span class="tag tag-blue">TypeScript</span>
+    <span class="tag tag-purple">JWT Auth</span>
+    <span class="tag tag-green">REST API</span>
+  </div>
+  <div class="portada-meta">Trabajo de Fin de Grado · FCT26 · 2026</div>
+  <div class="slide-num">1</div>
+</div>
+
+<!-- ════════════════════ SLIDE 2 — QUÉ ES CODEX ════════════════════ -->
+<div class="slide">
+  <div class="accent-bar"></div>
+  <div class="slide-title"><span class="icon">💡</span> ¿Qué es Codex?</div>
+  <div class="divider"></div>
+  <div class="grid-2" style="gap:16px; margin-bottom:18px">
+    <div>
+      <p style="font-size:11pt;color:rgba(248,250,252,.8);line-height:1.7;margin-bottom:14px">
+        <strong style="color:var(--white)">Codex</strong> es una plataforma educativa web diseñada para enseñar desarrollo frontend de forma estructurada e interactiva. Los alumnos aprenden HTML, CSS y JavaScript a través de lecciones con teoría, ejemplos de código y quizzes de evaluación.
+      </p>
+      <p style="font-size:11pt;color:rgba(248,250,252,.8);line-height:1.7">
+        El profesor gestiona el contenido, supervisa el progreso de los alumnos en tiempo real y puede añadir nuevos estudiantes desde un panel de administración dedicado.
+      </p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div class="card card-accent">
+        <div class="card-title">🎓 Para alumnos</div>
+        <div class="card-body">Lecciones interactivas con código, quizzes de evaluación, seguimiento de progreso y sistema de logros.</div>
+      </div>
+      <div class="card card-purple">
+        <div class="card-title">👨‍🏫 Para profesores</div>
+        <div class="card-body">Panel de control con estadísticas globales, gestión de alumnos, lecciones y valoraciones.</div>
+      </div>
+    </div>
+  </div>
+  <div class="grid-4">
+    <div class="stat-box"><div class="stat-value">7</div><div class="stat-label">Lecciones</div></div>
+    <div class="stat-box"><div class="stat-value">2</div><div class="stat-label">Roles</div></div>
+    <div class="stat-box"><div class="stat-value">5</div><div class="stat-label">Módulos API</div></div>
+    <div class="stat-box"><div class="stat-value" style="color:var(--accent)">∞</div><div class="stat-label">Alumnos</div></div>
+  </div>
+  <div class="slide-num">2</div>
+</div>
+
+<!-- ════════════════════ SLIDE 3 — TECNOLOGÍAS ════════════════════ -->
+<div class="slide">
+  <div class="accent-bar"></div>
+  <div class="slide-title"><span class="icon">⚙️</span> Stack tecnológico</div>
+  <div class="divider"></div>
+  <div class="grid-3" style="gap:12px">
+    <div class="card card-accent">
+      <div class="card-title" style="font-size:11pt;margin-bottom:12px">Frontend</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:9.5pt">
+          <span>Angular</span><span class="badge badge-blue">v21</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:9.5pt">
+          <span>TypeScript</span><span class="badge badge-blue">v5</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:9.5pt">
+          <span>SCSS</span><span class="badge badge-blue">Módulos</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:9.5pt">
+          <span>Vite</span><span class="badge badge-blue">Dev server</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:9.5pt">
+          <span>Prism.js</span><span class="badge badge-blue">Resaltado</span>
+        </div>
+      </div>
+    </div>
+    <div class="card card-purple">
+      <div class="card-title" style="font-size:11pt;margin-bottom:12px">Backend</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:9.5pt">
+          <span>NestJS</span><span class="badge badge-purple">v10</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:9.5pt">
+          <span>Node.js</span><span class="badge badge-purple">v24</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:9.5pt">
+          <span>Mongoose</span><span class="badge badge-purple">ODM</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:9.5pt">
+          <span>Passport / JWT</span><span class="badge badge-purple">Auth</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:9.5pt">
+          <span>bcrypt</span><span class="badge badge-purple">Hash</span>
+        </div>
+      </div>
+    </div>
+    <div class="card card-green">
+      <div class="card-title" style="font-size:11pt;margin-bottom:12px">Base de datos &amp; Despliegue</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:9.5pt">
+          <span>MongoDB Atlas</span><span class="badge badge-green">Cloud</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:9.5pt">
+          <span>GitHub</span><span class="badge badge-green">Control de versiones</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:9.5pt">
+          <span>Proxy Angular</span><span class="badge badge-green">Sin CORS</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:9.5pt">
+          <span>npm workspaces</span><span class="badge badge-green">Monorepo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">3</div>
+</div>
+
+<!-- ════════════════════ SLIDE 4 — ARQUITECTURA ════════════════════ -->
+<div class="slide">
+  <div class="accent-bar"></div>
+  <div class="slide-title"><span class="icon">🏗️</span> Arquitectura del sistema</div>
+  <div class="divider"></div>
+  <div class="grid-2" style="gap:16px;margin-bottom:14px">
+    <div>
+      <div class="flow" style="margin-bottom:14px">
+        <div class="flow-step" style="background:rgba(56,189,248,.08);border-color:rgba(56,189,248,.2)">Navegador<br><small style="color:var(--muted);font-size:7.5pt">localhost:4200</small></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">Proxy Angular<br><small style="color:var(--muted);font-size:7.5pt">/api/*</small></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step" style="background:rgba(129,140,248,.08);border-color:rgba(129,140,248,.2)">NestJS API<br><small style="color:var(--muted);font-size:7.5pt">localhost:3000</small></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step" style="background:rgba(74,222,128,.08);border-color:rgba(74,222,128,.2)">MongoDB Atlas<br><small style="color:var(--muted);font-size:7.5pt">Cloud</small></div>
+      </div>
+      <div class="card" style="margin-bottom:10px">
+        <div class="card-title">Frontend — Angular 21</div>
+        <div class="card-body">Componentes standalone, signals para estado reactivo, HttpClient con interceptores JWT, lazy loading y proxy para desarrollo sin CORS.</div>
+      </div>
+      <div class="card card-purple">
+        <div class="card-title">Backend — NestJS</div>
+        <div class="card-body">Arquitectura modular con decoradores, guards JWT, validación global con ValidationPipe y prefijo global <code style="font-family:monospace;color:var(--accent)">/api</code>.</div>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:9pt;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Módulos NestJS</div>
+      <div style="display:flex;flex-direction:column;gap:7px">
+        <div class="card" style="padding:10px 14px;display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:9.5pt">AuthModule</span>
+          <span style="font-size:8.5pt;color:var(--muted)">login · register · JWT strategy</span>
+        </div>
+        <div class="card" style="padding:10px 14px;display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:9.5pt">UsersModule</span>
+          <span style="font-size:8.5pt;color:var(--muted)">perfil · alumnos · crear usuario</span>
+        </div>
+        <div class="card" style="padding:10px 14px;display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:9.5pt">LessonsModule</span>
+          <span style="font-size:8.5pt;color:var(--muted)">CRUD lecciones con secciones y quiz</span>
+        </div>
+        <div class="card" style="padding:10px 14px;display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:9.5pt">ProgressModule</span>
+          <span style="font-size:8.5pt;color:var(--muted)">completar lección · estadísticas · historial</span>
+        </div>
+        <div class="card" style="padding:10px 14px;display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:9.5pt">RatingsModule</span>
+          <span style="font-size:8.5pt;color:var(--muted)">valoraciones por lección · media global</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">4</div>
+</div>
+
+<!-- ════════════════════ SLIDE 5 — MODELOS DE DATOS ════════════════════ -->
+<div class="slide">
+  <div class="accent-bar"></div>
+  <div class="slide-title"><span class="icon">🗄️</span> Modelos de datos — MongoDB</div>
+  <div class="divider"></div>
+  <div class="grid-3" style="gap:12px">
+    <div class="card card-accent">
+      <div class="card-title">User</div>
+      <div class="code-block" style="font-size:8pt">
+<span class="kw">name</span>:     <span class="str">String</span><br>
+<span class="kw">email</span>:    <span class="str">String</span> <span class="cmt">// único</span><br>
+<span class="kw">password</span>: <span class="str">String</span> <span class="cmt">// bcrypt</span><br>
+<span class="kw">rol</span>:      <span class="str">'alumno'</span> | <span class="str">'profesor'</span><br>
+<span class="cmt">// timestamps: createdAt, updatedAt</span>
+      </div>
+    </div>
+    <div class="card card-purple">
+      <div class="card-title">Lesson</div>
+      <div class="code-block" style="font-size:8pt">
+<span class="kw">title</span>:       <span class="str">String</span><br>
+<span class="kw">description</span>: <span class="str">String</span><br>
+<span class="kw">level</span>:       <span class="str">'Inicial'</span>|<span class="str">'Medio'</span>|<span class="str">'Avanzado'</span><br>
+<span class="kw">category</span>:    <span class="str">'HTML'</span>|<span class="str">'CSS'</span>|<span class="str">'JS'</span><br>
+<span class="kw">sections</span>:   <span class="fn">Section[]</span> <span class="cmt">// teoría + código</span><br>
+<span class="kw">questions</span>:  <span class="fn">Question[]</span> <span class="cmt">// quiz</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Progress</div>
+      <div class="code-block" style="font-size:8pt">
+<span class="kw">userId</span>:       ObjectId → <span class="fn">User</span><br>
+<span class="kw">userName</span>:     <span class="str">String</span><br>
+<span class="kw">lessonId</span>:     <span class="str">String</span><br>
+<span class="kw">lessonTitle</span>:  <span class="str">String</span><br>
+<span class="kw">score</span>:        <span class="num">Number</span> <span class="cmt">// aciertos</span><br>
+<span class="kw">total</span>:        <span class="num">Number</span> <span class="cmt">// preguntas</span><br>
+<span class="kw">completedAt</span>:  <span class="fn">Date</span>
+      </div>
+    </div>
+    <div class="card card-green" style="grid-column:1/3">
+      <div class="card-title">Rating</div>
+      <div class="code-block" style="font-size:8pt">
+<span class="kw">userId</span>: ObjectId → <span class="fn">User</span> &nbsp;&nbsp; <span class="kw">userName</span>: <span class="str">String</span> &nbsp;&nbsp; <span class="kw">lessonId</span>: <span class="str">String</span> &nbsp;&nbsp; <span class="kw">lessonTitle</span>: <span class="str">String</span> &nbsp;&nbsp; <span class="kw">stars</span>: <span class="num">1-5</span> &nbsp;&nbsp; <span class="kw">comment</span>: <span class="str">String</span>
+      </div>
+    </div>
+    <div class="card" style="background:rgba(248,113,113,.04);border-color:rgba(248,113,113,.15)">
+      <div class="card-title" style="color:var(--red)">Índice único</div>
+      <div class="card-body" style="font-size:8.5pt">Progress tiene índice compuesto <code style="font-family:monospace">(userId, lessonId)</code> para evitar duplicados. Un alumno sólo puede tener un registro de progreso por lección.</div>
+    </div>
+  </div>
+  <div class="slide-num">5</div>
+</div>
+
+<!-- ════════════════════ SLIDE 6 — API ENDPOINTS ════════════════════ -->
+<div class="slide">
+  <div class="accent-bar"></div>
+  <div class="slide-title"><span class="icon">🔌</span> API REST — Endpoints principales</div>
+  <div class="divider"></div>
+  <table>
+    <thead>
+      <tr>
+        <th>Método</th>
+        <th>Ruta</th>
+        <th>Descripción</th>
+        <th>Acceso</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="badge badge-green">POST</span></td><td><code style="font-family:monospace;font-size:8.5pt">/api/auth/register</code></td><td>Registro de nuevo usuario</td><td>Público</td></tr>
+      <tr><td><span class="badge badge-green">POST</span></td><td><code style="font-family:monospace;font-size:8.5pt">/api/auth/login</code></td><td>Inicio de sesión · devuelve JWT</td><td>Público</td></tr>
+      <tr><td><span class="badge badge-blue">GET</span></td><td><code style="font-family:monospace;font-size:8.5pt">/api/users/me</code></td><td>Perfil del usuario autenticado</td><td>Autenticado</td></tr>
+      <tr><td><span class="badge badge-blue">GET</span></td><td><code style="font-family:monospace;font-size:8.5pt">/api/users/alumnos</code></td><td>Lista de alumnos con progreso</td><td>Profesor</td></tr>
+      <tr><td><span class="badge badge-green">POST</span></td><td><code style="font-family:monospace;font-size:8.5pt">/api/users/alumnos</code></td><td>Crear nuevo alumno</td><td>Profesor</td></tr>
+      <tr><td><span class="badge badge-blue">GET</span></td><td><code style="font-family:monospace;font-size:8.5pt">/api/lessons</code></td><td>Listado de todas las lecciones</td><td>Autenticado</td></tr>
+      <tr><td><span class="badge badge-blue">GET</span></td><td><code style="font-family:monospace;font-size:8.5pt">/api/lessons/:id</code></td><td>Lección completa con secciones y quiz</td><td>Autenticado</td></tr>
+      <tr><td><span class="badge badge-green">POST</span></td><td><code style="font-family:monospace;font-size:8.5pt">/api/lessons</code></td><td>Crear nueva lección</td><td>Profesor</td></tr>
+      <tr><td><span class="badge badge-blue">GET</span></td><td><code style="font-family:monospace;font-size:8.5pt">/api/progress</code></td><td>Progreso del alumno autenticado</td><td>Autenticado</td></tr>
+      <tr><td><span class="badge badge-green">POST</span></td><td><code style="font-family:monospace;font-size:8.5pt">/api/progress/complete</code></td><td>Marcar lección como completada + score</td><td>Autenticado</td></tr>
+      <tr><td><span class="badge badge-blue">GET</span></td><td><code style="font-family:monospace;font-size:8.5pt">/api/progress/all</code></td><td>Historial de todos los alumnos</td><td>Profesor</td></tr>
+      <tr><td><span class="badge badge-green">POST</span></td><td><code style="font-family:monospace;font-size:8.5pt">/api/ratings</code></td><td>Publicar valoración (estrellas + comentario)</td><td>Autenticado</td></tr>
+      <tr><td><span class="badge badge-blue">GET</span></td><td><code style="font-family:monospace;font-size:8.5pt">/api/ratings/stats</code></td><td>Media global de valoraciones</td><td>Autenticado</td></tr>
+    </tbody>
+  </table>
+  <div class="slide-num">6</div>
+</div>
+
+<!-- ════════════════════ SLIDE 7 — SEGURIDAD ════════════════════ -->
+<div class="slide">
+  <div class="accent-bar"></div>
+  <div class="slide-title"><span class="icon">🔒</span> Seguridad y autenticación</div>
+  <div class="divider"></div>
+  <div class="grid-2" style="gap:16px">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div class="card card-accent">
+        <div class="card-title">Flujo JWT</div>
+        <div class="flow" style="margin-top:8px">
+          <div class="flow-step" style="font-size:8pt;padding:8px">Login<br>email+pw</div>
+          <div class="flow-arrow" style="font-size:10pt">→</div>
+          <div class="flow-step" style="font-size:8pt;padding:8px">bcrypt<br>verify</div>
+          <div class="flow-arrow" style="font-size:10pt">→</div>
+          <div class="flow-step" style="font-size:8pt;padding:8px">JWT<br>firmado</div>
+          <div class="flow-arrow" style="font-size:10pt">→</div>
+          <div class="flow-step" style="font-size:8pt;padding:8px">Bearer<br>header</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">JWT Payload</div>
+        <div class="code-block" style="font-size:8pt">
+{<br>
+&nbsp;&nbsp;<span class="str">"sub"</span>: <span class="str">"userId"</span>,<br>
+&nbsp;&nbsp;<span class="str">"email"</span>: <span class="str">"user@codex.com"</span>,<br>
+&nbsp;&nbsp;<span class="str">"rol"</span>: <span class="str">"alumno"</span> | <span class="str">"profesor"</span>,<br>
+&nbsp;&nbsp;<span class="str">"iat"</span>: <span class="num">1718000000</span>,<br>
+&nbsp;&nbsp;<span class="str">"exp"</span>: <span class="num">1718604800</span> <span class="cmt">// 7 días</span><br>
+}
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <ul class="check-list">
+        <li>Contraseñas hasheadas con <strong>bcrypt</strong> (salt rounds: 10)</li>
+        <li>Tokens JWT firmados con secreto de entorno (<code style="font-family:monospace;font-size:8.5pt">JWT_SECRET</code>)</li>
+        <li>Guards aplicados globalmente en todos los endpoints protegidos</li>
+        <li>Control de rol por endpoint: acciones de profesor verificadas en servidor</li>
+        <li>Interceptor Angular para adjuntar token y redirigir en 401</li>
+        <li>Fallback por email en JWT strategy para tolerancia a re-seeds</li>
+        <li>Separación de rutas Angular por rol — alumnos no pueden acceder a <code style="font-family:monospace;font-size:8.5pt">/profesor/*</code></li>
+        <li>Variables de entorno en <code style="font-family:monospace;font-size:8.5pt">.env</code> — credenciales fuera del código fuente</li>
+      </ul>
+    </div>
+  </div>
+  <div class="slide-num">7</div>
+</div>
+
+<!-- ════════════════════ SLIDE 8 — VISTA ALUMNO ════════════════════ -->
+<div class="slide">
+  <div class="accent-bar"></div>
+  <div class="slide-title"><span class="icon">🎓</span> Experiencia del alumno</div>
+  <div class="divider"></div>
+  <div class="grid-2" style="gap:16px">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div class="card card-accent">
+        <div class="card-title">Dashboard personal</div>
+        <div class="card-body">Barra de progreso global, últimas lecciones completadas, logros obtenidos y acceso rápido al catálogo.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Catálogo de lecciones</div>
+        <div class="card-body">Filtrado por categoría (HTML · CSS · JS) y nivel. Indicador visual de lección completada sobre cada tarjeta.</div>
+      </div>
+      <div class="card card-purple">
+        <div class="card-title">Lección interactiva</div>
+        <div class="card-body">Secciones con teoría en Markdown, bloques de código con resaltado sintáctico (Prism.js) y navegación paso a paso.</div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div class="card card-green">
+        <div class="card-title">Quiz de evaluación</div>
+        <div class="card-body">Preguntas de opción múltiple al finalizar la lección. El score se guarda en el servidor junto con la fecha de completado.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Valoraciones</div>
+        <div class="card-body">Sistema de 1 a 5 estrellas con comentario opcional tras completar el quiz. Visible en el panel del profesor.</div>
+      </div>
+      <div class="card" style="border-color:rgba(248,113,113,.2);background:rgba(248,113,113,.04)">
+        <div class="card-title" style="color:var(--red)">Sistema de logros</div>
+        <div class="card-body">Insignias desbloqueadas automáticamente por hitos: primera lección, mitad del temario, completar todo el catálogo, etc.</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">8</div>
+</div>
+
+<!-- ════════════════════ SLIDE 9 — VISTA PROFESOR ════════════════════ -->
+<div class="slide">
+  <div class="accent-bar"></div>
+  <div class="slide-title"><span class="icon">👨‍🏫</span> Panel del profesor</div>
+  <div class="divider"></div>
+  <div class="grid-2" style="gap:16px">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div class="card card-accent">
+        <div class="card-title">Dashboard — Vista global</div>
+        <div class="card-body">Tarjetas resumen: total de alumnos activos, lecciones en catálogo, tests completados por todos los alumnos y valoración media global. Lista de alumnos con barra de progreso.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Gestión de alumnos</div>
+        <div class="card-body">Listado con nombre, email, número de lecciones completadas y porcentaje de progreso. Formulario integrado para añadir nuevos alumnos directamente.</div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div class="card card-purple">
+        <div class="card-title">Gestión de lecciones</div>
+        <div class="card-body">Vista completa del catálogo con nivel y categoría. Botón para eliminar lección. Acceso directo al formulario de creación.</div>
+      </div>
+      <div class="card card-green">
+        <div class="card-title">Tests completados</div>
+        <div class="card-body">Historial de todos los quizzes realizados: nombre del alumno, lección, puntuación (aciertos/total) y fecha relativa. Estadísticas de media y tests perfectos.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Valoraciones</div>
+        <div class="card-body">Lista de reseñas con estrellas, comentario y lección valorada. Media global destacada al inicio de la página.</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">9</div>
+</div>
+
+<!-- ════════════════════ SLIDE 10 — RETOS TÉCNICOS ════════════════════ -->
+<div class="slide">
+  <div class="accent-bar"></div>
+  <div class="slide-title"><span class="icon">🧩</span> Retos técnicos superados</div>
+  <div class="divider"></div>
+  <div class="grid-2" style="gap:12px">
+    <div class="card">
+      <div class="card-title">CORS y proxy de desarrollo</div>
+      <div class="card-body">Las peticiones directas al backend desde el navegador quedaban colgadas. Solución: proxy de Angular que redirige <code style="font-family:monospace">/api/*</code> al servidor NestJS y prefijo global <code style="font-family:monospace">/api</code> en el backend.</div>
+    </div>
+    <div class="card card-purple">
+      <div class="card-title">Change detection en Angular 21</div>
+      <div class="card-body">Las respuestas HTTP completaban correctamente pero la vista no se actualizaba. Causa: zone.js no parchea el Fetch API de Vite. Solución: <code style="font-family:monospace">ChangeDetectorRef.detectChanges()</code> en cada callback.</div>
+    </div>
+    <div class="card card-accent">
+      <div class="card-title">Caché HTTP 304 Not Modified</div>
+      <div class="card-body">Express genera ETags automáticamente. El navegador enviaba <code style="font-family:monospace">If-None-Match</code> y recibía 304 sin cuerpo, dejando Angular en estado de carga infinita. Solución: <code style="font-family:monospace">app.set('etag', false)</code>.</div>
+    </div>
+    <div class="card card-green">
+      <div class="card-title">DNS intermitente con MongoDB Atlas</div>
+      <div class="card-body">Resolución DNS fallida para los hostnames de shard en macOS. Causa: Node.js intentaba resolver via IPv6. Solución: <code style="font-family:monospace">family: 4</code> en las opciones de Mongoose para forzar IPv4.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Race condition en interceptor JWT</div>
+      <div class="card-body">Tres peticiones paralelas fallando con 401 causaban múltiples llamadas a <code style="font-family:monospace">localStorage.clear()</code> y <code style="font-family:monospace">navigate('/login')</code>. Solución: flag <code style="font-family:monospace">redirectingToLogin</code> a nivel de módulo.</div>
+    </div>
+    <div class="card card-purple">
+      <div class="card-title">Invalidación de tokens tras re-seed</div>
+      <div class="card-body">Re-ejecutar el seed borra y recrea los usuarios con nuevos IDs. Los tokens antiguos apuntaban a IDs inexistentes. Solución: fallback por email en la JWT Strategy de Passport.</div>
+    </div>
+  </div>
+  <div class="slide-num">10</div>
+</div>
+
+<!-- ════════════════════ SLIDE 11 — CONCLUSIONES ════════════════════ -->
+<div class="slide">
+  <div class="accent-bar"></div>
+  <div class="slide-title"><span class="icon">🚀</span> Conclusiones y trabajo futuro</div>
+  <div class="divider"></div>
+  <div class="grid-2" style="gap:16px">
+    <div>
+      <div style="font-size:10pt;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px">Lo conseguido</div>
+      <ul class="check-list" style="margin-bottom:20px">
+        <li>Plataforma educativa full-stack completamente funcional</li>
+        <li>Autenticación segura con JWT y roles diferenciados</li>
+        <li>7 lecciones con contenido real (HTML, CSS, JavaScript)</li>
+        <li>Sistema de quizzes con evaluación y tracking de puntuación</li>
+        <li>Panel de profesor con gestión completa de alumnos</li>
+        <li>Sistema de valoraciones y logros automáticos</li>
+        <li>Despliegue con MongoDB Atlas en la nube</li>
+        <li>Código versionado en GitHub con historial limpio</li>
+      </ul>
+    </div>
+    <div>
+      <div style="font-size:10pt;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px">Líneas de mejora</div>
+      <ul class="check-list">
+        <li>Editor visual de lecciones para el profesor (WYSIWYG)</li>
+        <li>Panel de analíticas con gráficos de progreso histórico</li>
+        <li>Sistema de mensajería entre alumno y profesor</li>
+        <li>Despliegue en producción (Vercel + Railway o similar)</li>
+        <li>Tests unitarios e integración para backend y frontend</li>
+        <li>Soporte para contenido multimedia (vídeos, ejercicios interactivos)</li>
+        <li>Aplicación móvil con Angular + Capacitor</li>
+      </ul>
+    </div>
+  </div>
+  <div style="margin-top:20px;padding:14px 18px;background:rgba(56,189,248,.06);border:1px solid rgba(56,189,248,.15);border-radius:12px;text-align:center">
+    <span style="font-size:11pt;color:var(--primary);font-weight:600">github.com/JRGamer234/Codex-FCT26</span>
+    <span style="color:var(--muted);font-size:9.5pt;margin-left:20px">· Angular 21 · NestJS · MongoDB Atlas</span>
+  </div>
+  <div class="slide-num">11</div>
+</div>
+
+</body>
+</html>
