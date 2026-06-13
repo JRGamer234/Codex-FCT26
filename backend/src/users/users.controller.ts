@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Patch, Body, Request, UseGuards, ForbiddenException } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Delete, Body, Param, Request, UseGuards, ForbiddenException } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
@@ -34,6 +34,13 @@ export class UsersController {
   async createAlumno(@Request() req: any, @Body() body: { name: string; email: string; password: string }) {
     if (req.user.rol !== 'profesor') throw new ForbiddenException();
     return this.usersService.createAlumno(body.name, body.email, body.password);
+  }
+
+  @Delete('alumnos/:id')
+  async deleteAlumno(@Request() req: any, @Param('id') id: string) {
+    if (req.user.rol !== 'profesor') throw new ForbiddenException();
+    await this.usersService.deleteAlumno(id);
+    return { message: 'Alumno eliminado' };
   }
 
   @Get()

@@ -40,6 +40,27 @@
     </article>
   </div>
 
+  <!-- Progreso por categoría -->
+  @if (categoryStats().length > 0) {
+    <div class="category-stats">
+      <h2 class="category-stats__title">Progreso por categoría</h2>
+      <div class="category-stats__grid">
+        @for (cat of categoryStats(); track cat.name) {
+          <div class="cat-card">
+            <div class="cat-card__header">
+              <span class="cat-name">{{ cat.name }}</span>
+              <span class="cat-fraction">{{ cat.done }}/{{ cat.total }}</span>
+            </div>
+            <div class="cat-bar">
+              <div class="cat-bar__fill" [style.width.%]="cat.pct" [class.complete]="cat.pct === 100"></div>
+            </div>
+            <span class="cat-pct">{{ cat.pct }}%</span>
+          </div>
+        }
+      </div>
+    </div>
+  }
+
   <div class="catalog-section">
     <div class="catalog-section__header">
       <h2>Catálogo de Lecciones</h2>

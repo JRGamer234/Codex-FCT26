@@ -1,12 +1,13 @@
 import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { RatingService, RatingData } from '../../core/services/rating.service';
 
 @Component({
   selector: 'app-profesor-valoraciones',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './profesor-valoraciones.html',
   styleUrl: './profesor-valoraciones.scss'
 })
@@ -18,6 +19,8 @@ export class ProfesorValoracionesComponent implements OnInit {
   mediaEstrellas = '0.0';
   totalValoraciones = 0;
   loading = true;
+  searchQuery = '';
+  filterStars = 0;
 
   ngOnInit() {
     this.ratingService.getAllRatings().subscribe({
@@ -33,9 +36,16 @@ export class ProfesorValoracionesComponent implements OnInit {
     });
   }
 
-  starsStr(n: number): string {
-    return '⭐'.repeat(n);
+  get filteredValoraciones(): RatingData[] {
+    const q = this.searchQuery.toLowerCase().trim();
+    return this.valoraciones.filter(v => {
+      const matchText = !q || v.userName?.toLowerCase().includes(q) || v.lessonTitle?.toLowerCase().includes(q) || v.comment?.toLowerCase().includes(q);
+      const matchStars = !this.filterStars || v.stars === this.filterStars;
+      return matchText && matchStars;
+    });
   }
+
+  starsStr(n: number): string { return '⭐'.repeat(n); }
 
   formatDate(iso: string): string {
     return new Date(iso).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' });

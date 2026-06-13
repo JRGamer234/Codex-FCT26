@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface Alumno {
+  _id: string;
   name: string;
   email: string;
   progress: number;
@@ -24,5 +25,9 @@ export class UserService {
 
   changePassword(currentPassword: string, newPassword: string): Observable<any> {
     return this.http.patch(`${this.apiUrl}/me/password`, { currentPassword, newPassword });
+  }
+
+  deleteAlumno(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/alumnos/${id}`);
   }
 }

@@ -24,12 +24,21 @@
     <p class="form-error" *ngIf="formError">{{ formError }}</p>
   </div>
 
+  <!-- Buscador -->
+  <div class="search-bar" *ngIf="!loading && !error">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input [(ngModel)]="searchQuery" placeholder="Buscar por nombre o email..." type="text" />
+    <span class="search-count" *ngIf="searchQuery">{{ filteredAlumnos.length }} resultado{{ filteredAlumnos.length !== 1 ? 's' : '' }}</span>
+  </div>
+
   <div *ngIf="loading" style="text-align:center;padding:3rem;color:#888">Cargando alumnos...</div>
   <div *ngIf="error" style="text-align:center;padding:2rem;color:#ef4444;font-weight:600">{{ error }}</div>
-  <div *ngIf="!loading && !error && alumnos.length === 0" style="text-align:center;padding:3rem;color:#888">No hay alumnos registrados aún.</div>
+  <div *ngIf="!loading && !error && filteredAlumnos.length === 0" style="text-align:center;padding:3rem;color:#888">
+    {{ searchQuery ? 'Sin resultados para "' + searchQuery + '"' : 'No hay alumnos registrados aún.' }}
+  </div>
 
   <div class="alumnos-grid">
-    <div class="alumno-card" *ngFor="let alumno of alumnos">
+    <div class="alumno-card" *ngFor="let alumno of filteredAlumnos">
       <div class="alumno-avatar">👤</div>
       <div class="alumno-info">
         <h3>{{ alumno.name }}</h3>
@@ -48,6 +57,13 @@
       <div class="alumno-progress-bar">
         <div class="progress-fill" [style.width.%]="alumno.progress"></div>
       </div>
+      <button class="btn-delete-alumno"
+        [disabled]="deletingId === alumno._id"
+        (click)="eliminarAlumno(alumno._id)"
+        title="Eliminar alumno">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+        {{ deletingId === alumno._id ? 'Eliminando...' : 'Eliminar' }}
+      </button>
     </div>
   </div>
 

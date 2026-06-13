@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { ProgressService, AllProgress } from '../../core/services/progress';
 
@@ -14,7 +15,7 @@ interface TestResumen {
 @Component({
   selector: 'app-profesor-tests',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './profesor-tests.html',
   styleUrl: './profesor-tests.scss'
 })
@@ -22,6 +23,7 @@ export class ProfesorTestsComponent implements OnInit {
   tests: TestResumen[] = [];
   loading = true;
   error = '';
+  searchQuery = '';
 
   constructor(private progressService: ProgressService, private cdr: ChangeDetectorRef) {}
 
@@ -46,6 +48,14 @@ export class ProfesorTestsComponent implements OnInit {
     });
   }
 
+  get filteredTests(): TestResumen[] {
+    const q = this.searchQuery.toLowerCase().trim();
+    if (!q) return this.tests;
+    return this.tests.filter(t =>
+      t.alumno.toLowerCase().includes(q) || t.leccion.toLowerCase().includes(q)
+    );
+  }
+
   private formatDate(iso: string): string {
     const d = new Date(iso);
     const now = new Date();
@@ -56,9 +66,7 @@ export class ProfesorTestsComponent implements OnInit {
     return `Hace ${diffDays} días`;
   }
 
-  get totalTests(): number {
-    return this.tests.length;
-  }
+  get totalTests(): number { return this.tests.length; }
 
   get mediaScore(): string {
     if (!this.tests.length) return '0';

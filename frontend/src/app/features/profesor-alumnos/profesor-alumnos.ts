@@ -15,6 +15,7 @@ export class ProfesorAlumnosComponent implements OnInit {
   alumnos: Alumno[] = [];
   loading = true;
   error = '';
+  searchQuery = '';
 
   showForm = false;
   newName = '';
@@ -23,11 +24,11 @@ export class ProfesorAlumnosComponent implements OnInit {
   saving = false;
   formError = '';
 
+  deletingId: string | null = null;
+
   constructor(private userService: UserService, private cdr: ChangeDetectorRef) {}
 
-  ngOnInit() {
-    this.loadAlumnos();
-  }
+  ngOnInit() { this.loadAlumnos(); }
 
   loadAlumnos() {
     this.loading = true;
@@ -35,6 +36,14 @@ export class ProfesorAlumnosComponent implements OnInit {
       next: data => { this.alumnos = data; this.loading = false; this.cdr.detectChanges(); },
       error: err => { this.error = `Error ${err.status}: ${err.message}`; this.loading = false; this.cdr.detectChanges(); },
     });
+  }
+
+  get filteredAlumnos(): Alumno[] {
+    const q = this.searchQuery.toLowerCase().trim();
+    if (!q) return this.alumnos;
+    return this.alumnos.filter(a =>
+      a.name.toLowerCase().includes(q) || a.email.toLowerCase().includes(q)
+    );
   }
 
   submitForm() {
@@ -57,6 +66,19 @@ export class ProfesorAlumnosComponent implements OnInit {
         this.saving = false;
         this.cdr.detectChanges();
       },
+    });
+  }
+
+  eliminarAlumno(id: string) {
+    if (!confirm('¿Eliminar este alumno? Se perderán todos sus datos de progreso.')) return;
+    this.deletingId = id;
+    this.userService.deleteAlumno(id).subscribe({
+      next: () => {
+        this.alumnos = this.alumnos.filter(a => a._id !== id);
+        this.deletingId = null;
+        this.cdr.detectChanges();
+      },
+      error: () => { this.deletingId = null; this.cdr.detectChanges(); },
     });
   }
 }

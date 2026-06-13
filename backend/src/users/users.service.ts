@@ -35,12 +35,18 @@ export class UsersService {
     return Promise.all(alumnos.map(async alumno => {
       const stats = await this.progressService.getUserStats(alumno._id.toString());
       return {
+        _id: alumno._id.toString(),
         name: alumno.name,
         email: alumno.email,
         completedLessons: stats.completedLessons,
         progress: Math.min(100, Math.round((stats.completedLessons / TOTAL_LESSONS) * 100)),
       };
     }));
+  }
+
+  async deleteAlumno(id: string): Promise<void> {
+    const result = await this.userModel.findByIdAndDelete(id).exec();
+    if (!result) throw new NotFoundException('Alumno no encontrado');
   }
 
   async updateProfile(id: string, updates: Partial<{ name: string }>): Promise<UserDocument> {

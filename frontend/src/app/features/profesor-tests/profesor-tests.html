@@ -25,23 +25,33 @@
 
   <div *ngIf="loading" style="text-align:center;padding:3rem;color:#888">Cargando tests...</div>
   <div *ngIf="error" style="text-align:center;padding:2rem;color:#ef4444;font-weight:600">{{ error }}</div>
-  <div *ngIf="!loading && !error && tests.length === 0" style="text-align:center;padding:3rem;color:#888">No hay tests completados aún.</div>
 
-  <div class="tests-list">
-    <div class="test-card" *ngFor="let test of tests">
-      <div class="test-avatar">👤</div>
-      <div class="test-info">
-        <span class="test-alumno">{{ test.alumno }}</span>
-        <span class="test-leccion">{{ test.leccion }}</span>
-      </div>
-      <div class="test-score-bar">
-        <div class="score-fill" [style.width.%]="test.total > 0 ? (test.score / test.total) * 100 : 100" [class.perfect]="test.total > 0 && test.score === test.total"></div>
-      </div>
-      <div class="test-result">
-        <span class="test-score" [class.perfect]="test.total > 0 && test.score === test.total">
-          {{ test.total > 0 ? (test.score + '/' + test.total) : 'Completado' }}
-        </span>
-        <span class="test-date">{{ test.fecha }}</span>
+  <div *ngIf="!loading && !error">
+    <div class="search-bar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input [(ngModel)]="searchQuery" placeholder="Buscar por alumno o lección..." type="text" />
+      <span class="search-count" *ngIf="searchQuery">{{ filteredTests.length }} resultado{{ filteredTests.length !== 1 ? 's' : '' }}</span>
+    </div>
+
+    <div *ngIf="tests.length === 0" style="text-align:center;padding:3rem;color:#888">No hay tests completados aún.</div>
+    <div *ngIf="tests.length > 0 && filteredTests.length === 0" style="text-align:center;padding:2rem;color:#888">Sin resultados para "{{ searchQuery }}"</div>
+
+    <div class="tests-list">
+      <div class="test-card" *ngFor="let test of filteredTests">
+        <div class="test-avatar">👤</div>
+        <div class="test-info">
+          <span class="test-alumno">{{ test.alumno }}</span>
+          <span class="test-leccion">{{ test.leccion }}</span>
+        </div>
+        <div class="test-score-bar">
+          <div class="score-fill" [style.width.%]="test.total > 0 ? (test.score / test.total) * 100 : 100" [class.perfect]="test.total > 0 && test.score === test.total"></div>
+        </div>
+        <div class="test-result">
+          <span class="test-score" [class.perfect]="test.total > 0 && test.score === test.total">
+            {{ test.total > 0 ? (test.score + '/' + test.total) : 'Completado' }}
+          </span>
+          <span class="test-date">{{ test.fecha }}</span>
+        </div>
       </div>
     </div>
   </div>

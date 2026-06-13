@@ -31,6 +31,18 @@ export class DashboardComponent implements OnInit {
     });
   });
 
+  categoryStats = computed(() => {
+    const lessons = this.lessonService.lessons();
+    const completed = this.progressService.completedLessons();
+    const completedIds = new Set(completed.map(c => c.lessonId));
+    const cats = [...new Set(lessons.map(l => l.category).filter(Boolean))].sort();
+    return cats.map(cat => {
+      const total = lessons.filter(l => l.category === cat).length;
+      const done  = lessons.filter(l => l.category === cat && completedIds.has(l._id ?? '')).length;
+      return { name: cat, total, done, pct: total ? Math.round((done / total) * 100) : 0 };
+    });
+  });
+
   ngOnInit() {
     this.progressService.loadProgress().subscribe();
     this.lessonService.getLessons().subscribe();
