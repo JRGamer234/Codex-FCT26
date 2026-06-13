@@ -12,17 +12,17 @@
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    color: rgba(white, 0.4);
+    color: var(--c-muted);
     text-decoration: none;
     font-size: 0.85rem;
     margin-bottom: 1.25rem;
     transition: color 0.2s;
     svg { width: 15px; height: 15px; }
-    &:hover { color: white; }
+    &:hover { color: var(--c-text); }
   }
 
-  h1 { font-size: 1.8rem; font-weight: 700; color: white; margin-bottom: 0.35rem; }
-  p { color: rgba(white, 0.4); font-size: 0.9rem; }
+  h1 { font-size: 1.8rem; font-weight: 700; color: var(--c-text); margin-bottom: 0.35rem; }
+  p { color: var(--c-muted); font-size: 0.9rem; }
 }
 
 .achievements-summary {
@@ -34,7 +34,7 @@
   .summary-bar {
     flex: 1;
     height: 8px;
-    background: rgba(white, 0.07);
+    background: var(--c-surface);
     border-radius: 6px;
     overflow: hidden;
 
@@ -46,7 +46,7 @@
     }
   }
 
-  span { color: rgba(white, 0.4); font-size: 0.85rem; white-space: nowrap; font-weight: 600; }
+  span { color: var(--c-muted); font-size: 0.85rem; white-space: nowrap; font-weight: 600; }
 }
 
 .achievements-grid {
@@ -63,16 +63,16 @@
   gap: 1rem;
   padding: 1.1rem;
   border-radius: 14px;
-  border: 1px solid rgba(white, 0.07);
+  border: 1px solid var(--c-border);
   transition: transform 0.2s;
 
   &.unlocked {
-    background: rgba(white, 0.03);
+    background: var(--c-surface);
     border-color: rgba($color-primary, 0.2);
     &:hover { transform: translateY(-2px); }
   }
 
-  &.locked { background: rgba(white, 0.01); opacity: 0.45; }
+  &.locked { background: var(--c-surface); opacity: 0.45; }
 
   .achievement-icon {
     width: 48px;
@@ -80,12 +80,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(white, 0.05);
+    background: var(--c-surface);
     border-radius: 12px;
     flex-shrink: 0;
     font-size: 1.5rem;
 
-    svg { width: 20px; height: 20px; color: rgba(white, 0.4); }
+    svg { width: 20px; height: 20px; color: var(--c-muted); }
   }
 
   .achievement-info {
@@ -95,8 +95,8 @@
     gap: 0.2rem;
     min-width: 0;
 
-    .achievement-title { color: white; font-weight: 700; font-size: 0.92rem; }
-    .achievement-desc { color: rgba(white, 0.45); font-size: 0.8rem; }
+    .achievement-title { color: var(--c-text); font-weight: 700; font-size: 0.92rem; }
+    .achievement-desc { color: var(--c-muted); font-size: 0.8rem; }
     .achievement-date { color: $color-primary; font-size: 0.75rem; margin-top: 0.15rem; }
   }
 

@@ -9,8 +9,8 @@
 .dashboard-header {
   margin-bottom: 2rem;
 
-  h1 { font-size: 1.9rem; font-weight: 700; color: white; margin-bottom: 0.35rem; }
-  p { color: rgba(white, 0.45); font-size: 0.95rem; }
+  h1 { font-size: 1.9rem; font-weight: 700; color: var(--c-text); margin-bottom: 0.35rem; }
+  p { color: var(--c-muted); font-size: 0.95rem; }
 
   @media (max-width: 480px) {
     h1 { font-size: 1.5rem; }
@@ -29,8 +29,8 @@
 }
 
 .m-stat-card {
-  background: rgba(white, 0.02);
-  border: 1px solid rgba(white, 0.07);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
   border-radius: 16px;
   padding: 1.4rem;
   display: flex;
@@ -40,7 +40,7 @@
   transition: transform 0.2s, border-color 0.2s;
   box-sizing: border-box;
 
-  &:hover { transform: translateY(-3px); border-color: rgba(white, 0.12); }
+  &:hover { transform: translateY(-3px); border-color: var(--c-muted); }
 
   &--featured {
     border-color: rgba($color-primary, 0.2);
@@ -67,15 +67,15 @@
     flex: 1;
     min-width: 0;
 
-    h3 { color: white; font-size: 0.95rem; font-weight: 600; margin-bottom: 0.2rem; }
-    p { color: rgba(white, 0.45); font-size: 0.85rem; margin-bottom: 0.75rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    h3 { color: var(--c-text); font-size: 0.95rem; font-weight: 600; margin-bottom: 0.2rem; }
+    p { color: var(--c-muted); font-size: 0.85rem; margin-bottom: 0.75rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   }
 }
 
 .a-progress-bar {
   width: 100%;
   height: 6px;
-  background: rgba(white, 0.08);
+  background: var(--c-surface);
   border-radius: 4px;
   overflow: hidden;
 
@@ -102,7 +102,7 @@
 .catalog-section {
   &__header {
     margin-bottom: 1.25rem;
-    h2 { font-size: 1.2rem; font-weight: 600; color: white; }
+    h2 { font-size: 1.2rem; font-weight: 600; color: var(--c-text); }
   }
 }
 
@@ -116,33 +116,33 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    background: rgba(white, 0.04);
-    border: 1px solid rgba(white, 0.08);
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
     border-radius: 8px;
     padding: 0 0.75rem;
     flex: 1;
     min-width: 160px;
 
-    svg { width: 14px; height: 14px; color: rgba(white, 0.25); flex-shrink: 0; }
+    svg { width: 14px; height: 14px; color: var(--c-muted); flex-shrink: 0; }
   }
 
   .search-input {
     background: none;
     border: none;
     outline: none;
-    color: white;
+    color: var(--c-text);
     font-size: 0.88rem;
     padding: 0.55rem 0;
     width: 100%;
     font-family: $font-main;
-    &::placeholder { color: rgba(white, 0.2); }
+    &::placeholder { color: var(--c-muted); }
   }
 
   select {
-    background: rgba(white, 0.04);
-    border: 1px solid rgba(white, 0.08);
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
     border-radius: 8px;
-    color: rgba(white, 0.7);
+    color: var(--c-muted);
     padding: 0.55rem 0.75rem;
     font-size: 0.85rem;
     outline: none;
@@ -161,7 +161,7 @@
   &__title {
     font-size: 1.1rem;
     font-weight: 600;
-    color: white;
+    color: var(--c-text);
     margin-bottom: 1rem;
   }
 
@@ -175,13 +175,13 @@
 }
 
 .cat-card {
-  background: rgba(white, 0.03);
-  border: 1px solid rgba(white, 0.07);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
   border-radius: 14px;
   padding: 1rem 1.1rem;
   transition: border-color 0.2s;
 
-  &:hover { border-color: rgba(white, 0.13); }
+  &:hover { border-color: var(--c-muted); }
 
   .cat-card__header {
     display: flex;
@@ -193,18 +193,18 @@
   .cat-name {
     font-size: 0.88rem;
     font-weight: 600;
-    color: rgba(white, 0.85);
+    color: var(--c-muted);
   }
 
   .cat-fraction {
     font-size: 0.78rem;
-    color: rgba(white, 0.4);
+    color: var(--c-muted);
   }
 
   .cat-bar {
     width: 100%;
     height: 5px;
-    background: rgba(white, 0.07);
+    background: var(--c-surface);
     border-radius: 3px;
     overflow: hidden;
     margin-bottom: 0.4rem;
@@ -221,7 +221,7 @@
 
   .cat-pct {
     font-size: 0.78rem;
-    color: rgba(white, 0.4);
+    color: var(--c-muted);
   }
 }
 
@@ -234,8 +234,8 @@
 }
 
 .lesson-card {
-  background: rgba(white, 0.02);
-  border: 1px solid rgba(white, 0.06);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
   border-radius: 14px;
   padding: 1.1rem;
   display: flex;
@@ -247,13 +247,13 @@
 
   &__header { display: flex; gap: 0.4rem; flex-wrap: wrap; }
 
-  h3 { color: white; font-size: 0.92rem; font-weight: 600; line-height: 1.4; }
+  h3 { color: var(--c-text); font-size: 0.92rem; font-weight: 600; line-height: 1.4; }
 
   &__footer {
     margin-top: auto;
     display: flex;
     justify-content: flex-end;
-    svg { width: 16px; height: 16px; color: rgba(white, 0.2); transition: color 0.2s; }
+    svg { width: 16px; height: 16px; color: var(--c-muted); transition: color 0.2s; }
   }
 
   &:hover .lesson-card__footer svg { color: $color-primary; }
@@ -275,5 +275,5 @@
 }
 
 .tags { display: flex; flex-wrap: wrap; gap: 0.3rem; }
-.tag { font-size: 0.72rem; color: rgba(white, 0.3); }
-.no-results { color: rgba(white, 0.35); font-size: 0.88rem; grid-column: 1 / -1; text-align: center; padding: 2rem; }
+.tag { font-size: 0.72rem; color: var(--c-muted); }
+.no-results { color: var(--c-muted); font-size: 0.88rem; grid-column: 1 / -1; text-align: center; padding: 2rem; }

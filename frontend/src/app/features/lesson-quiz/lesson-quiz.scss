@@ -13,7 +13,7 @@
 
     .progress {
       font-size: 0.85rem;
-      color: rgba(white, 0.5);
+      color: var(--c-muted);
       display: block;
       margin-bottom: 0.5rem;
     }
@@ -21,7 +21,7 @@
     .progress-bar {
       width: 100%;
       height: 6px;
-      background: rgba(white, 0.08);
+      background: var(--c-surface);
       border-radius: 4px;
       overflow: hidden;
 
@@ -35,8 +35,8 @@
   }
 
   .question-card {
-    background: rgba(white, 0.03);
-    border: 1px solid rgba(white, 0.08);
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
     border-radius: 16px;
     padding: 2rem;
 
@@ -46,7 +46,7 @@
 
     h2 {
       font-size: 1.2rem;
-      color: white;
+      color: var(--c-text);
       margin-bottom: 1.5rem;
       line-height: 1.5;
     }
@@ -64,31 +64,31 @@
     align-items: center;
     gap: 1rem;
     padding: 0.9rem 1.2rem;
-    background: rgba(white, 0.03);
-    border: 1px solid rgba(white, 0.08);
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
     border-radius: 10px;
-    color: rgba(white, 0.8);
+    color: var(--c-muted);
     font-size: 0.95rem;
     cursor: pointer;
     transition: all 0.2s;
     text-align: left;
 
     &:hover {
-      background: rgba(white, 0.07);
-      border-color: rgba(white, 0.2);
+      background: var(--c-surface);
+      border-color: var(--c-muted);
     }
 
     &.selected {
       border-color: #38bdf8;
       background: rgba(#38bdf8, 0.1);
-      color: white;
+      color: var(--c-text);
     }
 
     .option-letter {
       width: 28px;
       height: 28px;
       border-radius: 50%;
-      background: rgba(white, 0.08);
+      background: var(--c-surface);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -121,8 +121,8 @@
   }
 
   .result-card {
-    background: rgba(white, 0.03);
-    border: 1px solid rgba(white, 0.08);
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
     border-radius: 16px;
     padding: 3rem 2rem;
     text-align: center;
@@ -132,9 +132,9 @@
     }
 
     .result-icon { font-size: 4rem; margin-bottom: 1rem; }
-    h2 { font-size: 1.5rem; color: white; margin-bottom: 0.5rem; }
+    h2 { font-size: 1.5rem; color: var(--c-text); margin-bottom: 0.5rem; }
     .score { font-size: 2rem; font-weight: 700; color: #38bdf8; margin-bottom: 0.5rem; }
-    .result-msg { color: rgba(white, 0.6); margin-bottom: 2rem; }
+    .result-msg { color: var(--c-muted); margin-bottom: 2rem; }
   }
 
   .review-section {
@@ -143,7 +143,7 @@
 
     .review-title {
       font-size: 0.9rem;
-      color: rgba(white, 0.5);
+      color: var(--c-muted);
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -153,10 +153,10 @@
 
     .review-item {
       border-radius: 12px;
-      border: 1px solid rgba(white, 0.08);
+      border: 1px solid var(--c-border);
       padding: 1rem;
       margin-bottom: 0.75rem;
-      background: rgba(white, 0.02);
+      background: var(--c-surface);
 
       &--correct { border-color: rgba(#4ade80, 0.25); background: rgba(#4ade80, 0.04); }
       &--wrong   { border-color: rgba(#f87171, 0.25); background: rgba(#f87171, 0.04); }
@@ -166,7 +166,7 @@
       display: flex;
       align-items: flex-start;
       gap: 0.6rem;
-      color: rgba(white, 0.85);
+      color: var(--c-muted);
       font-size: 0.9rem;
       font-weight: 500;
       margin-bottom: 0.75rem;
@@ -202,7 +202,7 @@
       padding: 0.45rem 0.75rem;
       border-radius: 8px;
       font-size: 0.85rem;
-      color: rgba(white, 0.45);
+      color: var(--c-muted);
 
       &--correct {
         color: #4ade80;
@@ -220,7 +220,7 @@
         width: 20px;
         height: 20px;
         border-radius: 50%;
-        background: rgba(white, 0.06);
+        background: var(--c-surface);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -245,9 +245,9 @@
   .rating-section {
     margin-top: 2rem;
     padding-top: 2rem;
-    border-top: 1px solid rgba(white, 0.08);
+    border-top: 1px solid var(--c-border);
 
-    h3 { font-size: 0.95rem; color: rgba(white, 0.6); margin-bottom: 1rem; }
+    h3 { font-size: 0.95rem; color: var(--c-muted); margin-bottom: 1rem; }
 
     .star-rating {
       display: flex;
@@ -260,7 +260,7 @@
         background: none;
         border: none;
         cursor: pointer;
-        color: rgba(white, 0.15);
+        color: var(--c-muted);
         transition: color 0.15s, transform 0.1s;
         padding: 0;
         line-height: 1;
@@ -273,17 +273,17 @@
     textarea {
       width: 100%;
       padding: 0.75rem 1rem;
-      background: rgba(white, 0.05);
-      border: 1px solid rgba(white, 0.1);
+      background: var(--c-surface);
+      border: 1px solid var(--c-border);
       border-radius: 10px;
-      color: white;
+      color: var(--c-text);
       font-size: 0.9rem;
       resize: none;
       margin-bottom: 1rem;
       box-sizing: border-box;
       font-family: inherit;
 
-      &::placeholder { color: rgba(white, 0.3); }
+      &::placeholder { color: var(--c-muted); }
       &:focus { outline: none; border-color: rgba(#38bdf8, 0.4); }
     }
 
@@ -312,14 +312,14 @@
 
   .btn-restart {
     padding: 0.8rem 2rem;
-    background: rgba(white, 0.05);
-    border: 1px solid rgba(white, 0.15);
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
     border-radius: 10px;
-    color: white;
+    color: var(--c-text);
     font-size: 0.95rem;
     cursor: pointer;
     transition: all 0.2s;
 
-    &:hover { background: rgba(white, 0.1); }
+    &:hover { background: var(--c-border); }
   }
 }

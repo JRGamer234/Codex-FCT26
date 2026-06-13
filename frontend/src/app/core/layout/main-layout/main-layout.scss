@@ -22,7 +22,7 @@ $topbar-height: 56px;
     top: 0; left: 0; right: 0;
     height: $topbar-height;
     background: color.adjust($color-bg, $lightness: -2%);
-    border-bottom: 1px solid rgba(white, 0.06);
+    border-bottom: 1px solid var(--c-border);
     padding: 0 1rem;
     z-index: 1001;
   }
@@ -37,7 +37,7 @@ $topbar-height: 56px;
     cursor: pointer;
     padding: 4px;
 
-    span { display: block; width: 20px; height: 2px; background: rgba(white, 0.7); border-radius: 2px; transition: background 0.2s; }
+    span { display: block; width: 20px; height: 2px; background: var(--c-muted); border-radius: 2px; transition: background 0.2s; }
     &:hover span { background: $color-primary; }
   }
 
@@ -46,7 +46,7 @@ $topbar-height: 56px;
     align-items: center;
     gap: 0.5rem;
     svg { width: 28px; height: 28px; }
-    span { font-size: 1rem; font-weight: 700; color: white; letter-spacing: -0.3px; }
+    span { font-size: 1rem; font-weight: 700; color: var(--c-text); letter-spacing: -0.3px; }
   }
 }
 
@@ -66,7 +66,7 @@ $topbar-height: 56px;
   flex-shrink: 0;
   height: 100%;
   background: color.adjust($color-bg, $lightness: -2%);
-  border-right: 1px solid rgba(white, 0.06);
+  border-right: 1px solid var(--c-border);
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -93,7 +93,7 @@ $topbar-height: 56px;
     gap: 0.6rem;
     padding: 1.5rem 1.25rem 1rem;
     svg { width: 30px; height: 30px; }
-    span { font-size: 1.05rem; font-weight: 800; color: white; letter-spacing: -0.3px; }
+    span { font-size: 1.05rem; font-weight: 800; color: var(--c-text); letter-spacing: -0.3px; }
 
     @media (max-width: 992px) { display: none; }
   }
@@ -104,7 +104,7 @@ $topbar-height: 56px;
 
   &__divider {
     height: 1px;
-    background: rgba(white, 0.05);
+    background: var(--c-surface);
     margin: 0.75rem 1rem;
   }
 
@@ -112,7 +112,7 @@ $topbar-height: 56px;
     font-size: 0.67rem;
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    color: rgba(white, 0.3);
+    color: var(--c-muted);
     padding: 0.75rem 1.25rem 0.4rem;
     font-weight: 600;
   }
@@ -121,17 +121,17 @@ $topbar-height: 56px;
     display: none;
     position: absolute;
     top: 1rem; right: 1rem;
-    background: rgba(white, 0.05);
+    background: var(--c-surface);
     border: none;
     border-radius: 8px;
     width: 32px; height: 32px;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    color: rgba(white, 0.5);
+    color: var(--c-muted);
     transition: background 0.2s, color 0.2s;
     svg { width: 16px; height: 16px; }
-    &:hover { background: rgba(white, 0.1); color: white; }
+    &:hover { background: var(--c-border); color: var(--c-text); }
 
     @media (max-width: 992px) { display: flex; }
   }
@@ -145,7 +145,7 @@ $topbar-height: 56px;
     left: 0.7rem; top: 50%;
     transform: translateY(-50%);
     width: 14px; height: 14px;
-    color: rgba(white, 0.25);
+    color: var(--c-muted);
     pointer-events: none;
   }
 
@@ -153,8 +153,8 @@ $topbar-height: 56px;
     padding-left: 2.2rem;
     font-size: 0.85rem;
     height: 36px;
-    background: rgba(white, 0.04);
-    border-color: rgba(white, 0.06);
+    background: var(--c-surface);
+    border-color: var(--c-muted);
   }
 }
 
@@ -186,7 +186,7 @@ $topbar-height: 56px;
   &__icon { width: 17px; height: 17px; flex-shrink: 0; }
   &__label { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-  &:hover { background: rgba(white, 0.04); color: rgba($color-text, 0.85); }
+  &:hover { background: var(--c-surface); color: rgba($color-text, 0.85); }
 
   &--active {
     background: rgba($color-primary, 0.1);
@@ -198,7 +198,7 @@ $topbar-height: 56px;
     font-size: 0.82rem;
     padding: 0.5rem 1rem;
     color: rgba($color-text, 0.4);
-    .m-nav-item__icon { width: 14px; height: 14px; color: rgba(white, 0.2); }
+    .m-nav-item__icon { width: 14px; height: 14px; color: var(--c-muted); }
     &:hover { color: rgba($color-text, 0.7); }
     &.m-nav-item--active { color: $color-primary; }
   }
