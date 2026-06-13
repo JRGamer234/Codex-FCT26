@@ -341,4 +341,16 @@ body.light-theme {
   // ── Form cards (crear alumno, etc.) ──────────────────────────────────
   .form-card { background: rgba(0,0,0,0.03) !important; border-color: #e2e8f0 !important; }
   .form-card h3 { color: #0f172a !important; }
+
+  // ── Badges ────────────────────────────────────────────────────────────
+  .badge.level-inicial   { background: rgba(22, 163, 74,  0.12) !important; color: #15803d !important; }
+  .badge.level-intermedio { background: rgba(217, 119, 6, 0.12) !important; color: #b45309 !important; }
+  .badge.level-avanzado  { background: rgba(220, 38,  38, 0.12) !important; color: #b91c1c !important; }
+  .badge.category        { background: rgba(2, 132, 199, 0.12)  !important; color: #0369a1 !important; }
+  .badge.completed       { background: rgba(22, 163, 74,  0.12) !important; color: #15803d !important; }
+
+  // ── Lesson / stat cards ───────────────────────────────────────────────
+  .lesson-card  { background: #ffffff !important; border-color: #e2e8f0 !important; }
+  .m-stat-card  { background: #ffffff !important; border-color: #e2e8f0 !important; }
+  .m-stat-card--featured { background: linear-gradient(135deg, rgba(2,132,199,0.06), #ffffff) !important; border-color: rgba(2,132,199,0.2) !important; }
 }
