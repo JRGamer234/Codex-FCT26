@@ -2,6 +2,7 @@ import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../core/services/auth.service';
+import { AvatarComponent } from '../../shared/avatar/avatar';
 import { UserService } from '../../core/services/user';
 import { ProgressService } from '../../core/services/progress';
 import { AchievementsService } from '../../core/services/achievements.service';
@@ -10,7 +11,7 @@ import { LessonService } from '../../core/services/lesson.service';
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, AvatarComponent],
   templateUrl: './profile.html',
   styleUrl: './profile.scss'
 })

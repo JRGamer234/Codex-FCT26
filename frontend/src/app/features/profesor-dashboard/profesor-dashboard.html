@@ -39,7 +39,7 @@
     <div class="alumnos-list">
       <div class="alumno-card" *ngFor="let alumno of alumnos">
         <div class="alumno-info">
-          <span class="alumno-avatar">👤</span>
+          <app-avatar [name]="alumno.name" [size]="36"></app-avatar>
           <div>
             <span class="alumno-name">{{ alumno.name }}</span>
             <span class="alumno-lessons">{{ alumno.completedLessons }} lecciones completadas</span>

@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { RatingService, RatingData } from '../../core/services/rating.service';
+import { PaginationComponent } from '../../shared/pagination/pagination';
+import { AvatarComponent } from '../../shared/avatar/avatar';
 
 @Component({
   selector: 'app-profesor-valoraciones',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink, PaginationComponent, AvatarComponent],
   templateUrl: './profesor-valoraciones.html',
   styleUrl: './profesor-valoraciones.scss'
 })
@@ -21,6 +23,8 @@ export class ProfesorValoracionesComponent implements OnInit {
   loading = true;
   searchQuery = '';
   filterStars = 0;
+  page = 1;
+  readonly pageSize = 8;
 
   ngOnInit() {
     this.ratingService.getAllRatings().subscribe({
@@ -29,6 +33,7 @@ export class ProfesorValoracionesComponent implements OnInit {
         this.totalValoraciones = data.length;
         const media = data.length ? data.reduce((sum, v) => sum + v.stars, 0) / data.length : 0;
         this.mediaEstrellas = media.toFixed(1);
+        this.page = 1;
         this.loading = false;
         this.cdr.detectChanges();
       },
@@ -43,6 +48,11 @@ export class ProfesorValoracionesComponent implements OnInit {
       const matchStars = !this.filterStars || v.stars === this.filterStars;
       return matchText && matchStars;
     });
+  }
+
+  get pagedValoraciones(): RatingData[] {
+    const start = (this.page - 1) * this.pageSize;
+    return this.filteredValoraciones.slice(start, start + this.pageSize);
   }
 
   starsStr(n: number): string { return '⭐'.repeat(n); }

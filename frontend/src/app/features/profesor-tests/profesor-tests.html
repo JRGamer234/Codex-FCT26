@@ -37,8 +37,8 @@
     <div *ngIf="tests.length > 0 && filteredTests.length === 0" style="text-align:center;padding:2rem;color:#888">Sin resultados para "{{ searchQuery }}"</div>
 
     <div class="tests-list">
-      <div class="test-card" *ngFor="let test of filteredTests">
-        <div class="test-avatar">👤</div>
+      <div class="test-card" *ngFor="let test of pagedTests">
+        <app-avatar [name]="test.alumno" [size]="40"></app-avatar>
         <div class="test-info">
           <span class="test-alumno">{{ test.alumno }}</span>
           <span class="test-leccion">{{ test.leccion }}</span>
@@ -54,6 +54,13 @@
         </div>
       </div>
     </div>
+
+    <app-pagination
+      [total]="filteredTests.length"
+      [pageSize]="pageSize"
+      [current]="page"
+      (pageChange)="page = $event">
+    </app-pagination>
   </div>
 
 </div>

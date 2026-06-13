@@ -1,9 +1,7 @@
 <div class="profile-container">
 
   <div class="profile-header">
-    <div class="profile-avatar">
-      {{ user.name.charAt(0).toUpperCase() }}
-    </div>
+    <app-avatar [name]="user.name" [size]="72"></app-avatar>
     <div class="profile-info">
       <h1>{{ user.name }}</h1>
       <p>{{ user.email }}</p>

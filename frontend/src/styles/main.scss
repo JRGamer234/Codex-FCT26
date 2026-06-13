@@ -14,6 +14,18 @@
 // 5. Auth layout (compartido por login y register)
 @use 'layouts/auth';
 
+// ── CSS Custom properties (tema oscuro por defecto) ──────────────────────────
+:root {
+  --bg:        #0f172a;
+  --surface:   #1e293b;
+  --primary:   #38bdf8;
+  --text:      #f1f5f9;
+  --muted:     rgba(255, 255, 255, 0.45);
+  --border:    rgba(255, 255, 255, 0.08);
+  --card-bg:   rgba(255, 255, 255, 0.03);
+  --input-bg:  rgba(255, 255, 255, 0.05);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -26,4 +38,202 @@ body {
     font-family: $font-main;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+    transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+// ── Tema claro ────────────────────────────────────────────────────────────────
+body.light-theme {
+  --bg:       #f1f5f9;
+  --surface:  #ffffff;
+  --primary:  #0284c7;
+  --text:     #0f172a;
+  --muted:    #64748b;
+  --border:   #e2e8f0;
+  --card-bg:  #ffffff;
+  --input-bg: rgba(0, 0, 0, 0.04);
+
+  background-color: #f1f5f9;
+  color: #0f172a;
+
+  // ── Layout ─────────────────────────────────────────────────────────────
+  .main-screen         { background: #f1f5f9; }
+  .main-layout__content { background: #f1f5f9; }
+
+  // ── Mobile topbar ───────────────────────────────────────────────────────
+  .mobile-topbar {
+    background: #ffffff;
+    border-bottom-color: #e2e8f0;
+    &__logo span { color: #0f172a; }
+    &__hamburger span { background: #475569; }
+  }
+
+  // ── Sidebar ─────────────────────────────────────────────────────────────
+  .o-sidebar {
+    background: #ffffff;
+    border-right-color: #e2e8f0 !important;
+
+    &__logo span { color: #0f172a; }
+    &__section-title { color: #94a3b8; }
+    &__divider { border-color: #e2e8f0; }
+    &__close { color: #475569; }
+
+    .search-wrapper input { background: rgba(0,0,0,0.04); color: #0f172a; border-color: rgba(0,0,0,0.1); }
+    .search-wrapper .search-icon { color: #94a3b8; }
+  }
+
+  .m-nav-item {
+    color: #475569;
+    &:hover { background: rgba(0,0,0,0.05); color: #0f172a; }
+    &--active { background: rgba(2,132,199,0.1); color: #0284c7; }
+    &__icon { color: inherit; }
+    &__label { color: inherit; }
+  }
+
+  // ── Dashboard alumno ────────────────────────────────────────────────────
+  .dashboard-header h1 { color: #0f172a; }
+  .dashboard-header p  { color: #64748b; }
+
+  .m-stat-card {
+    background: #ffffff;
+    border-color: #e2e8f0;
+    &__info h3 { color: #0f172a; }
+    &__info p  { color: #64748b; }
+  }
+
+  .cat-card    { background: #ffffff; border-color: #e2e8f0; }
+  .cat-name    { color: #0f172a; }
+  .cat-fraction, .cat-pct { color: #64748b; }
+
+  .catalog-section__header h2 { color: #0f172a; }
+
+  // ── Lesson cards ────────────────────────────────────────────────────────
+  .lesson-card {
+    background: #ffffff;
+    border-color: #e2e8f0;
+    h3 { color: #0f172a; }
+    .lesson-desc { color: #64748b; }
+  }
+  .no-results { color: #94a3b8; }
+
+  // ── Filters / search bars ───────────────────────────────────────────────
+  .filters select, .filters input { background: rgba(0,0,0,0.04); color: #0f172a; border-color: #e2e8f0; }
+  .search-field input { background: transparent; color: #0f172a; }
+  .search-field { border-color: #e2e8f0; background: rgba(0,0,0,0.03); }
+  .search-field svg { color: #94a3b8; }
+
+  // ── Progress page ───────────────────────────────────────────────────────
+  .progress-card, .completed-card { background: #ffffff; border-color: #e2e8f0; }
+
+  // ── Achievements page ───────────────────────────────────────────────────
+  .achievement-card { background: #ffffff; border-color: #e2e8f0; }
+
+  // ── Profile ─────────────────────────────────────────────────────────────
+  .profile-header   { background: #ffffff !important; border-color: #e2e8f0 !important; }
+  .profile-info h1  { color: #0f172a; }
+  .profile-info p   { color: #64748b; }
+  .profile-stats .stat-box { background: #ffffff !important; border-color: #e2e8f0 !important; }
+  .stat-number      { color: #0f172a !important; }
+  .stat-label       { color: #64748b !important; }
+  .profile-details  { background: #ffffff !important; border-color: #e2e8f0 !important; }
+  .detail-label     { color: #64748b !important; }
+  .detail-value     { color: #0f172a !important; }
+  .detail-row       { border-bottom-color: #f1f5f9 !important; }
+  .password-section { background: #ffffff !important; border-color: #e2e8f0 !important; }
+  .password-header-left { color: #475569 !important; }
+  .chevron          { color: #94a3b8 !important; }
+
+  // ── Profesor pages ──────────────────────────────────────────────────────
+  .profesor-container { background: #f1f5f9; }
+  .profesor-header    { background: #ffffff; border-color: #e2e8f0; }
+
+  .stat-card {
+    background: #ffffff !important;
+    border-color: #e2e8f0 !important;
+    .stat-value { color: #0f172a !important; }
+    .stat-label { color: #64748b !important; }
+    .stat-icon  { color: #0284c7; }
+  }
+
+  .alumno-card, .leccion-card, .test-card, .valoracion-card {
+    background: #ffffff !important;
+    border-color: #e2e8f0 !important;
+    h3, .test-alumno, .val-alumno { color: #0f172a !important; }
+    p, .test-leccion, .val-leccion { color: #64748b !important; }
+  }
+
+  .tests-stats .stat-box, .valoraciones-stats .stat-box {
+    background: #ffffff !important;
+    border-color: #e2e8f0 !important;
+    .stat-number { color: #0f172a !important; }
+    .stat-label  { color: #64748b !important; }
+  }
+
+  .search-bar {
+    background: rgba(0,0,0,0.03) !important;
+    border-color: #e2e8f0 !important;
+    input { color: #0f172a !important; &::placeholder { color: #94a3b8 !important; } }
+    svg   { color: #94a3b8 !important; }
+    .search-count, .filter-count { color: #94a3b8 !important; }
+  }
+
+  .filters-bar select {
+    background: rgba(0,0,0,0.04) !important;
+    border-color: #e2e8f0 !important;
+    color: #0f172a !important;
+  }
+
+  .btn-back { color: #64748b !important; &:hover { color: #0f172a !important; } }
+
+  .lecciones-header .header-title h1,
+  .tests-header .header-title h1,
+  .valoraciones-header .header-title h1,
+  .alumnos-header h1 { color: #0f172a; }
+  .lecciones-header .header-title p,
+  .tests-header .header-title p,
+  .valoraciones-header .header-title p,
+  .alumnos-header p { color: #64748b; }
+
+  .badge.level  { background: rgba(2,132,199,0.12); color: #0284c7; }
+  .badge.category { background: rgba(0,0,0,0.07); color: #475569; }
+
+  // ── Quiz ─────────────────────────────────────────────────────────────
+  .question-card { background: #ffffff !important; border-color: #e2e8f0 !important; }
+  .question-card h2 { color: #0f172a !important; }
+  .option {
+    background: rgba(0,0,0,0.02) !important;
+    border-color: rgba(0,0,0,0.08) !important;
+    color: #0f172a !important;
+    &.selected { background: rgba(2,132,199,0.1) !important; border-color: #0284c7 !important; }
+    .option-letter { background: rgba(0,0,0,0.07) !important; }
+  }
+  .result-card { background: #ffffff !important; border-color: #e2e8f0 !important; }
+  .result-card h2, .result-card .score { color: #0f172a !important; }
+  .result-card .result-msg { color: #64748b !important; }
+  .review-item { background: rgba(0,0,0,0.02) !important; border-color: rgba(0,0,0,0.08) !important; }
+  .review-question { color: #0f172a !important; }
+  .review-option { color: #94a3b8 !important; }
+  .rating-section { border-top-color: #e2e8f0 !important; }
+  .rating-section h3 { color: #64748b !important; }
+  .rating-section textarea { background: rgba(0,0,0,0.04) !important; border-color: #e2e8f0 !important; color: #0f172a !important; }
+
+  // ── Lesson detail ────────────────────────────────────────────────────
+  .test-progress { color: #64748b; }
+
+  // ── Auth ─────────────────────────────────────────────────────────────
+  .auth-container { background: #f1f5f9; }
+  .auth-card { background: #ffffff; border-color: #e2e8f0; }
+
+  // ── Global inputs ─────────────────────────────────────────────────────
+  input:not([type="checkbox"]):not([type="radio"]),
+  textarea,
+  select {
+    background: rgba(0,0,0,0.04) !important;
+    border-color: rgba(0,0,0,0.12) !important;
+    color: #0f172a !important;
+    &::placeholder { color: #94a3b8 !important; }
+  }
+
+  // ── Form cards (crear alumno, etc.) ──────────────────────────────────
+  .form-card { background: rgba(0,0,0,0.03) !important; border-color: #e2e8f0 !important; }
+  .form-card h3 { color: #0f172a !important; }
 }

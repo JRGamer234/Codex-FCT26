@@ -1,2 +1,6 @@
 <router-outlet></router-outlet>
 <app-toast></app-toast>
+
+<button class="theme-toggle" (click)="themeService.toggle()" [title]="themeService.isLight() ? 'Modo oscuro' : 'Modo claro'">
+  {{ themeService.isLight() ? '🌙' : '☀️' }}
+</button>

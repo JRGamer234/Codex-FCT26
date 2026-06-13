@@ -45,11 +45,11 @@
     <div *ngIf="filteredValoraciones.length === 0" style="text-align:center;padding:2rem;color:#888">Sin resultados para ese filtro.</div>
 
     <div class="valoraciones-list">
-      @for (val of filteredValoraciones; track val.lessonId) {
+      @for (val of pagedValoraciones; track val.lessonId) {
         <div class="valoracion-card">
           <div class="val-header">
             <div class="val-alumno-info">
-              <span class="val-avatar">👤</span>
+              <app-avatar [name]="val.userName || '?'" [size]="36"></app-avatar>
               <div>
                 <span class="val-alumno">{{ val.userName }}</span>
                 <span class="val-leccion">{{ val.lessonTitle }}</span>
@@ -66,6 +66,13 @@
         </div>
       }
     </div>
+
+    <app-pagination
+      [total]="filteredValoraciones.length"
+      [pageSize]="pageSize"
+      [current]="page"
+      (pageChange)="page = $event">
+    </app-pagination>
   }
 
 </div>

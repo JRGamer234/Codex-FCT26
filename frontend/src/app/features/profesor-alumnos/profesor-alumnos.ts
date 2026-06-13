@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { UserService, Alumno } from '../../core/services/user';
+import { PaginationComponent } from '../../shared/pagination/pagination';
+import { AvatarComponent } from '../../shared/avatar/avatar';
 
 @Component({
   selector: 'app-profesor-alumnos',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink, PaginationComponent, AvatarComponent],
   templateUrl: './profesor-alumnos.html',
   styleUrl: './profesor-alumnos.scss'
 })
@@ -25,6 +27,8 @@ export class ProfesorAlumnosComponent implements OnInit {
   formError = '';
 
   deletingId: string | null = null;
+  page = 1;
+  readonly pageSize = 6;
 
   constructor(private userService: UserService, private cdr: ChangeDetectorRef) {}
 
@@ -33,7 +37,7 @@ export class ProfesorAlumnosComponent implements OnInit {
   loadAlumnos() {
     this.loading = true;
     this.userService.getAlumnos().subscribe({
-      next: data => { this.alumnos = data; this.loading = false; this.cdr.detectChanges(); },
+      next: data => { this.alumnos = data; this.page = 1; this.loading = false; this.cdr.detectChanges(); },
       error: err => { this.error = `Error ${err.status}: ${err.message}`; this.loading = false; this.cdr.detectChanges(); },
     });
   }
@@ -44,6 +48,11 @@ export class ProfesorAlumnosComponent implements OnInit {
     return this.alumnos.filter(a =>
       a.name.toLowerCase().includes(q) || a.email.toLowerCase().includes(q)
     );
+  }
+
+  get pagedAlumnos(): Alumno[] {
+    const start = (this.page - 1) * this.pageSize;
+    return this.filteredAlumnos.slice(start, start + this.pageSize);
   }
 
   submitForm() {

@@ -39,7 +39,7 @@
     <div class="loading-state">Cargando lecciones...</div>
   } @else {
     <div class="lecciones-grid">
-      @for (lesson of filteredLessons; track lesson._id) {
+      @for (lesson of pagedLessons; track lesson._id) {
         <div class="leccion-card">
           <div class="leccion-info">
             <div class="leccion-badges">
@@ -67,5 +67,12 @@
       }
     </div>
   }
+
+  <app-pagination
+    [total]="filteredLessons.length"
+    [pageSize]="pageSize"
+    [current]="page"
+    (pageChange)="page = $event">
+  </app-pagination>
 
 </div>

@@ -38,8 +38,8 @@
   </div>
 
   <div class="alumnos-grid">
-    <div class="alumno-card" *ngFor="let alumno of filteredAlumnos">
-      <div class="alumno-avatar">👤</div>
+    <div class="alumno-card" *ngFor="let alumno of pagedAlumnos">
+      <app-avatar [name]="alumno.name" [size]="48"></app-avatar>
       <div class="alumno-info">
         <h3>{{ alumno.name }}</h3>
         <p>{{ alumno.email }}</p>
@@ -66,5 +66,12 @@
       </button>
     </div>
   </div>
+
+  <app-pagination
+    [total]="filteredAlumnos.length"
+    [pageSize]="pageSize"
+    [current]="page"
+    (pageChange)="page = $event">
+  </app-pagination>
 
 </div>

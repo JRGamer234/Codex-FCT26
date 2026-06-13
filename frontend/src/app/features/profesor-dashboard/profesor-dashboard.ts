@@ -6,11 +6,12 @@ import { UserService, Alumno } from '../../core/services/user';
 import { LessonService } from '../../core/services/lesson.service';
 import { RatingService } from '../../core/services/rating.service';
 import { AuthService } from '../../core/services/auth.service';
+import { AvatarComponent } from '../../shared/avatar/avatar';
 
 @Component({
   selector: 'app-profesor-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, AvatarComponent],
   templateUrl: './profesor-dashboard.html',
   styleUrl: './profesor-dashboard.scss'
 })

@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { ProgressService, AllProgress } from '../../core/services/progress';
+import { PaginationComponent } from '../../shared/pagination/pagination';
+import { AvatarComponent } from '../../shared/avatar/avatar';
 
 interface TestResumen {
   alumno: string;
@@ -15,7 +17,7 @@ interface TestResumen {
 @Component({
   selector: 'app-profesor-tests',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink, PaginationComponent, AvatarComponent],
   templateUrl: './profesor-tests.html',
   styleUrl: './profesor-tests.scss'
 })
@@ -24,6 +26,8 @@ export class ProfesorTestsComponent implements OnInit {
   loading = true;
   error = '';
   searchQuery = '';
+  page = 1;
+  readonly pageSize = 8;
 
   constructor(private progressService: ProgressService, private cdr: ChangeDetectorRef) {}
 
@@ -37,6 +41,7 @@ export class ProfesorTestsComponent implements OnInit {
           total: p.total ?? 0,
           fecha: this.formatDate(p.completedAt),
         }));
+        this.page = 1;
         this.loading = false;
         this.cdr.detectChanges();
       },
@@ -54,6 +59,11 @@ export class ProfesorTestsComponent implements OnInit {
     return this.tests.filter(t =>
       t.alumno.toLowerCase().includes(q) || t.leccion.toLowerCase().includes(q)
     );
+  }
+
+  get pagedTests(): TestResumen[] {
+    const start = (this.page - 1) * this.pageSize;
+    return this.filteredTests.slice(start, start + this.pageSize);
   }
 
   private formatDate(iso: string): string {

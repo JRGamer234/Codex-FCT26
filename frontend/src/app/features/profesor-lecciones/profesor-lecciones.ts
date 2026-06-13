@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { LessonService } from '../../core/services/lesson.service';
 import { Lesson } from '../../core/models/lesson.model';
+import { PaginationComponent } from '../../shared/pagination/pagination';
 
 @Component({
   selector: 'app-profesor-lecciones',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink, PaginationComponent],
   templateUrl: './profesor-lecciones.html',
   styleUrl: './profesor-lecciones.scss'
 })
@@ -23,6 +24,8 @@ export class ProfesorLeccionesComponent implements OnInit {
   searchQuery = '';
   filterCategory = '';
   filterLevel = '';
+  page = 1;
+  readonly pageSize = 8;
 
   get filteredLessons(): Lesson[] {
     const q = this.searchQuery.toLowerCase().trim();
@@ -32,6 +35,11 @@ export class ProfesorLeccionesComponent implements OnInit {
       const matchLvl  = !this.filterLevel || l.level === this.filterLevel;
       return matchText && matchCat && matchLvl;
     });
+  }
+
+  get pagedLessons(): Lesson[] {
+    const start = (this.page - 1) * this.pageSize;
+    return this.filteredLessons.slice(start, start + this.pageSize);
   }
 
   ngOnInit() {
