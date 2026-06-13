@@ -24,6 +24,14 @@
   --border:    rgba(255, 255, 255, 0.08);
   --card-bg:   rgba(255, 255, 255, 0.03);
   --input-bg:  rgba(255, 255, 255, 0.05);
+
+  // Theme-aware color tokens used in component SCSS via var()
+  --c-text:    #ffffff;
+  --c-muted:   rgba(255, 255, 255, 0.5);
+  --c-faint:   rgba(255, 255, 255, 0.3);
+  --c-surface: rgba(255, 255, 255, 0.03);
+  --c-border:  rgba(255, 255, 255, 0.08);
+  --c-input:   rgba(255, 255, 255, 0.05);
 }
 
 * {
@@ -51,6 +59,13 @@ body.light-theme {
   --border:   #e2e8f0;
   --card-bg:  #ffffff;
   --input-bg: rgba(0, 0, 0, 0.04);
+
+  --c-text:    #0f172a;
+  --c-muted:   #64748b;
+  --c-faint:   #94a3b8;
+  --c-surface: #ffffff;
+  --c-border:  #e2e8f0;
+  --c-input:   rgba(0, 0, 0, 0.04);
 
   background-color: #f1f5f9;
   color: #0f172a;

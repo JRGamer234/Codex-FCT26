@@ -14,21 +14,21 @@
     gap: 1rem;
 
     .btn-back {
-      color: rgba(white, 0.5);
+      color: var(--c-muted);
       text-decoration: none;
       font-size: 0.9rem;
       transition: color 0.2s;
 
-      &:hover { color: white; }
+      &:hover { color: var(--c-text); }
     }
 
     .header-title {
       h1 {
         font-size: 1.8rem;
-        color: white;
+        color: var(--c-text);
         margin-bottom: 0.3rem;
       }
-      p { color: rgba(white, 0.5); font-size: 0.9rem; }
+      p { color: var(--c-muted); font-size: 0.9rem; }
     }
 
     .btn-new {
@@ -52,7 +52,7 @@
   }
 
   .form-card {
-    background: rgba(white, 0.03);
+    background: var(--c-surface);
     border: 1px solid rgba($color-primary, 0.3);
     border-radius: 16px;
     padding: 1.5rem;
@@ -60,7 +60,7 @@
     animation: fadeIn 0.3s ease;
 
     h3 {
-      color: white;
+      color: var(--c-text);
       margin-bottom: 1rem;
       font-size: 1rem;
     }
@@ -78,16 +78,16 @@
       gap: 0.4rem;
 
       label {
-        color: rgba(white, 0.6);
+        color: var(--c-muted);
         font-size: 0.85rem;
       }
 
       input, select {
         padding: 0.6rem 1rem;
-        border: 1px solid rgba(white, 0.08);
+        border: 1px solid var(--c-border);
         border-radius: 8px;
-        background: rgba(white, 0.05);
-        color: white;
+        background: var(--c-input);
+        color: var(--c-text);
         font-size: 0.9rem;
         outline: none;
 
@@ -124,29 +124,29 @@
       align-items: center;
       gap: 0.6rem;
       padding: 0.6rem 1rem;
-      background: rgba(white, 0.04);
-      border: 1px solid rgba(white, 0.1);
+      background: var(--c-input);
+      border: 1px solid var(--c-border);
       border-radius: 10px;
 
-      svg { width: 15px; height: 15px; color: rgba(white, 0.35); flex-shrink: 0; }
+      svg { width: 15px; height: 15px; color: var(--c-faint); flex-shrink: 0; }
 
       input {
         flex: 1;
         background: none;
         border: none;
-        color: white;
+        color: var(--c-text);
         font-size: 0.88rem;
         outline: none;
-        &::placeholder { color: rgba(white, 0.3); }
+        &::placeholder { color: var(--c-faint); }
       }
     }
 
     select {
       padding: 0.6rem 0.9rem;
-      background: rgba(white, 0.04);
-      border: 1px solid rgba(white, 0.1);
+      background: var(--c-input);
+      border: 1px solid var(--c-border);
       border-radius: 10px;
-      color: rgba(white, 0.8);
+      color: var(--c-text);
       font-size: 0.85rem;
       outline: none;
       cursor: pointer;
@@ -157,7 +157,7 @@
 
     .filter-count {
       font-size: 0.8rem;
-      color: rgba(white, 0.35);
+      color: var(--c-faint);
       white-space: nowrap;
     }
   }
@@ -169,14 +169,14 @@
   }
 
   .loading-state {
-    color: rgba(white, 0.4);
+    color: var(--c-muted);
     font-size: 0.9rem;
     padding: 2rem 0;
     text-align: center;
   }
 
   .no-lessons {
-    color: rgba(white, 0.35);
+    color: var(--c-faint);
     font-size: 0.9rem;
     text-align: center;
     padding: 3rem 0;
@@ -187,14 +187,14 @@
     align-items: center;
     gap: 1rem;
     padding: 1.2rem 1.5rem;
-    background: rgba(white, 0.03);
-    border: 1px solid rgba(white, 0.08);
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
     border-radius: 14px;
     transition: transform 0.2s;
 
     &:hover {
       transform: translateX(4px);
-      border-color: rgba(white, 0.15);
+      border-color: var(--c-border);
     }
 
     .leccion-icon { font-size: 1.5rem; }
@@ -203,7 +203,7 @@
       flex: 1;
 
       h3 {
-        color: white;
+        color: var(--c-text);
         font-size: 1rem;
         margin-bottom: 0.4rem;
       }
@@ -219,13 +219,13 @@
           font-weight: 600;
 
           &.level { background: rgba($color-primary, 0.15); color: $color-primary; }
-          &.category { background: rgba(white, 0.08); color: rgba(white, 0.7); }
+          &.category { background: var(--c-border); color: var(--c-muted); }
         }
       }
     }
 
     p {
-      color: rgba(white, 0.45);
+      color: var(--c-muted);
       font-size: 0.85rem;
       margin-top: 0.3rem;
     }
