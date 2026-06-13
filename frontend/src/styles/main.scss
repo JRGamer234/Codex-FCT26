@@ -144,7 +144,40 @@ body.light-theme {
 
   // ── Profesor pages ──────────────────────────────────────────────────────
   .profesor-container { background: #f1f5f9; }
-  .profesor-header    { background: #ffffff; border-color: #e2e8f0; }
+  .profesor-header    { background: #ffffff !important; border-color: #e2e8f0 !important; }
+  .profesor-header h1, .profesor-header .profesor-info h1 { color: #0f172a !important; }
+  .profesor-header p,  .profesor-header .profesor-info p  { color: #64748b !important; }
+
+  // Profesor dashboard – alumnos list
+  .alumnos-section h2 { color: #0f172a !important; }
+  .alumnos-section .alumno-card {
+    background: #ffffff !important;
+    border-color: #e2e8f0 !important;
+    &:hover { border-color: #cbd5e1 !important; }
+    .alumno-name    { color: #0f172a !important; }
+    .alumno-lessons { color: #64748b !important; }
+    .progress-label { color: #64748b !important; }
+    .progress-bar   { background: rgba(0,0,0,0.07) !important; }
+  }
+
+  // Profesor dashboard – panel tabs
+  .panel {
+    background: #ffffff !important;
+    border-color: #e2e8f0 !important;
+    h2 { color: #0f172a !important; }
+    .leccion-card  { background: rgba(0,0,0,0.02) !important; border-color: #f1f5f9 !important; }
+    .leccion-title { color: #0f172a !important; }
+    .leccion-meta  { color: #64748b !important; }
+    .test-card  { background: rgba(0,0,0,0.02) !important; border-color: #f1f5f9 !important; }
+    .test-alumno  { color: #0f172a !important; }
+    .test-leccion { color: #64748b !important; }
+    .test-score   { color: #0f172a !important; }
+    .test-date    { color: #94a3b8 !important; }
+    .valoracion-card { background: rgba(0,0,0,0.02) !important; border-color: #f1f5f9 !important; }
+    .val-alumno    { color: #0f172a !important; }
+    .val-leccion   { color: #64748b !important; }
+    .val-comentario { color: #475569 !important; }
+  }
 
   .stat-card {
     background: #ffffff !important;
@@ -157,9 +190,28 @@ body.light-theme {
   .alumno-card, .leccion-card, .test-card, .valoracion-card {
     background: #ffffff !important;
     border-color: #e2e8f0 !important;
-    h3, .test-alumno, .val-alumno { color: #0f172a !important; }
-    p, .test-leccion, .val-leccion { color: #64748b !important; }
+    h3, .test-alumno, .val-alumno, .alumno-name { color: #0f172a !important; }
+    p, .test-leccion, .val-leccion, .alumno-lessons { color: #64748b !important; }
+    .stat-value   { color: #0f172a !important; }
+    .stat-label   { color: #64748b !important; }
+    .progress-fill { background: #0284c7 !important; }
+    .alumno-progress-bar { background: rgba(0,0,0,0.07) !important; }
   }
+
+  // Alumnos page – top search count and leccion badges text
+  .alumnos-header h1 { color: #0f172a !important; }
+  .leccion-info h3   { color: #0f172a !important; }
+  .leccion-info p    { color: #64748b !important; }
+  .leccion-card .card-actions .btn-edit svg { color: #0284c7; }
+
+  // Tests page
+  .tests-list .test-card .test-score  { color: #0f172a !important; }
+  .tests-list .test-card .test-date   { color: #94a3b8 !important; }
+  .tests-list .test-card .score-fill  { background: #0284c7 !important; }
+  .tests-list .test-card .test-score-bar { background: rgba(0,0,0,0.07) !important; }
+
+  // Valoraciones page
+  .val-comentario { color: #475569 !important; }
 
   .tests-stats .stat-box, .valoraciones-stats .stat-box {
     background: #ffffff !important;
